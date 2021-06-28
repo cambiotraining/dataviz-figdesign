@@ -14,16 +14,18 @@ suppressWarnings(surveys$date <- lubridate::ymd(paste(surveys$year,
 
 
 # Transforming data - dplyr
+
 In most of the cases you will need to change the format of your dataset because it will not be in the right format that you will need to plot or analyse the data.  `tidyverse` has a package called `dplyr` which contains functions that help you to select columns/rows, sort, combine and perform other data types of data transformations. In the next sections we will look at different ways to transform our dataset.  Now that we already know the basics of visualing data with `ggplot` we will also learn how to visualise other plots with the transformed dataset as we go along.  
 
->To learn more about `dplyr` please look at the following resources:
->
->- [dplyr cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf)
->- [dplyr documentation](https://dplyr.tidyverse.org/)
->
->If you find these resources difficult to understand, return to these after completing the course.
+:::note
+To learn more about `dplyr` please look at the following resources:
 
-<br/>
+- [dplyr cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf)
+- [dplyr documentation](https://dplyr.tidyverse.org/)
+
+If you find these resources difficult to understand, return to these after completing the course.
+:::
+
 
 ## Pipes
 Before we move onto the different ways that we can transform our data, we'll discuss one of the most powerful additions to R, **pipes**.
@@ -404,7 +406,7 @@ Before using `write_csv()`, note that we are going to write the data to the `dat
 
 Let's save the `surveys_complete` tibble in `data_processed/surveys_complete.csv` file:
 
-```{r}
+```{r, eval=FALSE}
 write_csv(surveys_complete, path = "data_processed/surveys_complete.csv")
 ```
 

@@ -67,14 +67,15 @@ comprehensive and may seem overwhelming at first. You can install the
 [**`lintr`**](https://github.com/jimhester/lintr) package to automatically check
 for issues in the styling of your code.
 
-> ### Objects vs. variables
->
-> What are known as `objects` in `R` are known as `variables` in many other
-> programming languages. Depending on the context, `object` and `variable` can
-> have drastically different meanings. However, in this lesson, the two words
-> are used synonymously. For more information see:
-> https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Objects
+:::note
+**Objects vs. variables**
 
+What are known as `objects` in `R` are known as `variables` in many other
+programming languages. Depending on the context, `object` and `variable` can
+have drastically different meanings. However, in this lesson, the two words
+are used synonymously. For more information see:
+https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Objects
+:::
 
 When assigning a value to an object, R does not print anything. You can force R to print the value by using parentheses or by typing the object name:
 
@@ -126,29 +127,26 @@ out one line, you can put the cursor at any location of that line (i.e. no need
 to select the whole line), then press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + 
 <kbd>C</kbd>.
 
-> ### Challenge
->
-> What are the values after each statement in the following?
->
-> ```{r, purl = FALSE}
-> mass <- 47.5            # mass?
-> age  <- 122             # age?
-> mass <- mass * 2.0      # mass?
-> age  <- age - 20        # age?
-> mass_index <- mass/age  # mass_index?
-> ```
+:::exercise
 
-```{r, echo = FALSE, purl = TRUE}
-### Challenge
-##
-## What are the values after each statement in the following?
-##
-## mass <- 47.5            # mass?
-## age  <- 122             # age?
-## mass <- mass * 2.0      # mass?
-## age  <- age - 20        # age?
-## mass_index <- mass/age  # mass_index?
+What are the values after each statement in the following?
+
+```{r, purl = FALSE}
+mass <- 47.5            # mass?
+age  <- 122             # age?
+mass <- mass * 2.0      # mass?
+age  <- age - 20        # age?
+mass_index <- mass/age  # mass_index?
 ```
+
+<details><summary>Answer</summary>
+
+TODO
+
+</details>
+
+:::
+
 
 ### Functions and their arguments
 

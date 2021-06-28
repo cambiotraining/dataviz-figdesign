@@ -1,13 +1,37 @@
-output_dir: "."
-exclude: ["portal-database.sqlite", "DESCRIPTION", "Makefile"]
-include: ["code-handout.R"]
+name: "Data Visualisation and Figure Design"
+output_dir: "docs"
+exclude: ["course_files", "notes", "slides", "make-code-handout.R"]
 output:
   html_document:
     highlight: pygments
+    css: "assets/styles.css"
     toc: true
-    toc_float:
-      collapsed: false
-    toc_depth: 4
-    include:
-      in_header: header.html
-    css: style.css
+    toc_float: true
+navbar:
+  title: "<img id=\"logo\" style=\"height: 25px;\" src=\"assets/img/logo.svg\" />"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Setup"
+      href: 99-setup.html
+    - text: "Materials"
+      menu:
+        - text: "Getting Started"
+          href: 00-getting-started.html
+        - text: "Introduction to R"
+          href: 01-intro-to-r.html
+        - text: "Starting With Data"
+          href: 02-starting-with-data.html
+        - text: "Introduction to ggplot2"
+          href: 03-intro-ggplot2.html
+        - text: "TODO: Customising Plots"
+    - text: "Homework"
+      menu:
+        - text: "TODO"
+    - text: "Extras"
+      menu:
+        - text: "TODO: Cheatsheet?"
+        - text: "Other Resources?"
+  right:
+    - text: "GitHub"
+      href: https://github.com/cambiotraining

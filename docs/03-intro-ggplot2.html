@@ -9,11 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Alexia Cardona &amp; Martin van Rongen" />
 
 
 <title>Data visualisation with tidyverse</title>
 
+<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -33,7 +33,6 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -54,19 +53,19 @@
   }
 </style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -86,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -380,12 +379,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -466,7 +465,6 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Data visualisation with tidyverse</h1>
-<h4 class="author">Alexia Cardona &amp; Martin van Rongen</h4>
 
 </div>
 
@@ -487,50 +485,96 @@ div.tocify {
 <ul>
 <li><strong>geom_function</strong>: This specifies the type of plot would you like to plot. The greatest advantage of this is that you can easily change the plot type by just changing the geom_function and keeping everything else the same. You can see a whole list of plots that you can plot <a href="https://ggplot2.tidyverse.org/reference/index.html#section-layer-geoms">here</a>.</li>
 </ul>
-<p>Let us practice this on our <code>surveys</code> dataset. We would like to create a scatter plot with <code>weight</code> on the x-axis, <code>hindfoot_length</code> on the y-axis</p>
+<p>Let’s practice this on our <code>surveys</code> data set. We would like to create a scatter plot with <code>weight</code> on the x-axis, <code>hindfoot_length</code> on the y-axis</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> surveys, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length))</span></code></pre></div>
+<p><img src="img/R-ecology-unnamed-chunk-2-1.png" width="672" /></p>
 <div id="adding-layers" class="section level2">
 <h2>Adding layers</h2>
-<p>As you can see if you just specify the <code>ggplot</code> function with the data and aesthetic mappings, it will just create an empty plot. Let us now add the geom_function for the scatter plot (<code>geom_point</code>) as a layer to the plot: <a name="firstplot"></a></p>
+<p>As you can see if you just specify the <code>ggplot</code> function with the data and aesthetic mappings, it will just create an empty plot. Let us now add the geom_function for the scatter plot (<code>geom_point</code>) as a layer to the plot:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> surveys, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="img/R-ecology-unnamed-chunk-3-1.png" width="672" /></p>
 <p>You can customise some of the visualisations of the plot to extract more information from it. For instance, we can add transparency (<code>alpha</code>) to avoid overplotting:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> surveys, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>)</span></code></pre></div>
+<p><img src="img/R-ecology-adding-transparency-1.png" width="672" /></p>
 <p>You can find a list of aesthetics for each type of plot in the <a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf">ggplot2 cheat sheet</a>.</p>
 <p>We can also add colours for all the points:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> surveys, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">colour =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="img/R-ecology-adding-colours-1.png" width="672" /></p>
 <p>If we would like to try other type of plots on the data, the best thing is to save the ggplot into a variable as below:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign plot to a variable</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>surveys_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> surveys, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw a scatter plot</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>surveys_plot <span class="sc">+</span> </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code></pre></div>
 <p>Now draw a <code>geom_smooth</code> plot. This plot is good when you need to see if there is any pattern between the two variables being plotted that you would not normally see in a scatter plot due to overplotting.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>surveys_plot <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>()</span></code></pre></div>
+<p><img src="img/R-ecology-unnamed-chunk-5-1.png" width="672" /></p>
 <p>Rather than seeing each plot separately, sometimes plotting multiple plots on top of each other is a better way. You can add multiple plots as layers on top of each other as follows:</p>
-<p><strong>Note</strong></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>surveys_plot <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
+<p><img src="img/R-ecology-unnamed-chunk-6-1.png" width="672" /></p>
+<div class="note">
+<p><strong>Argument inheritance in plots</strong></p>
 <ul>
 <li>Anything you put in the <code>ggplot()</code> function can be seen by any geom layers that you add (<em>i.e.,</em> these are universal plot settings).</li>
 <li>You can also specify mappings for a given geom independently of the mappings defined globally in the <code>ggplot()</code> function.</li>
 <li>The <code>+</code> sign used to add new layers must be placed at the end of the line containing the <em>previous</em> layer. If, instead, the <code>+</code> sign is added at the beginning of the line containing the new layer, &gt;<strong><code>ggplot2</code></strong> will not add the new layer and will return an error message.</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># This is the correct syntax for adding layers</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>surveys_plot <span class="op">+</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co"># This will not add the new layer and will return an error message</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>surveys_plot </span>
-<span id="cb2-7"><a href="#cb2-7"></a>  <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</span></code></pre></div>
-<blockquote>
-<h3 id="challenge">Challenge</h3>
-<p>Scatter plots can be useful exploratory tools for small datasets. For data sets with large numbers of observations, such as the <code>surveys</code> data set, overplotting of points can be a limitation of scatter plots. We have already seen how we can visualise data better when we have overplotting with the <code>geom_smooth</code> plot. Another way for handling overplotting is to display the density of the data through contours. As this challenge’s task create a script called <code>plot_density2d.R</code> which loads the file data_raw/portal_data_joined.csv into the variable <code>surveys</code>. It then uses this dataset to plot the <code>weight</code> on the x-axis and <code>hindfoot_length</code> on the y-axis in a <code>geom_density2d</code> plot.</p>
-</blockquote>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is the correct syntax for adding layers</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>surveys_plot <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># This will not add the new layer and will return an error message</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>surveys_plot </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+</div>
+<p><br /></p>
+<div class="exercise">
+<p>Scatter plots can be useful exploratory tools for small data sets. For data sets with large numbers of observations, such as the <code>surveys</code> data set, over-plotting of points can be a limitation of scatter plots. We have already seen how we can visualise data better when we have over-plotting with the <code>geom_smooth</code> plot. Another way for handling over-plotting is to display the density of the data through contours. This is handled by the <code>geom_density</code> geometry. For this challenge do the following:</p>
+<ol style="list-style-type: decimal">
+<li>Create a script called <code>plot_density2d.R</code></li>
+<li>In this script, load the data from <code>data_raw/portal_data_joined.csv</code> into a variable <code>surveys</code>.</li>
+<li>Using <code>ggplot</code>, plot the <code>weight</code> on the x-axis and <code>hindfoot_length</code> on the y-axis in and create a <code>geom_density2d</code> plot.</li>
+</ol>
+<details>
+<summary>
+Answer
+</summary>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the surveys data</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>surveys <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data_raw/portal_data_joined.csv&quot;</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Attach data and map x and y axes</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>surveys_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> surveys, </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length))</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw geom_density2d</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>surveys_plot <span class="sc">+</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density2d</span>()</span></code></pre></div>
+</details>
+</div>
 </div>
 <div id="saveplot" class="section level2">
 <h2>Saving a plot to a file</h2>
-<p>To save a plot to file use the <code>ggsave</code> function. If you look at the <a href="https://ggplot2.tidyverse.org/reference/ggsave.html">documentation of ggsave</a> you can see the different arguments the ggsave function takes. Let us save the plot present in the surveys_plot variable into a file called <code>plot_weight_hindfoot_density2d.png</code> into a folder in this project called <code>img_output</code> (check that it is present, if not you need to create it).</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#save plot that you would like to save into a variable</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>out_plot &lt;-<span class="st"> </span>surveys_plot <span class="op">+</span><span class="st"> </span><span class="kw">geom_density2d</span>()</span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#save plot to file</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="kw">ggsave</span>(<span class="dt">filename =</span> <span class="st">&quot;img_output/plot_weight_hindfoot_density2d.png&quot;</span>, <span class="dt">plot =</span> out_plot)</span></code></pre></div>
-<blockquote>
-<p><strong>Note</strong></p>
-<ul>
-<li>You do not need to save the plot into a variable before saving it to file. If you do not specify the <code>plot</code> argument of the <code>ggsave</code> function, <code>ggsave</code> will take the last plot that you plotted and save it into the <code>filename</code> specified.</li>
-</ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Save plot to file</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">ggsave</span>(<span class="dt">filename =</span> <span class="st">&quot;img_output/plot_weight_hindfoot_density2d.png&quot;</span>)</span></code></pre></div>
-<p>Alternatively, you can go to the Plots pane and click on the <strong>Export</strong> button. This can be easy, but makes the output less reproducible for other people. <br/></p>
-</blockquote>
+<p>To save a plot to file we use the <code>ggsave</code> function. If you look at the <a href="https://ggplot2.tidyverse.org/reference/ggsave.html">documentation of ggsave</a> you can see the different arguments the <code>ggsave</code> function takes. Let’s save the plot present in the <code>surveys_plot</code> variable into a file called <code>plot_weight_hindfoot_density2d.png</code> and place this into the <code>img_output</code> folder within our working directory (check that it is present, if not you need to create it).</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save plot that you would like to save into a variable</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>out_plot <span class="ot">&lt;-</span> surveys_plot <span class="sc">+</span> <span class="fu">geom_density2d</span>()</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Save plot to file</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">&quot;img_output/plot_weight_hindfoot_density2d.png&quot;</span>, <span class="at">plot =</span> out_plot)</span></code></pre></div>
+<p><br /></p>
+<div class="note">
+<p>You do not need to save the plot into a variable before saving it to file. If you do not specify the <code>plot</code> argument of the <code>ggsave</code> function, <code>ggsave</code> will take the last plot that you plotted and save it into the <code>filename</code> specified.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save plot to file</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">&quot;img_output/plot_weight_hindfoot_density2d.png&quot;</span>)</span></code></pre></div>
+<p>Alternatively, you can go to the Plots pane and click on the <strong>Export</strong> button. This can be easy, but makes the output less reproducible for other people.</p>
+</div>
 </div>
 </div>
 

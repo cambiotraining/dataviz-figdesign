@@ -1,8 +1,6 @@
 ---
 title: "Introduction to R"
-author: "Data Carpentry contributors"
 ---
-
 
 ```{r, echo = FALSE, purl = FALSE, message = FALSE}
 source("setup.R")
@@ -141,7 +139,13 @@ mass_index <- mass/age  # mass_index?
 
 <details><summary>Answer</summary>
 
-TODO
+```{purl = FALSE}
+[1] 47.5                # mass
+[1] 122                 # age
+[1] 95                  # mass
+[1] 102                 # age
+[1] 0.9313725           # mass_index
+```
 
 </details>
 
@@ -327,7 +331,9 @@ The package that we will be using in this course is called **tidyverse.**  It is
 <center><img src="img/tidyverse_workflow.png" width = 75%/></center>
 
 <!--image of tidyverse-->
+
 <br />
+
 Tidyverse is a recent package (launched in 2016) when compared to _R base_ (stable version in 2000), thus you will still come across R resources that do not use _tidyverse_.  However, since its release, _tidyverse_ has been increasing in popularity throughout the R programming community and it is now very popular in Data Science as it was designed with the aim to help Data Scientists perform their tasks more efficiently.  
 
 Some of the main advantages of _tidyverse_ over _R base_ are:

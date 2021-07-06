@@ -29,5 +29,5 @@ library(knitr)
 library(methods)
 suppressPackageStartupMessages(library(tidyverse))
 knitr::opts_chunk$set(results='hide', fig.path='img/R-ecology-',
-                      comment = "#>", purl = FALSE, fig.keep='last')
+                      comment = "#>", purl = FALSE)
 

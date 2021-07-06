@@ -9,11 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Alexia Cardona" />
 
 
 <title>Getting Started</title>
 
+<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -33,7 +33,6 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -54,19 +53,19 @@
   }
 </style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -86,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -380,12 +379,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -466,7 +465,6 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Getting Started</h1>
-<h4 class="author">Alexia Cardona</h4>
 
 </div>
 
@@ -518,15 +516,15 @@ Anyone can inspect the source code to see how R works. Because of this transpare
 </div>
 <div id="what-is-rstudio" class="section level2">
 <h2>What is RStudio?</h2>
-<p><a href="https://rstudio.com">RStudio</a> is currently a very popular Integrated Development Environment (IDE) for working with R. An IDE is an application used by software developers that faciliates programming by offering source code editing, building and debugging tools all integarated into one application. To function correctly, RStudio needs R and therefore both need to be installed on your computer.</p>
+<p><a href="https://rstudio.com">RStudio</a> is currently a very popular Integrated Development Environment (IDE) for working with R. An IDE is an application used by software developers that facilitates programming by offering source code editing, building and debugging tools all integarated into one application. To function correctly, RStudio needs R and therefore both need to be installed on your computer.</p>
 <p>The RStudio Desktop open-source product is free under the <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">Affero General Public License (AGPL) v3</a>. <a href="https://www.rstudio.com/products/rstudio/">Other versions of RStudio</a> are also available.</p>
-<p>We will use RStudio IDE to write code, navigate the files on our computer, inspect the variables we are going to create, and visualize the plots we will generate. RStudio can also be used for other things (<em>e.g.,</em> version control, developing packages, writing Shiny apps) that we will not cover during the workshop.</p>
+<p>We will use RStudio IDE to write code, navigate the files on our computer, inspect the variables we are going to create, and visualize the plots we will generate. RStudio can also be used for other things (<em>e.g.,</em> version control, developing packages, writing Shiny apps) that we will not cover during these sessions.</p>
 <div class="figure">
 <img src="img/rstudio-screenshot.png" alt="" />
 <p class="caption">RStudio interface screenshot. Clockwise from top left: Source, Environment/History, Files/Plots/Packages/Help/Viewer, Console.</p>
 </div>
 <p>RStudio is divided into 4 “Panes”: the <strong>Source</strong> for your scripts and documents (top-left, in the default layout), your <strong>Environment/History</strong> (top-right), your <strong>Files/Plots/Packages/Help/Viewer</strong> (bottom-right), and the R <strong>Console</strong> (bottom-left). The placement of these panes and their content can be customized (see menu, Tools -&gt; Global Options -&gt; Pane Layout).</p>
-<p>One of the advantages of using RStudio is that all the information you need to write code is available in a single window. Additionally, with many shortcuts, autocompletion, and highlighting for the major file types you use while developing in R, RStudio will make typing easier and less error-prone.</p>
+<p>One of the advantages of using RStudio is that all the information you need to write code is available in a single window. Additionally, with many shortcuts, auto-completion and highlighting for the major file types you use while developing in R, RStudio will make typing easier and less error-prone.</p>
 <p><br/></p>
 </div>
 <div id="create-an-r-project" class="section level2">
@@ -564,12 +562,12 @@ To turn that off, go to <code>Tools</code> –&gt; <code>Global Options</code> a
 <li><strong><code>documents/</code></strong> This would be a place to keep documentation and other text documents</li>
 <li><strong><code>scripts/</code></strong> This would be the location to keep your R scripts for different analyses or plotting.</li>
 </ul>
-<p>You may want additional directories or subdirectories depending on your project needs, but these should form the backbone of your working directory.</p>
+<p>You may want additional directories or sub directories depending on your project needs, but these should form the backbone of your working directory.</p>
 <div class="figure">
 <img src="img/working_directory_structure.png" alt="" />
 <p class="caption">Example of a working directory structure.</p>
 </div>
-<p>For this workshop, we will need a <code>data_raw</code> folder to store our raw data, and we will use <code>data_processed</code> for when we learn how to export data as CSV files, and <code>fig_output/</code> folder for the figures that we will save. For this course the necessary folders have been created already, but if you want to add new folders yourself you can do the following:</p>
+<p>For this course, we will need a <code>data_raw</code> folder to store our raw data, and we will use <code>data_processed</code> for when we learn how to export data as CSV files, and <code>fig_output/</code> folder for the figures that we will save. For this course the necessary folders have been created already if you are working through the virtual learning environment, but if you want to add new folders yourself you can do the following:</p>
 <ul>
 <li>Under the <code>Files</code> tab on the right of the screen, click on <code>New Folder</code> to create a folder within your newly created working directory (e.g., <code>~/my-first-project/data</code>).</li>
 </ul>
@@ -596,9 +594,9 @@ How it should look like at the beginning of this lesson
 <p>If R is still waiting for you to enter more data because it isn’t complete yet, the console will show a <code>+</code> prompt. It means that you haven’t finished entering a complete command. This is because you have not ‘closed’ a parenthesis or quotation, i.e. you don’t have the same number of left-parentheses as right-parentheses, or the same number of opening and closing quotation marks. When this happens, and you thought you finished typing your command, click inside the console window and press <kbd><code>Esc</code></kbd>; this will cancel the incomplete command and return you to the <code>&gt;</code> prompt.</p>
 <p><br/></p>
 </div>
-<div id="how-to-learn-more-after-the-workshop" class="section level2">
-<h2>How to learn more after the workshop?</h2>
-<p>The material we cover during this workshop will give you an initial taste of how you can use R to analyze data for your own research. However, you will need to learn more to do advanced operations such as cleaning your dataset, using statistical methods, or creating beautiful graphics. The best way to become proficient and efficient at R, as with any other tool, is to use it to address your actual research questions. As a beginner, it can feel daunting to have to write a script from scratch, and given that many people make their code available online, modifying existing code to suit your purpose might make it easier for you to get started.</p>
+<div id="how-to-learn-more-after-the-course" class="section level2">
+<h2>How to learn more after the course?</h2>
+<p>The material we cover during this course will give you an initial taste of how you can use R to analyze data for your own research. However, you will need to learn more to do advanced operations such as cleaning your data set, using statistical methods, or creating beautiful graphics. The best way to become proficient and efficient at R, as with any other tool, is to use it to address your actual research questions. As a beginner, it can feel daunting to have to write a script from scratch, and given that many people make their code available online, modifying existing code to suit your purpose might make it easier for you to get started.</p>
 <p><img src="img/kitten-try-things.jpg" width="400px" style="display: block; margin: auto;" /></p>
 <p><br/></p>
 </div>
@@ -615,14 +613,14 @@ How it should look like at the beginning of this lesson
 <p style="padding:0 0 15px 0;">
 <p><strong>I know the name of the function I want to use, but I’m not sure how to use it</strong></p>
 <p>If you need help with a specific function, let’s say <code>barplot()</code>, you can type:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>?barplot</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>?barplot</span></code></pre></div>
 <p>If you just need to remind yourself of the names of the arguments, you can use:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">args</span>(lm)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">args</span>(lm)</span></code></pre></div>
 <p/>
 <p style="padding:0 0 15px 0;">
 <p><strong>I want to use a function that does X, there must be a function for it but I don’t know which one…</strong></p>
 <p>If you are looking for a function to do a particular task, you can use the <code>help.search()</code> function, which is called by the double question mark <code>??</code>. However, this only looks through the installed packages for help pages with a match to your search request</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>??kruskal</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>??kruskal</span></code></pre></div>
 <p>If you can’t find what you are looking for, you can use the <a href="http://www.rdocumentation.org">rdocumentation.org</a> website that searches through the help files across all packages available.</p>
 <p>Finally, a generic Google or internet search “R &lt;task&gt;” will often either send you to the appropriate package documentation or a helpful forum where someone else has already asked your question.</p>
 <p/>
@@ -639,7 +637,7 @@ How it should look like at the beginning of this lesson
 <p>Try to use the correct words to describe your problem. For instance, a package is not the same thing as a library. Most people will understand what you meant, but others have really strong feelings about the difference in meaning. The key point is that it can make things confusing for people trying to help you. Be as precise as possible when describing your problem.</p>
 <p>If possible, try to reduce what doesn’t work to a simple <em>reproducible example</em>. If you can reproduce the problem using a very small data frame instead of your 50,000 rows and 10,000 columns one, provide the small one with the description of your problem. When appropriate, try to generalize what you are doing so even people who are not in your field can understand the question. For instance instead of using a subset of your real dataset, create a small (3 columns, 5 rows) generic one. For more information on how to write a reproducible example see <a href="http://adv-r.had.co.nz/Reproducibility.html">this article by Hadley Wickham</a>.</p>
 <p>To share an object with someone else, if it’s relatively small, you can use the function <code>dput()</code>. It will output R code that can be used to recreate the exact same object as the one in memory:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">dput</span>(<span class="kw">head</span>(iris)) <span class="co"># iris is an example data frame that comes with R and head() is a function that returns the first part of the data frame</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dput</span>(<span class="fu">head</span>(iris)) <span class="co"># iris is an example data frame that comes with R and head() is a function that returns the first part of the data frame</span></span></code></pre></div>
 <pre><code>## structure(list(Sepal.Length = c(5.1, 4.9, 4.7, 4.6, 5, 5.4), 
 ##     Sepal.Width = c(3.5, 3, 3.2, 3.1, 3.6, 3.9), Petal.Length = c(1.4, 
 ##     1.4, 1.3, 1.5, 1.4, 1.7), Petal.Width = c(0.2, 0.2, 0.2, 
@@ -647,41 +645,35 @@ How it should look like at the beginning of this lesson
 ##     1L), .Label = c(&quot;setosa&quot;, &quot;versicolor&quot;, &quot;virginica&quot;), class = &quot;factor&quot;)), row.names = c(NA, 
 ## 6L), class = &quot;data.frame&quot;)</code></pre>
 <p>If the object is larger, provide either the raw file (i.e., your CSV file) with your script up to the point of the error (and after removing everything that is not relevant to your issue). Alternatively, in particular if your question is not related to a data frame, you can save any R object to a file:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">saveRDS</span>(iris, <span class="dt">file=</span><span class="st">&quot;/tmp/iris.rds&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(iris, <span class="at">file=</span><span class="st">&quot;/tmp/iris.rds&quot;</span>)</span></code></pre></div>
 <p>The content of this file is however not human readable and cannot be posted directly on Stack Overflow. Instead, it can be sent to someone by email who can read it with the <code>readRDS()</code> command (here it is assumed that the downloaded file is in a <code>Downloads</code> folder in the user’s home directory):</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>some_data &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="dt">file=</span><span class="st">&quot;~/Downloads/iris.rds&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>some_data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="at">file=</span><span class="st">&quot;~/Downloads/iris.rds&quot;</span>)</span></code></pre></div>
 <p>Last, but certainly not least, <strong>always include the output of <code>sessionInfo()</code></strong> as it provides critical information about your platform, the versions of R and the packages that you are using, and other information that can be very helpful to understand your problem.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">sessionInfo</span>()</span></code></pre></div>
-<pre><code>## R version 4.0.1 (2020-06-06)
-## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 18.04.5 LTS
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<pre><code>## R version 4.1.0 (2021-05-18)
+## Platform: x86_64-apple-darwin17.0 (64-bit)
+## Running under: macOS Catalina 10.15.7
 ## 
 ## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.7.1
-## LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.7.1
+## BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
 ## 
 ## locale:
-##  [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              
-##  [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8    
-##  [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_GB.UTF-8   
-##  [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 
-##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-## [11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       
+## [1] en_GB.UTF-8/en_GB.UTF-8/en_GB.UTF-8/C/en_GB.UTF-8/en_GB.UTF-8
 ## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] digest_0.6.27     R6_2.5.0          jsonlite_1.7.2    magrittr_2.0.1   
-##  [5] evaluate_0.14     highr_0.9         rlang_0.4.10      stringi_1.5.3    
-##  [9] jquerylib_0.1.3   bslib_0.2.4       rmarkdown_2.7     tools_4.0.1      
-## [13] stringr_1.4.0     xfun_0.22         yaml_2.2.1        compiler_4.0.1   
-## [17] htmltools_0.5.1.1 knitr_1.32        sass_0.3.1</code></pre>
+##  [1] compiler_4.1.0    magrittr_2.0.1    tools_4.1.0       htmltools_0.5.1.1
+##  [5] yaml_2.2.1        stringi_1.6.2     rmarkdown_2.8     highr_0.9        
+##  [9] knitr_1.33        stringr_1.4.0     xfun_0.23         digest_0.6.27    
+## [13] rlang_0.4.11      evaluate_0.14</code></pre>
 <p/>
 <p style="padding:0 0 15px 0;">
 <p><strong>Where to ask for help?</strong></p>
 <ul>
-<li>The person sitting next to you during the workshop. Don’t hesitate to talk to your neighbor during the workshop, compare your answers, and ask for help. You might also be interested in organizing regular meetings following the workshop to keep learning from each other.</li>
+<li>The person sitting next to you during the course. Don’t hesitate to talk to your neighbour during the course, compare your answers, and ask for help. You might also be interested in organizing regular meetings following the course to keep learning from each other.</li>
 <li>Your friendly colleagues: if you know someone with more experience than you, they might be able and willing to help you.</li>
 <li><a href="http://stackoverflow.com/questions/tagged/r">Stack Overflow</a>: if your question hasn’t been answered before and is well crafted, chances are you will get an answer in less than 5 min. Remember to follow their guidelines on <a href="http://stackoverflow.com/help/how-to-ask">how to ask a good question</a>.</li>
 <li>The <a href="https://stat.ethz.ch/mailman/listinfo/r-help">R-help mailing list</a>: it is read by a lot of people (including most of the R core team), a lot of people post to it, but the tone can be pretty dry, and it is not always very welcoming to new users. If your question is valid, you are likely to get an answer very fast but don’t expect that it will come with smiley faces. Also, here more than anywhere else, be sure to use correct vocabulary (otherwise you might get an answer pointing to the misuse of your words rather than answering your question). You will also have more success if your question is about a base function rather than a specific package.</li>

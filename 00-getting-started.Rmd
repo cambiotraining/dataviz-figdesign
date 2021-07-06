@@ -1,6 +1,5 @@
 ---
 title: Getting Started
-author: Alexia Cardona
 ---
 
 <br/>
@@ -97,7 +96,7 @@ find some, you can report and fix bugs.
 <br/>
 
 ## What is RStudio?
-[RStudio](https://rstudio.com) is currently a very popular Integrated Development Environment (IDE) for working with R.  An IDE is an application used by software developers that faciliates programming by offering source code editing, building and debugging tools all integarated into one application.  To function correctly, RStudio needs R and therefore both need to be installed on your computer.
+[RStudio](https://rstudio.com) is currently a very popular Integrated Development Environment (IDE) for working with R.  An IDE is an application used by software developers that facilitates programming by offering source code editing, building and debugging tools all integarated into one application.  To function correctly, RStudio needs R and therefore both need to be installed on your computer.
 
 The RStudio Desktop open-source product is free under the
 [Affero General Public License (AGPL) v3](https://www.gnu.org/licenses/agpl-3.0.en.html).  [Other versions of RStudio](https://www.rstudio.com/products/rstudio/) are also available.
@@ -105,8 +104,7 @@ The RStudio Desktop open-source product is free under the
 We will use RStudio IDE to write code, navigate the files on our computer,
 inspect the variables we are going to create, and visualize the plots we will
 generate. RStudio can also be used for other things (*e.g.,* version control,
-developing packages, writing Shiny apps) that we will not cover during the
-workshop.
+developing packages, writing Shiny apps) that we will not cover during these sessions.
 
 ![RStudio interface screenshot. Clockwise from top left: Source, Environment/History, Files/Plots/Packages/Help/Viewer, Console.](img/rstudio-screenshot.png)
 
@@ -119,7 +117,7 @@ Pane Layout).
 
 One of the advantages of using RStudio is that all the information
 you need to write code is available in a single window. Additionally, with many
-shortcuts, autocompletion, and highlighting for the major file types you use
+shortcuts, auto-completion and highlighting for the major file types you use
 while developing in R, RStudio will make typing easier and less error-prone.
 
 <br/>
@@ -195,15 +193,14 @@ create directories (folders) for **scripts**, **data**, and **documents**.
  - **`scripts/`** This would be the location to keep your R scripts for
    different analyses or plotting.
 
-You may want additional directories or subdirectories depending on your project
+You may want additional directories or sub directories depending on your project
 needs, but these should form the backbone of your working directory.
 
 ![Example of a working directory structure.](img/working_directory_structure.png)
 
-
-For this workshop, we will need a `data_raw` folder to store our raw data, and we
+For this course, we will need a `data_raw` folder to store our raw data, and we
 will use `data_processed` for when we learn how to export data as CSV files, and
-`fig_output/` folder for the figures that we will save. For this course the necessary folders have been created already, but if you want to add new folders yourself you can do the following:
+`fig_output/` folder for the figures that we will save. For this course the necessary folders have been created already if you are working through the virtual learning environment, but if you want to add new folders yourself you can do the following:
 
 * Under the `Files` tab on the right of the screen, click on `New Folder` to create a folder within your newly created working directory (e.g., `~/my-first-project/data`).
 
@@ -276,9 +273,9 @@ command and return you to the `>` prompt.
 
 <br/>
 
-## How to learn more after the workshop?
+## How to learn more after the course?
 
-The material we cover during this workshop will give you an initial taste of how you can use R to analyze data for your own research. However, you will need to learn more to do advanced operations such as cleaning your dataset, using statistical methods, or creating beautiful graphics. The best way to become proficient and efficient at R, as with any other tool, is to use it to address your actual research questions. As a beginner, it can feel daunting to have to write a script from scratch, and given that many people make their code available online, modifying existing code to suit your purpose might make it easier for you to get started.
+The material we cover during this course will give you an initial taste of how you can use R to analyze data for your own research. However, you will need to learn more to do advanced operations such as cleaning your data set, using statistical methods, or creating beautiful graphics. The best way to become proficient and efficient at R, as with any other tool, is to use it to address your actual research questions. As a beginner, it can feel daunting to have to write a script from scratch, and given that many people make their code available online, modifying existing code to suit your purpose might make it easier for you to get started.
 
 
 ```{r kitten-img, results='markup', echo=FALSE, purl=FALSE, out.width='400px', fig.align='center'}
@@ -427,10 +424,10 @@ sessionInfo()
 
 **Where to ask for help?**
 
-* The person sitting next to you during the workshop. Don't hesitate to talk to
-  your neighbor during the workshop, compare your answers, and ask for
+* The person sitting next to you during the course. Don't hesitate to talk to
+  your neighbour during the course, compare your answers, and ask for
   help. You might also be interested in organizing regular meetings following
-  the workshop to keep learning from each other.
+  the course to keep learning from each other.
 * Your friendly colleagues: if you know someone with more experience than you,
   they might be able and willing to help you.
 * [Stack Overflow](http://stackoverflow.com/questions/tagged/r): if your question

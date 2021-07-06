@@ -9,11 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Alexia Cardona &amp; Martin van Rongen" />
 
 
 <title>Starting with data</title>
 
+<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -33,7 +33,6 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -54,19 +53,19 @@
   }
 </style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -86,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -380,12 +379,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -466,16 +465,15 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Starting with data</h1>
-<h4 class="author">Alexia Cardona &amp; Martin van Rongen</h4>
 
 </div>
 
 
 <p><br/></p>
-<blockquote>
-<p>Before we start, I want to emphasise that although the data used in this course are from an ecological study, the principals you learn can be applied to any analysis of tabular data. For example, we will learn how to <strong>group</strong> data based on <code>taxa</code> and <strong>calculate</strong> mean values for <code>weight</code> after <strong>filtering</strong> for certain <code>year</code> values.</p>
-<p>In your own analysis you might be doing something very similar. Let’s say you’ve performed an RNAseq experiment and have done some differential gene expression analysis. This will leave you with a set of files containing expression data that needs further exploring. Here you might <strong>group</strong> data based on <code>genotype</code> and <strong>calculate</strong> mean <code>counts</code> after <strong>filtering</strong> for certain <code>candidate_genes</code>.</p>
-</blockquote>
+<div class="note">
+<p><strong>General concepts in data analysis</strong></p>
+<p>Before we start, I want to emphasise that even though the data used in this course are from an ecological study, the principals you learn can be applied to any analysis of tabular data.</p>
+</div>
 <p><br /></p>
 <div id="data-exploration-workflow" class="section level1">
 <h1>Data exploration workflow</h1>
@@ -484,14 +482,14 @@ div.tocify {
 <p>More information on this workflow can be found in the <a href="https://r4ds.had.co.nz/">R for Data Science</a> book. To understand better the workflow in the illustration above, let us go over each stage to see what each step entails:</p>
 <ol style="list-style-type: decimal">
 <li>The first step in working with data is to first <strong>import</strong> your data into R. This connects the external file/database to your project in R.</li>
-<li><strong>Cleaning</strong> or <strong>tidying</strong> the data will follow, which involves making sure that the data is consistent and that each row in the dataset is an observation and each column is a variable.<br />
-<em>e.g.</em> In the <em>surveys</em> data frame the <em>month</em> column specifies months as an integer from 1 to 12. The dataset would have inconsistent data if there was a record in the dataset that had a month specified by name, <em>e.g.</em> September rather than 9. A month of 0 or any other number that is not in the range 1 to 12 would have also made the dataset inconsistent. Another common problem is capitalisation; the same word in the same column can be written with capitals or without; <em>e.g.</em> <em>Bird</em> or <em>bird</em> in the same <em>taxa</em> column is inconsistent data. During the <em>tidying</em> stage it is important to make the dataset consistent and much as possible so that you can focus on the questions you are trying to solve in your analysis.<br />
+<li><strong>Cleaning</strong> or <strong>tidying</strong> the data will follow, which involves making sure that the data is consistent and that each row in the data set is an observation and each column is a variable.<br />
+<em>e.g.</em> In the <em>surveys</em> data frame the <em>month</em> column specifies months as an integer from 1 to 12. The data set would have inconsistent data if there was a record in the data set that had a month specified by name, <em>e.g.</em> September rather than 9. A month of 0 or any other number that is not in the range 1 to 12 would have also made the data set inconsistent. Another common problem is capitalisation; the same word in the same column can be written with capitals or without; <em>e.g.</em> <em>Bird</em> or <em>bird</em> in the same <em>taxa</em> column is inconsistent data. During the <em>tidying</em> stage it is important to make the data set consistent and much as possible so that you can focus on the questions you are trying to solve in your analysis.<br />
 <!--image showing that each row is an observation and that column is a variable--></li>
-<li>Once the dataset is tidy, we move to the transformation stage. To be able to <strong>transform</strong> your data you need to plan in advance what analyses you would like to perform on the dataset and what plots you would like to create. In this way, you are able to plan ahead what variables/columns you will be using from the dataset, what additional variables you will need to create and what variables you will not be using so that you can keep only the columns in the dataset that are relevant for your analyses. By the end of the transformation process you will have a dataset that is focused for your analyses and you can move on to the main exploratory mechanisms of this workflow which are visualisation and modelling. These two stages complement each other and when exploring your data you normally repeat these two stages several times.<br />
+<li>Once the data set is tidy, we move to the transformation stage. To be able to <strong>transform</strong> your data you need to plan in advance what analyses you would like to perform on the data set and what plots you would like to create. In this way, you are able to plan ahead what variables/columns you will be using from the data set, what additional variables you will need to create and what variables you will not be using so that you can keep only the columns in the data set that are relevant for your analyses. By the end of the transformation process you will have a data set that is focused for your analyses and you can move on to the main exploratory mechanisms of this workflow which are visualisation and modelling. These two stages complement each other and when exploring your data you normally repeat these two stages several times.<br />
 </li>
 <li><strong>Visualising</strong> data is a powerful way to explore your data. Furthermore it helps you understand if there is any pattern in the data.<br />
 </li>
-<li><strong>Modelling</strong> the data involves applying statistics or other mathematical or computational models on your data to explore if there are correlations or patterns in the dataset to help you answer the scientific question you are trying to solve.<br />
+<li><strong>Modelling</strong> the data involves applying statistics or other mathematical or computational models on your data to explore if there are correlations or patterns in the data set to help you answer the scientific question you are trying to solve.<br />
 </li>
 <li>The last step in the data exploration workflow is to <strong>communicate</strong> your results. This is very important as you will need to be able to communicate your results to others to have a successful project.</li>
 </ol>
@@ -504,7 +502,7 @@ div.tocify {
 <!--image of model with tidyverse hexagons under the ones that we will be covering in this course-->
 <div id="understanding-data" class="section level2">
 <h2>Understanding data</h2>
-<p>To be able to do proper data analyses, it is crucial you understand your data. So before we start doing any form of analyses we will first try to understand the dataset that we will be using throughout this course. Let us first download the file and have a look at the data.</p>
+<p>To be able to do proper data analyses, it is crucial you understand your data. So before we start doing any form of analyses we will first try to understand the data set that we will be using throughout this course. Let us first download the file and have a look at the data.</p>
 <p>Thinking back to the structure of our R project, we have a working directory. Within the working directory we can create folders to organise our files. We are going to download some raw data and it is good practice to keep your raw data separate from other data, because that way you can always refer back to the data that you started with.</p>
 <p>In this case <strong>we have generated the relevant folders for you</strong>, but in case you would want to do this yourself in the future, you could do the following:</p>
 <p>You can create folders straight from RStudio from the right bottom pane in the Files section &gt; New Folder icon.</p>
@@ -512,10 +510,10 @@ div.tocify {
 <p>Remember to try and avoid capitalisation and spaces (use the underscore instead).</p>
 <p><br /></p>
 <p>We are now ready to download the data, using the R function <code>download.file()</code> to download the CSV file that contains the data.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">download.file</span>(<span class="dt">url=</span><span class="st">&quot;https://ndownloader.figshare.com/files/2292169&quot;</span>,</span>
-<span id="cb1-2"><a href="#cb1-2"></a>              <span class="dt">destfile =</span> <span class="st">&quot;data_raw/portal_data_joined.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="at">url=</span><span class="st">&quot;https://ndownloader.figshare.com/files/2292169&quot;</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">destfile =</span> <span class="st">&quot;data_raw/portal_data_joined.csv&quot;</span>)</span></code></pre></div>
 <p>Inside the download.file command, the first entry is a character string with the source URL (“<a href="https://ndownloader.figshare.com/files/2292169" class="uri">https://ndownloader.figshare.com/files/2292169</a>”). This source URL downloads a CSV file from figshare. The text after the comma (“data_raw/portal_data_joined.csv”) is the destination of the file on your local machine.</p>
-<p>The dataset has the following columns, with each row holding information for a single animal:</p>
+<p>The data set has the following columns, with each row holding information for a single animal:</p>
 <table>
 <thead>
 <tr class="header">
@@ -583,7 +581,7 @@ div.tocify {
 <h2>Reading in data from a file</h2>
 <p>Next we need to load the data into R and look at <em>how</em> the data is loaded into R. We will use <code>read_csv()</code> from the <code>tidyverse</code> package to load into memory the content of the CSV file.</p>
 <p>You can do this using:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>surveys &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data_raw/portal_data_joined.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>surveys <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data_raw/portal_data_joined.csv&quot;</span>)</span></code></pre></div>
 <pre><code>#&gt; 
 #&gt; ── Column specification ────────────────────────────────────────────────────────
 #&gt; cols(
@@ -603,7 +601,7 @@ div.tocify {
 #&gt; )</code></pre>
 <p>This statement doesn’t produce any output because, as you might recall, assignments don’t display anything. It does give you information on how the data was loaded. Note that some columns are classed as <code>col_double</code> (numbers) and others as <code>col_character</code> (text). This can be useful and important information, because it tells you the type of data R considers it to be. It also helps you check your data. For example, if R would view a column as <code>col_character</code> but you know that it should only contain numbers, then you know that some of the data are probably text, meaning there are errors in your data that need a closer look.</p>
 <p>If we want to find out how our data has been loaded, we can visualise the contents of the data frame by typing its name <code>surveys</code>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>surveys</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>surveys</span></code></pre></div>
 <pre><code>#&gt; # A tibble: 34,786 x 13
 #&gt;    record_id month   day  year plot_id species_id sex   hindfoot_length weight
 #&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;

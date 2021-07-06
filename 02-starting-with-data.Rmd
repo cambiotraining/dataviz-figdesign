@@ -1,8 +1,6 @@
 ---
 title: "Starting with data"
-author: "Alexia Cardona & Martin van Rongen"
 ---
-
 
 ```{r, echo = FALSE, purl = FALSE, message = FALSE}
 source("setup.R")
@@ -10,9 +8,11 @@ source("setup.R")
 
 <br/>
 
->Before we start, I want to emphasise that although the data used in this course are from an ecological study, the principals you learn can be applied to any analysis of tabular data. For example, we will learn how to **group** data based on `taxa` and **calculate** mean values for `weight` after **filtering** for certain `year` values.
->
->In your own analysis you might be doing something very similar. Let's say you've performed an RNAseq experiment and have done some differential gene expression analysis. This will leave you with a set of files containing expression data that needs further exploring.  Here you might **group** data based on `genotype` and **calculate** mean `counts` after **filtering** for certain `candidate_genes`.
+:::note
+**General concepts in data analysis**
+
+Before we start, I want to emphasise that even though the data used in this course are from an ecological study, the principals you learn can be applied to any analysis of tabular data.
+:::
 
 <br />
 
@@ -24,12 +24,12 @@ When you are working on a project that requires data analysis, you will normally
 More information on this workflow can be found in the [R for Data Science](https://r4ds.had.co.nz/) book.  To understand better the workflow in the illustration above, let us go over each stage to see what each step entails:
 
 1.  The first step in working with data is to first **import** your data into R.  This connects the external file/database to your project in R.
-2.  **Cleaning** or **tidying** the data will follow, which involves making sure that the data is consistent and that each row in the dataset is an observation and each column is a variable.  
-_e.g._ In the _surveys_ data frame the _month_ column specifies months as an integer from 1 to 12.  The dataset would have inconsistent data if there was a record in the dataset that had a month specified by name, _e.g._ September rather than 9.  A month of 0 or any other number that is not in the range 1 to 12 would have also made the dataset inconsistent.  Another common problem is capitalisation; the same word in the same column can be written with capitals or without; _e.g._ _Bird_ or _bird_ in the same _taxa_ column is inconsistent data.  During the _tidying_ stage it is important to make the dataset consistent and much as possible so that you can focus on the questions you are trying to solve in your analysis.  
+2.  **Cleaning** or **tidying** the data will follow, which involves making sure that the data is consistent and that each row in the data set is an observation and each column is a variable.  
+_e.g._ In the _surveys_ data frame the _month_ column specifies months as an integer from 1 to 12.  The data set would have inconsistent data if there was a record in the data set that had a month specified by name, _e.g._ September rather than 9.  A month of 0 or any other number that is not in the range 1 to 12 would have also made the data set inconsistent.  Another common problem is capitalisation; the same word in the same column can be written with capitals or without; _e.g._ _Bird_ or _bird_ in the same _taxa_ column is inconsistent data.  During the _tidying_ stage it is important to make the data set consistent and much as possible so that you can focus on the questions you are trying to solve in your analysis.  
 <!--image showing that each row is an observation and that column is a variable-->
-3.  Once the dataset is tidy, we move to the transformation stage.  To be able to **transform** your data you need to plan in advance what analyses you would like to perform on the dataset and what plots you would like to create.  In this way, you are able to plan ahead what variables/columns you will be using from the dataset, what additional variables you will need to create and what variables you will not be using so that you can keep only the columns in the dataset that are relevant for your analyses.  By the end of the transformation process you will have a dataset that is focused for your analyses and you can move on to the main exploratory mechanisms of this workflow which are visualisation and modelling.  These two stages complement each other and when exploring your data you normally repeat these two stages several times.    
+3.  Once the data set is tidy, we move to the transformation stage.  To be able to **transform** your data you need to plan in advance what analyses you would like to perform on the data set and what plots you would like to create.  In this way, you are able to plan ahead what variables/columns you will be using from the data set, what additional variables you will need to create and what variables you will not be using so that you can keep only the columns in the data set that are relevant for your analyses.  By the end of the transformation process you will have a data set that is focused for your analyses and you can move on to the main exploratory mechanisms of this workflow which are visualisation and modelling.  These two stages complement each other and when exploring your data you normally repeat these two stages several times.    
 4.  **Visualising** data is a powerful way to explore your data.  Furthermore it helps you understand if there is any pattern in the data.   
-5.  **Modelling** the data involves applying statistics or other mathematical or computational models on your data to explore if there are correlations or patterns in the dataset to help you answer the scientific question you are trying to solve.  
+5.  **Modelling** the data involves applying statistics or other mathematical or computational models on your data to explore if there are correlations or patterns in the data set to help you answer the scientific question you are trying to solve.  
 6.  The last step in the data exploration workflow is to **communicate** your results.  This is very important as you will need to be able to communicate your results to others to have a successful project.
 
 All these stages in the data exploration workflow can be achieved by programming in R.  In this course we will not look into the _Model_ and _Communicate_ stages of the workflow in this course.  You will be able to learn more about these in the following courses:
@@ -47,7 +47,7 @@ In the next sections we will be looking at the _import_, _tidy_, _transform_ and
 ### Presentation of the survey data
 ```
 
-To be able to do proper data analyses, it is crucial you understand your data. So before we start doing any form of analyses we will first try to understand the dataset that we will be using throughout this course.  Let us first download the file and have a look at the data.
+To be able to do proper data analyses, it is crucial you understand your data. So before we start doing any form of analyses we will first try to understand the data set that we will be using throughout this course.  Let us first download the file and have a look at the data.
 
 Thinking back to the structure of our R project, we have a working directory. Within the working directory we can create folders to organise our files.
 We are going to download some raw data and it is good practice to keep your raw data separate from other data, because that way you can always refer back to the data that you started with.
@@ -62,17 +62,16 @@ Remember to try and avoid capitalisation and spaces (use the underscore instead)
 
 <br />
 
-We are now ready to download the data, using the R function `download.file()` to download the CSV file that contains the data.  
+We are now ready to download the data, using the R function `download.file()` to download the CSV file that contains the data.
+
 ```{r, eval=FALSE, purl=TRUE}
 download.file(url="https://ndownloader.figshare.com/files/2292169",
               destfile = "data_raw/portal_data_joined.csv")
 ```
 Inside the download.file command, the first entry is a character string with the source URL 
-("https://ndownloader.figshare.com/files/2292169"). This source URL downloads a CSV file from 
-figshare. The text after the comma ("data_raw/portal_data_joined.csv") is the destination of the 
-file on your local machine. 
+("https://ndownloader.figshare.com/files/2292169"). This source URL downloads a CSV file from figshare. The text after the comma ("data_raw/portal_data_joined.csv") is the destination of the file on your local machine. 
 
-The dataset has the following columns, with each row holding information for a single animal:
+The data set has the following columns, with each row holding information for a single animal:
 
 | Column           | Description                        |
 |------------------|------------------------------------|

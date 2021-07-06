@@ -7,6 +7,7 @@ output:
     css: "assets/styles.css"
     toc: true
     toc_float: true
+    collapsed: FALSE
 navbar:
   title: "<img id=\"logo\" style=\"height: 25px;\" src=\"assets/img/logo.svg\" />"
   left:

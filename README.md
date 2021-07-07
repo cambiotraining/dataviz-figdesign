@@ -1,2 +1,2 @@
-# 2020-01-20_NST_Bioinformatics
-Supporting material for the NST Part II Bioinformatics Minor (Cambridge University, 2020)
+# Data Visualisation and Figure Design
+Supporting material for the Data Visualisation and Figure Design sessions, which are part of the Widening Participation Summer School 2021 (Cambridge University, July - August 2021).

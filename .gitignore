@@ -21,7 +21,6 @@ data*/
 portal-database.sqlite
 .secret/
 _site
-img/
 
 # output from linkchecker
 link_res.csv

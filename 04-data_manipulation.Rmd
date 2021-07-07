@@ -1,6 +1,5 @@
 ---
 title: Data manipulation with tidyverse
-author: Alexia Cardona & Martin van Rongen
 ---
 
 ```{r, echo=FALSE, purl=FALSE, message = FALSE}
@@ -15,7 +14,7 @@ suppressWarnings(surveys$date <- lubridate::ymd(paste(surveys$year,
 
 # Transforming data - dplyr
 
-In most of the cases you will need to change the format of your dataset because it will not be in the right format that you will need to plot or analyse the data.  `tidyverse` has a package called `dplyr` which contains functions that help you to select columns/rows, sort, combine and perform other data types of data transformations. In the next sections we will look at different ways to transform our dataset.  Now that we already know the basics of visualing data with `ggplot` we will also learn how to visualise other plots with the transformed dataset as we go along.  
+In most of the cases you will need to change the format of your dataset because it will not be in the right format that you will need to plot or analyse the data.  `tidyverse` has a package called `dplyr` which contains functions that help you to select columns/rows, sort, combine and perform other data types of data transformations. In the next sections we will look at different ways to transform our dataset.  Now that we already know the basics of visualising data with `ggplot` we will also learn how to visualise other plots with the transformed dataset as we go along.  
 
 :::note
 To learn more about `dplyr` please look at the following resources:
@@ -26,6 +25,7 @@ To learn more about `dplyr` please look at the following resources:
 If you find these resources difficult to understand, return to these after completing the course.
 :::
 
+<br />
 
 ## Pipes
 Before we move onto the different ways that we can transform our data, we'll discuss one of the most powerful additions to R, **pipes**.
@@ -35,6 +35,7 @@ Pipes let you take the output of one function and send it directly to the next, 
 with `dplyr`. 
 
 Let's say we are interested only in the data that do not contain any missing values. Using pipes, we do the following:
+
 ```{r, eval=FALSE}
 surveys %>%
   drop_na()
@@ -96,40 +97,60 @@ surveys %>%
   filter(year >=1995,
          sex == "F")
 ```
-**Note**
+
+:::note
+**To quote or not to quote?**
+
 The `sex` column is a character and thus needs to be quoted, whereas the `year` column is numerical and does not. Also note that the filter arguments could have been written on a single line, but it is useful to break up your code sometimes to make it more readable.
+:::
 
-> ### Challenge 1 - pipes
->
->Subset the `surveys_complete` data to keep only the `species_id`, `weight`, `hindfoot_length`, `year` and `sex` columns and the animals collected on and after 1995.  Then plot a scatter plot of `weight` (x-axis) against `hindfoot_length` (y-axis) using this transformed dataset.
->Do all the above using pipes, without creating any variables.
->
->```{r, answer=TRUE, eval=TRUE}
->surveys_complete %>%
->  # Select columns
->  select(species_id, weight, hindfoot_length, year, sex) %>%
->  # Filter rows
->  filter(year >= 1995) %>%
->  # Plot transformed data
->  ggplot(mapping = aes(x = weight, y = hindfoot_length)) +
->    geom_point()
->```
+<br />
 
+:::exercise
+### Challenge - pipes
 
->### Challenge 2 - plotting subset with different colour
->
->Plot all the animals in the `surveys_complete` dataset as `weight` (x-axis) against `hindfoot_length` (y-axis).  Use the dataset created above which contains only the animals that were collected on and after 1995 and highlight these points in red in the plot. **Hint**: create a new object called `survey_recent` that contains the dataset created above.
->
->```{r, answer=TRUE, eval=TRUE}
->survey_recent <- surveys_complete %>%
+Subset the `surveys_complete` data to keep only the `species_id`, `weight`, `hindfoot_length`, `year` and `sex` columns and the animals collected on and after 1995.  Then plot a scatter plot of `weight` (x-axis) against `hindfoot_length` (y-axis) using this transformed dataset.
+Do all the above using pipes, without creating any variables.
+
+<details><summary>Answer</summary>
+
+```{r, purl=TRUE, eval=TRUE}
+surveys_complete %>%
+  # Select columns
+  select(species_id, weight, hindfoot_length, year, sex) %>%
+  # Filter rows
+  filter(year >= 1995) %>%
+  # Plot transformed data
+  ggplot(mapping = aes(x = weight, y = hindfoot_length)) +
+    geom_point()
+```
+
+</details>
+:::
+
+<br />
+
+:::exercise
+### Challenge - plotting subset with different colour
+
+Plot all the animals in the `surveys_complete` dataset as `weight` (x-axis) against `hindfoot_length` (y-axis).  Use the dataset created above which contains only the animals that were collected on and after 1995 and highlight these points in red in the plot. **Hint**: create a new object called `survey_recent` that contains the dataset created above.
+
+<details><summary>Answer</summary>
+```{r, purl = TRUE, eval=TRUE}
+survey_recent <- surveys_complete %>%
                   select(species_id, weight, hindfoot_length, year, sex) %>%
                   filter(year >= 1995)
->                  
->ggplot(mapping = aes(x = weight, y = hindfoot_length)) +
->  geom_point(data = surveys_complete) +
->  geom_point(data = survey_recent, colour = "red", alpha = 0.4)
->```
->**Note:** In the example above we did not specify the `data` argument in the `ggplot` function because the arguments in the `ggplot` function should be common throughout the whole plot.  In this case we specified the respective data as separate layers in 2 different `geom_point` plots; the first plot is the data with all the animals in `surveys_complete` (points in black), the second plot is layered on top of the first plot and is a subset of the `surveys_complete` dataset (points in red).
+                  
+ggplot(mapping = aes(x = weight, y = hindfoot_length)) +
+  geom_point(data = surveys_complete) +
+  geom_point(data = survey_recent, colour = "red", alpha = 0.4)
+```
+
+**Note:** In the example above we did not specify the `data` argument in the `ggplot` function because the arguments in the `ggplot` function should be common throughout the whole plot.  In this case we specified the respective data as separate layers in 2 different `geom_point` plots; the first plot is the data with all the animals in `surveys_complete` (points in black), the second plot is layered on top of the first plot and is a subset of the `surveys_complete` dataset (points in red).
+
+</details>
+
+:::
 
 <br/>
 
@@ -156,66 +177,74 @@ There are other ways on how to create new columns.  Refer to the dplyr cheat she
 
 <br/>
 
-> ### Challenge - the boxplot
->
-> Using the `surveys_complete` dataset, create a [boxplot](https://ggplot2.tidyverse.org/reference/geom_boxplot.html) for each year on the x-axis and weight in kg on the y-axis. Use the subset dataset that was transformed in the previous challenge, *i.e.* the one that has the recent observations (from 1995 onwards).  As before try to do all the operations using pipes, without creating variables.  
-> **Hint**:  You will need to use the `as_factor` function to convert the `year` column to `factor` type.
-> 
->Your first attempt would be to use the code we used before to subset the `surveys_complete` dataset, but also adding the `mutate` function to add a new `weight_kg` column. Further more you will need to also add the `ggplot` function to draw a boxplot:
->
->```{r, answer=TRUE, eval=TRUE}
->surveys_complete %>%
->  # Add weight_kg column
->  mutate(weight_kg = weight / 1000) %>%
->  # Select columns
->  select(species_id, weight_kg, hindfoot_length, year, sex) %>%
->  # Filter rows
->  filter(year >= 1995) %>%
->  # Plot transformed data
->  ggplot(mapping = aes(x = year, y = weight_kg)) +
->    geom_boxplot()
->```
->
->You might notice that this code produces a warning message about the continuous data type of the x-axis and also creates a box plot with one single box and whisker averaged over all the years on the x-axis, rather than one for each year in the dataset as requested.  As shown in the [`ggplot2` cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf), box plots display a discrete variable on the x-axis and a continuous variable on the y-axis.  At the moment `year` is treated as a continuous variable since its data type is `double`  (you can see this from the tibble).  To fix this, we need to convert the data type of the `year` column to a categorical one (`factor`) so that each year can be plotted as a separate box and whisker.
->
->The `forcats` package that is part of `tidyverse` has the [`as_factor`](https://forcats.tidyverse.org/reference/as_factor.html) function which does just that; it converts a variable into a factor. See the updated code below, which uses the `as_factor` function: 
->
->```{r, answer=TRUE, eval=TRUE}
->surveys_complete %>%
->  # Add weight_kg column
->  mutate(weight_kg = weight / 1000) %>%
->  # Select columns
->  select(species_id, weight_kg, hindfoot_length, year, sex) %>%
->  # Filter rows
->  filter(year >= 1995) %>%
->  # Convert the year column to a factor
->  mutate(year = as_factor(year)) %>%
->  # Plot transformed data
->  ggplot(mapping = aes(x = year, y = weight_kg)) +
->    geom_boxplot()
->```
->Notice that since we need to keep only observations that have been observed from 1995 onwards, we need to convert the `year` column to a `factor` *after* we filter the rows, as otherwise the row filtering operation will not be possible.  This is because the new `year` column of type `factor` does not have any ordering in its categories so perfoming `year >= 1995` would not be possible.
->
->It is also possible to convert the `year` variable directly from within `ggplot`, thereby skipping the `mutate` step from above. We can do this using the updated code below (output is the same as above):
->```{r}
->surveys_complete %>%
->  # Add weight_kg column
->  mutate(weight_kg = weight / 1000) %>%
->  # Select columns
->  select(species_id, weight_kg, hindfoot_length, year, sex) %>%
->  # Filter rows
->  filter(year >= 1995) %>%
->  # Convert the year variable and plot transformed data
->  ggplot(mapping = aes(x = as_factor(year), y = weight_kg)) +
->    geom_boxplot()
->```
->
-> **Note on the boxplot**
->
->As mentioned the boxplot is used to visualise the distribution of a continuous variable.  In the example above we displayed the distribution of `weight` over the different years.  The figure below illustrates the different components of the boxplot. The bottom line of the box represents the 25th quantile, middle line the 50th quantile (or median) and the top line of the box is the 75th quantile. The whiskers can be thought of as defining the boundary of the confidence intervals of the distribution.  The dots outside these whiskers are the outliers.  
->
-><center><img src="img/boxplot.png" width="60%"/></center>
->
+:::exercise
+### Challenge - the boxplot
+
+Using the `surveys_complete` dataset, create a [boxplot](https://ggplot2.tidyverse.org/reference/geom_boxplot.html) for each year on the x-axis and weight in kg on the y-axis. Use the subset dataset that was transformed in the previous challenge, *i.e.* the one that has the recent observations (from 1995 onwards).  As before try to do all the operations using pipes, without creating variables.  
+**Hint**:  You will need to use the `as_factor` function to convert the `year` column to `factor` type.
+
+<details><summary>Answer</summary>
+
+Your first attempt would be to use the code we used before to subset the `surveys_complete` dataset, but also adding the `mutate` function to add a new `weight_kg` column. Further more you will need to also add the `ggplot` function to draw a boxplot:
+
+```{r, purl = TRUE, eval=TRUE}
+surveys_complete %>%
+  # Add weight_kg column
+  mutate(weight_kg = weight / 1000) %>%
+  # Select columns
+  select(species_id, weight_kg, hindfoot_length, year, sex) %>%
+  # Filter rows
+  filter(year >= 1995) %>%
+  # Plot transformed data
+  ggplot(mapping = aes(x = year, y = weight_kg)) +
+    geom_boxplot()
+```
+
+You might notice that this code produces a warning message about the continuous data type of the x-axis and also creates a box plot with one single box and whisker averaged over all the years on the x-axis, rather than one for each year in the dataset as requested.  As shown in the [`ggplot2` cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf), box plots display a discrete variable on the x-axis and a continuous variable on the y-axis.  At the moment `year` is treated as a continuous variable since its data type is `double`  (you can see this from the tibble).  To fix this, we need to convert the data type of the `year` column to a categorical one (`factor`) so that each year can be plotted as a separate box and whisker.
+
+The `forcats` package that is part of `tidyverse` has the [`as_factor`](https://forcats.tidyverse.org/reference/as_factor.html) function which does just that; it converts a variable into a factor. See the updated code below, which uses the `as_factor` function: 
+
+```{r, purl = TRUE, eval=TRUE}
+surveys_complete %>%
+  # Add weight_kg column
+  mutate(weight_kg = weight / 1000) %>%
+  # Select columns
+  select(species_id, weight_kg, hindfoot_length, year, sex) %>%
+  # Filter rows
+  filter(year >= 1995) %>%
+  # Convert the year column to a factor
+  mutate(year = as_factor(year)) %>%
+  # Plot transformed data
+  ggplot(mapping = aes(x = year, y = weight_kg)) +
+    geom_boxplot()
+```
+
+Notice that since we need to keep only observations that have been observed from 1995 onwards, we need to convert the `year` column to a `factor` *after* we filter the rows, as otherwise the row filtering operation will not be possible.  This is because the new `year` column of type `factor` does not have any ordering in its categories so perfoming `year >= 1995` would not be possible.
+
+It is also possible to convert the `year` variable directly from within `ggplot`, thereby skipping the `mutate` step from above. We can do this using the updated code below (output is the same as above):
+
+```{r, purl = TRUE}
+surveys_complete %>%
+  # Add weight_kg column
+  mutate(weight_kg = weight / 1000) %>%
+  # Select columns
+  select(species_id, weight_kg, hindfoot_length, year, sex) %>%
+  # Filter rows
+  filter(year >= 1995) %>%
+  # Convert the year variable and plot transformed data
+  ggplot(mapping = aes(x = as_factor(year), y = weight_kg)) +
+    geom_boxplot()
+```
+
+**Note on the boxplot**
+
+As mentioned the boxplot is used to visualise the distribution of a continuous variable.  In the example above we displayed the distribution of `weight` over the different years.  The figure below illustrates the different components of the boxplot. The bottom line of the box represents the 25th quantile, middle line the 50th quantile (or median) and the top line of the box is the 75th quantile. The whiskers can be thought of as defining the boundary of the confidence intervals of the distribution.  The dots outside these whiskers are the outliers.  
+
+<center><img src="img/boxplot.png" width="60%"/></center>
+
+</details>
+
+:::
 
 <br/>
 
@@ -253,6 +282,7 @@ surveys_complete %>%
 library(rmarkdown)
 paged_table(surveys_complete %>% arrange(weight, desc(hindfoot_length)))
 ```
+
 As you can see from the result returned, the animals with the smallest weight are at the top.  When there is a tie, *i.e.,* more than one animal has the same weight, the animals are sorted in descending order of `hindfoot_length`. As you can see, the subset of animals with `weight` of 4 have been sorted in descending order based on `hindfoot_length`.
 
 <br/>
@@ -277,23 +307,35 @@ surveys_complete %>%
   count(sex, species) 
 ```
 
-> ### Challenge
->
->1. How many animals were observed in each `plot_type` surveyed?
->
-> ```{r, answer=TRUE}
->surveys_complete %>%
->     count(plot_type) 
-> ```
->
->
->2. What is the frequency of each species of each sex observed?  Sort each species in descending order of freqency.
->
->```{r, answer=TRUE}
->surveys_complete %>%
->  count(sex, species) %>%
->  arrange(species, desc(n))
->```
+:::exercise
+### Challenge - count data
+
+1. How many animals were observed in each `plot_type` surveyed?
+
+<details><summary>Answer</summary>
+```{r, purl = TRUE}
+surveys_complete %>%
+     count(plot_type) 
+```
+</details>
+
+:::
+
+<br />
+
+:::exercise
+### Challenge - frequencies
+
+2. What is the frequency of each species of each sex observed?  Sort each species in descending order of frequency.
+
+<details><summary>Answer</summary>
+```{r, purl = TRUE}
+surveys_complete %>%
+  count(sex, species) %>%
+  arrange(species, desc(n))
+```
+</details>
+:::
 
 <br/>
 
@@ -336,7 +378,8 @@ surveys_complete %>%
 As seen from the result, the `mean` of the values present in the `weight` column is 41.8. This value is the mean of `weight` of the entire data set. We already know that there are many different groups within the data set, so this is not very informative. It would therefore be good to calculate `mean` values for groups within the data. We cover how to do this next.
 
 ## Grouping data
-In the examples above we learnt how to summarise data over all observations, *e.g.,* we calculated the mean over all observations using the `summarise` function. However, in data analysis, especially when dealing with big data, a common approach to data exploration is the [**split-apply-combine**](https://www.jstatsoft.org/article/view/v040i01) strategy. The idea behind this strategy is to split the data into more managable pieces, apply any operations required on the data independently on each piece and then combine the results together. The figure below illustrates the approach that is done in the split-apply-combine approach.
+
+In the examples above we learned how to summarise data over all observations, *e.g.,* we calculated the mean over all observations using the `summarise` function. However, in data analysis, especially when dealing with big data, a common approach to data exploration is the [**split-apply-combine**](https://www.jstatsoft.org/article/view/v040i01) strategy. The idea behind this strategy is to split the data into more manageable pieces, apply any operations required on the data independently on each piece and then combine the results together. The figure below illustrates the approach that is done in the split-apply-combine approach.
 
 ![](img/split-apply-combine.svg)  
 
@@ -365,33 +408,46 @@ surveys_complete %>%
             min_weight = min(weight))
 ```
 
-> ### Challenge
->
->1. Use `group_by()` and `summarise()` to find the mean, min, and max hindfoot
-> length for each species (using `species_id`). Also add the number of
-> observations in a column called `n_obs` (hint: see `?n`).
->
-> ```{r, answer=TRUE, results=TRUE}
-> surveys_complete %>%
->     group_by(species_id) %>%
->     summarise(
->         mean_hindfoot_length = mean(hindfoot_length),
->         min_hindfoot_length = min(hindfoot_length),
->         max_hindfoot_length = max(hindfoot_length),
->         n_obs = n()
->     )
->```
->
->2. What was the heaviest animal measured in each year? Return the columns `year`,
-> `genus`, `species`, and `weight`.
->
-> ```{r, answer=TRUE, results=TRUE}
-> surveys_complete %>%
->     group_by(year) %>%
->     filter(weight == max(weight)) %>%
->     select(year, genus, species_id, weight) %>%
->     arrange(year)
-> ```
+:::exercise
+
+### Challenge - grouping & summarising
+
+Use `group_by()` and `summarise()` to find the mean, min, and max hindfoot length for each species (using `species_id`). Also add the number of observations in a column called `n_obs` (hint: see `?n`).
+
+<details><summary>Answer</summary>
+```{r, purl = TRUE, results=TRUE}
+surveys_complete %>%
+    group_by(species_id) %>%
+    summarise(
+        mean_hindfoot_length = mean(hindfoot_length),
+        min_hindfoot_length = min(hindfoot_length),
+        max_hindfoot_length = max(hindfoot_length),
+        n_obs = n()
+    )
+```
+</details>
+
+:::
+
+<br />
+
+:::exercise
+
+### Challenge - grouping and sorting
+
+What was the heaviest animal measured in each year? Return the columns `year`, `genus`, `species`, and `weight`.
+
+<details><summary>Answer</summary>
+```{r, purl = TRUE, results=TRUE}
+surveys_complete %>%
+    group_by(year) %>%
+    filter(weight == max(weight)) %>%
+    select(year, genus, species_id, weight) %>%
+    arrange(year)
+```
+</details>
+
+:::
 
 <br/>
 
@@ -407,7 +463,7 @@ Before using `write_csv()`, note that we are going to write the data to the `dat
 Let's save the `surveys_complete` tibble in `data_processed/surveys_complete.csv` file:
 
 ```{r, eval=FALSE}
-write_csv(surveys_complete, path = "data_processed/surveys_complete.csv")
+write_csv(surveys_complete, "data_processed/surveys_complete.csv")
 ```
 
 

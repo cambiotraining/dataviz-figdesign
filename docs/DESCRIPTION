@@ -1,2 +1,0 @@
-Package: recologylesson
-Imports: remotes, tidyverse, hunspell, hexbin, dbplyr, gridExtra, rmarkdown, knitr, RSQLite

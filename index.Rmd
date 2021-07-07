@@ -1,5 +1,5 @@
 ---
-title: "Widening Participation Summer School Bioinformatics Training Sessions"
+title: "Data Visualisation and Figure Design"
 toc: hide
 ---
 
@@ -48,13 +48,35 @@ This course is designed for participants with no programming experience.
 
 <br/>
 
-### Sessions
+### Session overview
 
-1. [Getting started](00-getting-started.html)
-2. [Introduction to R programming](01-intro-to-r.html)
-3. [Starting with data](02-starting-with-data.html)
-4. [Data visualisation](03-data_visualisation.html)
-5. [Data manipulation](04-data_manipulation.html)
+**Session 1**
+
+- Overview of sessions
+- Data Visualisation Basics & Theory (lecture)
+- Group Exercise on Finding and Critiquing figures
+
+**Session 2**
+
+- Starting your Project in RStudio; variables, calling functions, data types
+
+**Session 3**
+
+- Data structures (data frames) and reading and writing from/into files
+
+**Session 4**
+
+- Introduction to `ggplot2`, geometries, aesthetics, etc
+
+**Session 5**
+
+- Facets, custom scales (colour brewer), etc.
+- Saving and assembling plots (`patchwork` or `ggarrange`).
+- Data visualisation homework exercise
+
+**Session 6**
+
+- Data Visualization Presentation and Feedback
 
 <br/>
 

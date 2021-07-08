@@ -127,3 +127,5 @@ do this once):
 - Change "Save workspace to .RData on exit" option to "Never"
 - Press <kbd>OK</kbd>
 
+![Set 'Save workspace to .RData on exit' to 'Never'](img/rstudio-preferences.png)
+

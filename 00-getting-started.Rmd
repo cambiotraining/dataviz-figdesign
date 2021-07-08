@@ -129,20 +129,11 @@ Before starting to write code in RStudio, we need to create an R Project.  The i
 To create an "R Project":
 
 1. Start RStudio.
-2. Under the `File` menu, click on `New Project`. Choose `New Directory`, then
-  `New Project`.
+2. Under the <kbd>File</kbd> menu, click on <kbd>New Project</kbd>. Choose <kbd>New Directory</kbd>, then <kbd>New Project</kbd>.
 3. Enter a name for this new folder (or "directory"), and choose a convenient
   location for it. This will be your **working directory** for the rest of the
   day (*e.g.,* `~/my-first-project`).
-4. Click on `Create Project`.
-5. (Optional) Set Preferences to 'Never' save workspace in RStudio.
-
-RStudio's default preferences generally work well, but saving a workspace to
-`.RData` can be cumbersome, especially if you are working with larger datasets as this would save all the data that is loaded into R into the `.RData` file.  
-To turn that off, go to `Tools` --> `Global Options` and select the 'Never' option
-for `Save workspace to .RData' on exit.`
-
-![Set 'Save workspace to .RData on exit' to 'Never'](img/rstudio-preferences.png)
+4. Click on <kbd>Create Project</kbd>.
 
 <br/>
 

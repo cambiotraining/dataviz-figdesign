@@ -25,7 +25,8 @@ navbar:
           href: 02-starting-with-data.html
         - text: "Introduction to ggplot2"
           href: 03-intro-ggplot2.html
-        - text: "TODO: Customising Plots"
+        - text: "Customising Plots"
+          href: 05-customising-plots.html
     - text: "Homework"
       menu:
         - text: "TODO"

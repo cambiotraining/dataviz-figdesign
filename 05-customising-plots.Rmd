@@ -1,0 +1,52 @@
+---
+title: "Data visualisation with `ggplot2` - part II"
+teaching: 50
+exercises: 30
+questions:
+  - "How can we fully customise a plot, by adding annotations, labels, control the axis limits, and change its overall look?"
+  - "How can we compose several plots together?"
+objectives: 
+  - "Add labelling and annotations to a ggplot using `labs()`, `annotate()`, `geom_text()`, `geom_hline()`, `geom_vline()`, `geom_abline()` and `geom_smooth()`."
+  - "Customise the overall look of a plot using the `theme()` family of functions."
+  - "Use the `patchwork` package to compose a grid of plots."
+keypoints:
+  - "Use `labs()` to customise the labels of your plot's aesthetics (e.g. `x`, `y`, `colour`, `fill`, `size`, etc.)."
+  - "Use `annotate()` to freely add text, segments or rectangles to your plot."
+  - "Use built-in `theme_*()` functions to change the overall look of your graphs."
+  - "Use `theme()` to change the look of every single element of the graph."
+  - "Use `set_theme()` to change the theme for the rest of your R session."
+  - "Use the `patchwork` package to compose graphs, using the `|` and `/` operators to place two plots side-by-side or top-and-bottom, respectively."
+  - "The `plot_layout()` function can be used to adjust your plot arrangement. Useful options are `widths` and `heights` to adjust the relative size of the panels, and `guides = 'collect'` to make a single legend common to the whole figure." 
+  - "Use `plot_annotation(tag = 'A')` to automatically add a letter tag to each panel."
+source: Rmd
+---
+
+```{r, include=FALSE}
+source("setup.R")
+#knitr_fig_path("10-")
+#knitr::opts_chunk$set(fig.width=12, fig.height=7) 
+```
+
+In this episode we're going to expand on our skills using the `ggplot2` package, 
+which will allow us to further customise our plots. 
+We're also going to learn how to assemble several plots together, and export them in 
+a publication-ready manner.
+
+For this lesson, we'll use the `surveys` dataset. Let's read it into R, 
+along with loading the `tidyverse` package.
+
+```{r, message=FALSE}
+# load package
+library(tidyverse)
+# read data - specify that missing values are encoded as an empty value
+surveys <- read_csv("data_raw/portal_data_joined.csv")
+```
+
+Let's also start by making an initial graph, which includes features that we've 
+learned about in the [intro to ggplot section](.\03-intro-ggplot2.html):
+
+```{r, warning=FALSE}
+ggplot(data = surveys, 
+       aes(x = weight, y = hindfoot_length)) +
+  geom_point()
+```

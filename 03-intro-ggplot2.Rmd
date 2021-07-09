@@ -11,6 +11,8 @@ suppressWarnings(surveys$date <- lubridate::ymd(paste(surveys$year,
                                                       sep = "-")))
 ```
 
+<br />
+
 # Visualising data in R
 
 <img src="img/ggplot2.png" width="50"/>
@@ -38,6 +40,8 @@ Let's practice this on our `surveys` data set. We would like to create a scatter
 ```{r}
 ggplot(data = surveys, mapping = aes(x = weight, y = hindfoot_length))
 ```
+
+<br />
 
 ## Adding layers
 
@@ -135,6 +139,54 @@ surveys_plot +
 </details>
 :::
 
+<br />
+
+## Facets
+You can split your plot into multiple panels by using facetting. There are two types of facet functions:
+
+* `facet_wrap()` arranges a one-dimensional sequence of panels to fit on one page.
+* `facet_grid()` allows you to form a matrix of rows and columns of panels.
+Both geometries allow to to specify faceting variables specified with `vars()`.
+
+In general:
+
+* `facet_wrap(facets = vars(facet_variable))`
+* `facet_grid(rows = vars(row_variable), cols = vars(col_variable))`.
+For example, if we want to visualise the scatter plot above split by `plot_type`:
+
+```{r, warning=FALSE}
+ggplot(surveys, 
+       aes(x = weight, y = hindfoot_length)) +
+  geom_point() +
+  facet_wrap(facets = vars(plot_type))
+```
+
+If instead we want a matrix of facets to display `plot_type` and `sex`, then we use `facet_grid()`:
+
+```{r, warning=FALSE}
+ggplot(surveys, 
+       aes(x = weight, y = hindfoot_length)) +
+  geom_point() +
+  facet_grid(rows = vars(sex), cols = vars(plot_type))
+```
+  
+Finally, with `facet_grid()`, you can organise the panels just by rows or just by columns. Try running this code yourself:
+
+```{r, warning=FALSE, eval=FALSE}
+# One column, facet by rows
+ggplot(surveys, 
+       aes(x = weight, y = hindfoot_length)) +
+  geom_point() +
+  facet_grid(rows = vars(sex))
+
+# One row, facet by column
+ggplot(surveys, 
+       aes(x = weight, y = hindfoot_length)) +
+  geom_point() +
+  facet_grid(cols = vars(sex))
+```
+
+<br />
 
 ## Saving a plot to a file {#saveplot}
 

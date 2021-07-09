@@ -23,7 +23,7 @@ navbar:
           href: 01-intro-to-r.html
         - text: "Starting With Data"
           href: 02-starting-with-data.html
-        - text: "Introduction to data visualisation"
+        - text: "Data visualisation"
           href: 03-intro-ggplot2.html
         - text: "Customising Plots"
           href: 05-customising-plots.html

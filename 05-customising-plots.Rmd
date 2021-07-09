@@ -80,7 +80,7 @@ p1 <- ggplot(data = surveys,
   scale_size_continuous(trans = "log10")
 ```
 
-To view the plot, you can type it's name on the console:
+To view the plot, you can type its name on the console:
 
 ```{r, eval=FALSE}
 p1
@@ -127,8 +127,7 @@ p1 +
   geom_text(aes(label = species))
 ```
 
-Wow! That's a bit too much, and not very informative. We can do better, by telling the 
-geometry to check for overlaps:
+Oh dear, that's a bit too much, and not very informative. We can do better, by telling the geometry to check for overlaps:
 
 ```{r, warning=FALSE}
 p1 + 
@@ -403,7 +402,7 @@ different parts of the grid of plots with `()`. For example:
 ```
 
 Finally, you can customise these arrangements in several ways using the `plot_layout()` 
-function. For example, we can "colect" the legends and define the relative height of 
+function. For example, we can "collect" the legends and define the relative height of 
 each panel:
 
 ```{r, warning=FALSE, fig.height=12}

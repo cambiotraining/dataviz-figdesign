@@ -506,7 +506,7 @@ div.tocify {
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> plot_type)) <span class="sc">+</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>) <span class="sc">+</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size_continuous</span>(<span class="at">trans =</span> <span class="st">&quot;log10&quot;</span>)</span></code></pre></div>
-<p>To view the plot, you can type it’s name on the console:</p>
+<p>To view the plot, you can type its name on the console:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>p1</span></code></pre></div>
 <div id="annotating-your-graphs" class="section level2">
 <h2>Annotating your graphs</h2>
@@ -535,7 +535,7 @@ div.tocify {
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> species))</span></code></pre></div>
 <p><img src="img/R-ecology-unnamed-chunk-7-1.png" width="672" /></p>
-<p>Wow! That’s a bit too much, and not very informative. We can do better, by telling the geometry to check for overlaps:</p>
+<p>Oh dear, that’s a bit too much, and not very informative. We can do better, by telling the geometry to check for overlaps:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> species), <span class="at">check_overlap =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="img/R-ecology-unnamed-chunk-8-1.png" width="672" /></p>
@@ -696,7 +696,7 @@ Answer
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Put p1 and p2 side by side. Then put those on the top and p3 on the bottom</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">|</span> p2) <span class="sc">/</span> p3</span></code></pre></div>
 <p><img src="img/R-ecology-unnamed-chunk-22-1.png" width="672" /></p>
-<p>Finally, you can customise these arrangements in several ways using the <code>plot_layout()</code> function. For example, we can “colect” the legends and define the relative height of each panel:</p>
+<p>Finally, you can customise these arrangements in several ways using the <code>plot_layout()</code> function. For example, we can “collect” the legends and define the relative height of each panel:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>( (p1 <span class="sc">|</span> p2) <span class="sc">/</span> p3 ) <span class="sc">+</span> </span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">&quot;collect&quot;</span>, <span class="at">heights =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span></code></pre></div>
 <p><img src="img/R-ecology-unnamed-chunk-23-1.png" width="672" /></p>

@@ -424,7 +424,7 @@ div.tocify {
       <a href="02-starting-with-data.html">Starting With Data</a>
     </li>
     <li>
-      <a href="03-intro-ggplot2.html">Introduction to ggplot2</a>
+      <a href="03-intro-ggplot2.html">Data visualisation</a>
     </li>
     <li>
       <a href="05-customising-plots.html">Customising Plots</a>
@@ -634,12 +634,21 @@ div.tocify {
 <p><img src="img/R-ecology-unnamed-chunk-18-1.png" width="672" /></p>
 <div class="exercise">
 <p>Combining what we’ve learned so far, try and create the following 3 graphs, which should be saved as <code>p1</code>, <code>p2</code> and <code>p3</code>.</p>
-<p>Hints:</p>
 <ul>
-<li>update your <code>p1</code> graph by adding an <em>annotation</em> with a rectangle with <code>xmin = 200, xmax = 285, ymin = 25, ymax = 40</code>. Also add labels to the axis and scales.</li>
-<li><code>p2</code> is identical to <code>p1</code>, that it’s “zoomed-in” on the area defined by the box in <code>p1</code>.</li>
-<li>for <code>p3</code>, make sure the y-axis is on a log scale (using <code>scale_y_continuous()</code>); use the <code>annotate_logticks()</code> function to add the ticks on the y-axis; and use the <code>theme()</code> function to ensure the legend doesn’t show and that the x-axis labels are at a 45 degree angle.</li>
+<li><code>p1</code> is the same scatter plot we’ve been working with so far (showing the relationship between weight and hindfoot length), but annotated with a grey box to highlight a group of points that we want to look at in more detail.</li>
+<li><code>p2</code> is a zoom-in of the region highlighted in <code>p1</code>, marked with the grey box (notice the x- and y-axis scales).</li>
+<li><code>p3</code>, is a modification of the first plot, showing the weight on a log-scale.</li>
 </ul>
+<details>
+<summary>
+Hint
+</summary>
+<ul>
+<li>For <code>p1</code>, change the graph by adding an <em>annotation</em> with a rectangle with <code>xmin = 200, xmax = 285, ymin = 25, ymax = 40</code>. Also add labels to the axis and scales.</li>
+<li>To get <code>p2</code>, change the plot coordinates to match that of the grey rectangle, using <code>coord_cartesian(xlim = c(200, 285), ylim = c(25, 40))</code>.</li>
+<li>To create the log-scale y-axis in <code>p3</code>, use <code>scale_y_continuous()</code>); you can further improve the readability of the plot by using the <code>annotate_logticks()</code> function to add the ticks on the y-axis; and use the <code>theme()</code> function to ensure the legend doesn’t show and that the x-axis labels are at a 45 degree angle.</li>
+</ul>
+</details>
 <p><img src="img/R-ecology-unnamed-chunk-19-1.png" width="672" /></p>
 <details>
 <summary>
@@ -678,7 +687,7 @@ Answer
 </div>
 <div id="composing-plots" class="section level2">
 <h2>Composing plots</h2>
-<p>To compose several plots together, we will use the <a href="https://patchwork.data-imaginist.com/"><code>patchwork</code> package</a> (check it’s documentation, which is full of excelent examples of its usage).</p>
+<p>To compose several plots together, we will use the <a href="https://patchwork.data-imaginist.com/"><code>patchwork</code> package</a> (check its documentation, which is full of excellent examples of its usage).</p>
 <p>The easiest way to use the package is to first save the individual plots we want to assemble in different objects. Let’s use the plots we made in our exercise.</p>
 <p>There are different ways in which you can specify how to put graphs together using <code>patchwork</code>, but the way we’re going to use in this lesson uses these two operators:</p>
 <ul>

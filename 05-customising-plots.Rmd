@@ -291,12 +291,18 @@ p1
 
 Combining what we've learned so far, try and create the following 3 graphs, 
 which should be saved as `p1`, `p2` and `p3`.
- 
-Hints: 
- 
-- update your `p1` graph by adding an _annotation_ with a rectangle with `xmin = 200, xmax = 285, ymin = 25, ymax = 40`. Also add labels to the axis and scales.
-- `p2` is identical to `p1`, that it's "zoomed-in" on the area defined by the box in `p1`.
-- for `p3`, make sure the y-axis is on a log scale (using `scale_y_continuous()`); use the `annotate_logticks()` function to add the ticks on the y-axis; and use the `theme()` function to ensure the legend doesn't show and that the x-axis labels are at a 45 degree angle. 
+
+- `p1` is the same scatter plot we've been working with so far (showing the relationship between weight and hindfoot length), but annotated with a grey box to highlight a group of points that we want to look at in more detail.
+- `p2` is a zoom-in of the region highlighted in `p1`, marked with the grey box (notice the x- and y-axis scales).
+- `p3`, is a modification of the first plot, showing the weight on a log-scale.
+
+<details><summary>Hint</summary>
+
+- For `p1`, change the graph by adding an _annotation_ with a rectangle with `xmin = 200, xmax = 285, ymin = 25, ymax = 40`. Also add labels to the axis and scales.
+- To get `p2`, change the plot coordinates to match that of the grey rectangle, using `coord_cartesian(xlim = c(200, 285), ylim = c(25, 40))`.
+- To create the log-scale y-axis in `p3`, use `scale_y_continuous()`); you can further improve the readability of the plot by using the `annotate_logticks()` function to add the ticks on the y-axis; and use the `theme()` function to ensure the legend doesn't show and that the x-axis labels are at a 45 degree angle. 
+
+</details>
 
 ```{r, echo=FALSE, warning=FALSE}
 library(patchwork)
@@ -331,7 +337,7 @@ p3 <- ggplot(data = surveys,
   theme(legend.position = "none",
         axis.text.x = element_text(angle = 45, hjust = 1))
 
-{p1 | p2} / {p3}
+p1 / p2 / p3
 ```
 
 <details><summary>Answer</summary>
@@ -372,8 +378,8 @@ p3 <- ggplot(data = surveys,
 ## Composing plots 
 
 To compose several plots together, we will use the 
-[`patchwork` package](https://patchwork.data-imaginist.com/) (check it's documentation, 
-which is full of excelent examples of its usage). 
+[`patchwork` package](https://patchwork.data-imaginist.com/) (check its documentation, 
+which is full of excellent examples of its usage). 
 
 The easiest way to use the package is to first save the individual plots we want to 
 assemble in different objects. Let's use the plots we made in our exercise. 

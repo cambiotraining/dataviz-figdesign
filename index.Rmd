@@ -82,10 +82,10 @@ This course is designed for participants with no programming experience.
 
 ### Data
 
-Data are from the paper [S. K. Morgan Ernest, Thomas J. Valone, and James H. Brown. 2009. Long-term monitoring and experimental manipulation of a Chihuahuan Desert ecosystem near Portal, Arizona, USA. Ecology 90:1708.](http://esapubs.org/archive/ecol/E090/118/)
+Data are from the paper [S. K. Morgan Ernest, Thomas J. Valone, and James H. Brown. 2009. Long-term monitoring and experimental manipulation of a Chihuahuan Desert ecosystem near Portal, Arizona, USA. Ecology 90:1708.](https://pubmed.ncbi.nlm.nih.gov/28792597/)
 
 A simplified version of these data, suitable for teaching is available here which is the data we will be using in this course:
-<https://doi.org/10.6084/m9.figshare.1314459>
+<https://ndownloader.figshare.com/files/2292169>
 
 However, we will download them directly from R during the lessons when we need them.
 

@@ -55,7 +55,8 @@ ggplot(data = surveys, mapping = aes(x = weight, y = hindfoot_length)) +
 You can customise some of the visualisations of the plot to extract more information from it.  For instance, we can add transparency (`alpha`) to avoid overplotting:
 
 ```{r adding-transparency, message=FALSE, warning=FALSE, fig.show=TRUE}
-ggplot(data = surveys, mapping = aes(x = weight, y = hindfoot_length)) +
+ggplot(data = surveys,
+       mapping = aes(x = weight, y = hindfoot_length)) +
     geom_point(alpha = 0.1)
 ```
 
@@ -64,9 +65,24 @@ You can find a list of aesthetics for each type of plot in the [ggplot2 cheat sh
 We can also add colours for all the points:
 
 ```{r adding-colours, message=FALSE, warning=FALSE, fig.show=TRUE}
-ggplot(data = surveys, mapping = aes(x = weight, y = hindfoot_length)) +
-    geom_point(alpha = 0.1, colour = "blue")
+ggplot(data = surveys,
+       mapping = aes(x = weight, y = hindfoot_length), colour = "blue") +
+    geom_point()
 ```
+
+Another way of colouring data points is based on a variable. For example, if we were interested to see which data points belong to each plot type - to see if there is any pattern in the data - then we could give each plot type its own colour. The way to specify this is in the `aes()` helper function, where we give the `colour` argument the relevant variable (i.e. the name of the column in our data set that contains this variable).
+
+```{r adding-colours-data, message=FALSE, warning=FALSE, fig.show=TRUE}
+ggplot(data = surveys,
+       mapping = aes(x = weight, y = hindfoot_length, colour = plot_type)) +
+    geom_point()
+```
+
+:::note
+**Colour within `aes()` or not?**
+
+It might be a bit confusing where the `colour` argument needs to go. When we were colouring all the data points blue it went in the `geom_point()` and not within an `aes()`, whereas when we were colouring based on `plot_type` it had to go inside the `aes()`. An easy way to remember what to use is: _If the colour is based on the data, then it goes inside `aes()`, otherwise it does not._
+:::
 
 If we would like to try other type of plots on the data, the best thing is to save the ggplot into a variable as below:
 

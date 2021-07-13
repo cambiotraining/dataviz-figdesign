@@ -343,7 +343,7 @@ Some of the main advantages of _tidyverse_ over _R base_ are:
 2. **Faster**
 <p>Using tidyverse is up to 10x faster[^1] when compared to the corresponding base R base functions.</p>
 3. **It does not convert data upon importing**
-<p>R Base has the somehwat annoying habit of converting data types when importing data, which can lead to problems when doing further analyses. With tidyverse, this does not happen.
+<p>R Base has the somewhat annoying habit of converting data types when importing data, which can lead to problems when doing further analyses. With tidyverse, this does not happen.
 
 [^1]: https://readr.tidyverse.org/
 </p>

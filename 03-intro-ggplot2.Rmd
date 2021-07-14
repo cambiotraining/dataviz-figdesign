@@ -66,8 +66,8 @@ We can also add colours for all the points:
 
 ```{r adding-colours, message=FALSE, warning=FALSE, fig.show=TRUE}
 ggplot(data = surveys,
-       mapping = aes(x = weight, y = hindfoot_length), colour = "blue") +
-    geom_point()
+       mapping = aes(x = weight, y = hindfoot_length)) +
+    geom_point(colour = "blue")
 ```
 
 Another way of colouring data points is based on a variable. For example, if we were interested to see which data points belong to each plot type - to see if there is any pattern in the data - then we could give each plot type its own colour. The way to specify this is in the `aes()` helper function, where we give the `colour` argument the relevant variable (i.e. the name of the column in our data set that contains this variable).

@@ -62,7 +62,7 @@ ggplot(data = surveys,
 
 You can find a list of aesthetics for each type of plot in the [ggplot2 cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf).  
 
-We can also add colours for all the points:
+We can also add colours for all the points by adding the `colour` argument to the geom.
 
 ```{r adding-colours, message=FALSE, warning=FALSE, fig.show=TRUE}
 ggplot(data = surveys,

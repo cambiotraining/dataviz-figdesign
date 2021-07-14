@@ -117,6 +117,12 @@ assistance before the course.
 
 <br />
 
+### Updating `tidyverse`
+
+If you already have R installed and have used `tidyverse` before, then it would be good to check that you are using the latest version. To do this, go to <kbd>Tools</kbd> > <kbd>Check for package updates...</kbd> and look at the list of updates it gives you. If `tidyverse` is in the list, tick the box and press <kbd>Install updates</kbd>. Alternatively, just select all of the available updates and install them.
+
+<br />
+
 ### Setting up RStudio
 
 After installing RStudio, change some of its default options (you only need to 

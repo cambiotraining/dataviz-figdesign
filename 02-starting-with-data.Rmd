@@ -126,8 +126,17 @@ Now it is time for you to practice some of these things. Try to do the following
 3. Find out what data types are in `surveys`
 4. Are there missing values in the data? If so, can you see how many?
 
-**hint** you can use the `summary()` function to get more information on your data set
+**Hint:** you can use the `summary()` function to get more information on your data set
+
+<details><summary>Answer</summary>
+```{r}
+# Each variable will come with its own summary statistics
+summary(surveys)
+```
+</details>
 :::
+
+<br />
 
 ## Data frames
 Data frames are one of the most widely used type of data structure in R.  It is very popular as most of the data is readily available in tabular form and it is the also the data structure used when plotting and performing most analyses in R.
@@ -195,7 +204,6 @@ The plot we created above was a simple scatter plot, which used the `geom_point(
 # There are different options for the x-axis
 ggplot(data = surveys, aes(x = plot_type, y = hindfoot_length)) +
   geom_boxplot()
-
 ```
 
 </details>

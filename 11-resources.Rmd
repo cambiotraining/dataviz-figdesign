@@ -1,5 +1,6 @@
 ---
 title: "Other resources"
+toc: hide
 ---
 
 Other resources that might be useful (to be added).

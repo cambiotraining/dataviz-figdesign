@@ -18,9 +18,22 @@ suppressWarnings(surveys$date <- lubridate::ymd(paste(surveys$year,
 <img src="img/ggplot2.png" width="50"/>
 
 Visualising is probably one of the most satisfying parts of doing data analysis. After all, who doesn't like a nice plot? In tidyverse plotting is made very easy for us, using the **`ggplot2`** package.
-`ggplot2` is a very popular package used for plotting mainly due to its simple, modular way to create plots from tabular data.  
+`ggplot2` is a very popular package used for plotting mainly due to its simple, modular way to create plots from tabular data and with it, you can easily create plots like this:
 
-To create a plot, we will use the following basic template. 
+```{r ggplot-example, purl = FALSE, eval=TRUE, echo=FALSE}
+surveys_complete <- surveys %>% drop_na()
+
+survey_recent <- surveys_complete %>%
+                  select(species_id, weight, hindfoot_length, year, sex) %>%
+                  filter(year >= 1995)
+                  
+ggplot(mapping = aes(x = weight, y = hindfoot_length)) +
+  geom_point(data = surveys_complete) +
+  geom_point(data = survey_recent, colour = "red", alpha = 0.4)
+```
+
+So how do we create such plots? Well, however complicated a plot is, the basic syntax that `ggplot` uses remains the same:
+
 ```
 ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) +  <GEOM_FUNCTION>()
 ```
@@ -35,9 +48,9 @@ Using the `ggplot` function on its own will not plot anything. We need to add a 
 
 * **geom_function**: This specifies the type of plot would you like to plot.  The greatest advantage of this is that you can easily change the plot type by just changing the geom_function and keeping everything else the same.  You can see a whole list of plots that you can plot  [here](https://ggplot2.tidyverse.org/reference/index.html#section-layer-geoms).
 
-Let's practice this on our `surveys` data set. We would like to create a scatter plot with `weight` on the x-axis, `hindfoot_length` on the y-axis 
+Let's practice this on our `surveys` data set. We would like to create a scatter plot with `weight` on the x-axis, `hindfoot_length` on the y-axis:
 
-```{r}
+```{r ggplot-empty}
 ggplot(data = surveys, mapping = aes(x = weight, y = hindfoot_length))
 ```
 
@@ -45,19 +58,19 @@ ggplot(data = surveys, mapping = aes(x = weight, y = hindfoot_length))
 
 ## Adding layers
 
-As you can see if you just specify the `ggplot` function with the data and aesthetic mappings, it will just create an empty plot.  Let us now add the geom_function for the scatter plot (`geom_point`) as a layer to the plot:
+As you can see if you just specify the `ggplot` function with the data and aesthetic mappings, it will create a plot, but the data itself is not displayed.  Let us now add the `geom_function` for the scatter plot (`geom_point()`) as a layer to the plot:
 
-```{r, message=FALSE, warning=FALSE, purl = FALSE}
+```{r ggplot-scatterplot, message=FALSE, warning=FALSE, purl = FALSE}
 ggplot(data = surveys, mapping = aes(x = weight, y = hindfoot_length)) +
   geom_point()
 ```
 
-You can customise some of the visualisations of the plot to extract more information from it.  For instance, we can add transparency (`alpha`) to avoid overplotting:
+You can customise some of the visualisations of the plot to extract more information from it.  For instance, we can add some transparency (`alpha`) to avoid over plotting. The `alpha` takes values from 0 (100% transparency) to 1 (0% transparency):
 
 ```{r adding-transparency, message=FALSE, warning=FALSE, fig.show=TRUE}
 ggplot(data = surveys,
        mapping = aes(x = weight, y = hindfoot_length)) +
-    geom_point(alpha = 0.1)
+    geom_point(alpha = 0.2)
 ```
 
 You can find a list of aesthetics for each type of plot in the [ggplot2 cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf).  
@@ -70,7 +83,7 @@ ggplot(data = surveys,
     geom_point(colour = "blue")
 ```
 
-Another way of colouring data points is based on a variable. For example, if we were interested to see which data points belong to each plot type - to see if there is any pattern in the data - then we could give each plot type its own colour. The way to specify this is in the `aes()` helper function, where we give the `colour` argument the relevant variable (i.e. the name of the column in our data set that contains this variable).
+Another way of colouring data points is **based on a variable**. For example, if we were interested to see which data points belong to each plot type - to see if there is any pattern in the data - then we could give each plot type its own colour. The way to specify this is in the `aes()` helper function, where we give the `colour` argument the relevant variable (i.e. the name of the column in our data set that contains this variable).
 
 ```{r adding-colours-data, message=FALSE, warning=FALSE, fig.show=TRUE}
 ggplot(data = surveys,
@@ -86,7 +99,7 @@ It might be a bit confusing where the `colour` argument needs to go. When we wer
 
 If we would like to try other type of plots on the data, the best thing is to save the ggplot into a variable as below:
 
-```{r, fig.show="hide", message=FALSE, warning=FALSE}
+```{r ggplot-assigning, fig.show="hide", message=FALSE, warning=FALSE}
 # Assign plot to a variable
 surveys_plot <- ggplot(data = surveys, 
                        mapping = aes(x = weight, y = hindfoot_length))
@@ -96,15 +109,18 @@ surveys_plot +
     geom_point()
 ```
 
-Now draw a `geom_smooth` plot.  This plot is good when you need to see if there is any pattern between the two variables being plotted that you would not normally see in a scatter plot due to overplotting.
-```{r, message=FALSE, warning=FALSE}
+As you can see, when we assigned the plot to `surveys_plot` we did not specify a `geom_function`. That is because if we store the plot backbone into a variable, we can then easily add the `geom_function` we are interested in, without having to type all the initial plot data again.
+
+Now let's draw a `geom_smooth` plot.  This plot is good when you need to see if there is any pattern between the two variables being plotted that you would not normally see in a scatter plot due to over plotting.
+
+```{r ggplot-smooth, message=FALSE, warning=FALSE}
 surveys_plot +
     geom_smooth()
 ```
 
 Rather than seeing each plot separately, sometimes plotting multiple plots on top of each other is a better way. You can add multiple plots as layers on top of each other as follows:
 
-```{r, message=FALSE, warning=FALSE}
+```{r ggplot-multiple-layers, message=FALSE, warning=FALSE}
 surveys_plot +
   geom_point() +
   geom_smooth()
@@ -117,7 +133,7 @@ surveys_plot +
 - You can also specify mappings for a given geom independently of the mappings defined globally in the `ggplot()` function.
 - The `+` sign used to add new layers must be placed at the end of the line containing the *previous* layer. If, instead, the `+` sign is added at the beginning of the line containing the new layer, >**`ggplot2`** will not add the new layer and will return an error message.
 
-```{r, eval=FALSE, purl=FALSE}
+```{r ggplot-layer-syntax, eval=FALSE, purl=FALSE}
 # This is the correct syntax for adding layers
 surveys_plot +
   geom_point()
@@ -131,7 +147,7 @@ surveys_plot
 <br />
 
 :::exercise
-Scatter plots can be useful exploratory tools for small data sets. For data sets with large numbers of observations, such as the `surveys` data set, over-plotting of points can be a limitation of scatter plots. We have already seen how we can visualise data better when we have over-plotting with the `geom_smooth` plot. Another way for handling over-plotting is to display the density of the data through contours. This is handled by the `geom_density` geometry. For this challenge do the following:
+Scatter plots can be useful exploratory tools for small data sets. For data sets with large numbers of observations, such as the `surveys` data set, over plotting of points can be a limitation of scatter plots. We have already seen how we can visualise data better when we have over-plotting with the `geom_smooth` plot. Another way for handling over-plotting is to display the density of the data through contours. This is handled by the `geom_density` geometry. For this challenge do the following:
 
 1. Create a script called `plot_density2d.R`
 2. In this script, load the data from `data_raw/portal_data_joined.csv` into a variable `surveys`.
@@ -139,7 +155,7 @@ Scatter plots can be useful exploratory tools for small data sets. For data sets
 
 <details><summary>Answer</summary>
 
-```{r, fig.show="hide", answer=TRUE, message=FALSE, warning=FALSE, purl=FALSE}
+```{r ggplot-exercise-density, fig.show="hide", answer=TRUE, message=FALSE, warning=FALSE, purl=FALSE}
 library(tidyverse)
 
 # Load the surveys data
@@ -158,7 +174,12 @@ surveys_plot +
 <br />
 
 ## Facets
-You can split your plot into multiple panels by using facetting. There are two types of facet functions:
+
+We have seen that we can highlight parts of our data by using colour. For example, we used `colour = plot_type` to colour our data based by plot type to see if there are any trends in the data.
+
+Another way of highlighting parts of the data is by splitting the data into separate panels, based on a variable within your data. This is called **faceting** and it is a very powerful tool in `ggplot` to better understand your data.
+
+There are two types of facet functions:
 
 * `facet_wrap()` arranges a one-dimensional sequence of panels to fit on one page.
 * `facet_grid()` allows you to form a matrix of rows and columns of panels.
@@ -168,18 +189,19 @@ In general:
 
 * `facet_wrap(facets = vars(facet_variable))`
 * `facet_grid(rows = vars(row_variable), cols = vars(col_variable))`.
+
 For example, if we want to visualise the scatter plot above split by `plot_type`:
 
-```{r, warning=FALSE}
+```{r facet-wrap, warning=FALSE}
 ggplot(surveys, 
        aes(x = weight, y = hindfoot_length)) +
   geom_point() +
   facet_wrap(facets = vars(plot_type))
 ```
 
-If instead we want a matrix of facets to display `plot_type` and `sex`, then we use `facet_grid()`:
+If instead we want a matrix of facets to display the data based on two variables, such as `plot_type` and `sex`, then we use `facet_grid()`:
 
-```{r, warning=FALSE}
+```{r facet-grid, warning=FALSE}
 ggplot(surveys, 
        aes(x = weight, y = hindfoot_length)) +
   geom_point() +
@@ -188,7 +210,7 @@ ggplot(surveys,
   
 Finally, with `facet_grid()`, you can organise the panels just by rows or just by columns. Try running this code yourself:
 
-```{r, warning=FALSE, eval=FALSE}
+```{r facet-manual, warning=FALSE, eval=FALSE}
 # One column, facet by rows
 ggplot(surveys, 
        aes(x = weight, y = hindfoot_length)) +
@@ -206,9 +228,11 @@ ggplot(surveys,
 
 ## Saving a plot to a file {#saveplot}
 
+Saving a plot is something you will want to do often. Fortunately it is quite easy to do this with `tidyverse`.
+
 To save a plot to file we use the `ggsave` function.  If you look at the [documentation of ggsave](https://ggplot2.tidyverse.org/reference/ggsave.html) you can see the different arguments the `ggsave` function takes.  Let's save the plot present in the `surveys_plot` variable into a file called `plot_weight_hindfoot_density2d.png` and place this into the `img_output` folder within our working directory (check that it is present, if not you need to create it).  
 
-```{r, eval=FALSE, warning=FALSE, message=FALSE}
+```{r ggsave, eval=FALSE, warning=FALSE, message=FALSE}
 # Save plot that you would like to save into a variable
 out_plot <- surveys_plot + geom_density2d()
 # Save plot to file
@@ -218,12 +242,12 @@ ggsave(filename = "img_output/plot_weight_hindfoot_density2d.png", plot = out_pl
 <br />
 
 :::note
-You do not need to save the plot into a variable before saving it to file.  If you do not specify the `plot` argument of the `ggsave` function, `ggsave` will take the last plot that you plotted and save it into the `filename` specified.
+You do not necessarily need to save the plot into a variable before saving it to file.  If you do not specify the `plot` argument in the `ggsave` function, `ggsave` will take the last plot that you plotted and save it into the `filename` specified.
 
-```{r, eval=FALSE, warning=FALSE, message=FALSE}
+```{r ggsave-directly, eval=FALSE, warning=FALSE, message=FALSE}
 # Save plot to file
 ggsave(filename = "img_output/plot_weight_hindfoot_density2d.png")
 ```
 
-Alternatively, you can go to the Plots pane and click on the **Export** button. This can be easy, but makes the output less reproducible for other people.
+Alternatively, you can go to the Plots pane and click on the **Export** button. This can be easy if you quickly want to share a plot, but it does mean that it is not reproducible. So if you want other people to recreate your work, then always use code to save your plots!
 :::

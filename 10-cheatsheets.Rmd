@@ -2,4 +2,8 @@
 title: "Cheatsheets"
 ---
 
-List of cheatsheets, to be added.
+List of useful cheatsheets.
+
+* [RStudio cheatsheet about the RStudio IDE](https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf)
+* [ggplot2 cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
+* [dplyr cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)

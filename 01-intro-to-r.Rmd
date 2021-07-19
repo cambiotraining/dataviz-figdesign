@@ -126,7 +126,7 @@ to select the whole line), then press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> +
 <kbd>C</kbd>.
 
 :::exercise
-
+### Exercise - assigning values
 What are the values after each statement in the following?
 
 ```{r, purl = FALSE}

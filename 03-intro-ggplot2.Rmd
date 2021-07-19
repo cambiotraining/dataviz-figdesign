@@ -81,6 +81,8 @@ ggplot(data = surveys,
 It might be a bit confusing where the `colour` argument needs to go. When we were colouring all the data points blue it went in the `geom_point()` and not within an `aes()`, whereas when we were colouring based on `plot_type` it had to go inside the `aes()`. An easy way to remember what to use is: _If the colour is based on the data, then it goes inside `aes()`, otherwise it does not._
 :::
 
+<br />
+
 ## Same data different plots
 If we would like to try other type of plots on the data, the best thing is to save the ggplot into a variable as below:
 
@@ -132,6 +134,7 @@ surveys_plot
 <br />
 
 :::exercise
+### Exercise - geom_density2d
 Scatter plots can be useful exploratory tools for small data sets. For data sets with large numbers of observations, such as the `surveys` data set, over plotting of points can be a limitation of scatter plots. We have already seen how we can visualise data better when we have over-plotting with the `geom_smooth` plot. Another way for handling over-plotting is to display the density of the data through contours. This is handled by the `geom_density` geometry. For this challenge do the following:
 
 1. Create a script called `plot_density2d.R`

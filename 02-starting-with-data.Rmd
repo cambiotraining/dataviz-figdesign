@@ -117,7 +117,7 @@ The first line of the output shows the **data structure** used to store the data
 <br/>
 
 :::exercise
-**Understanding data**
+### Exercise - Understanding data
 
 Now it is time for you to practice some of these things. Try to do the following:
 
@@ -180,6 +180,26 @@ If you just specify the `ggplot` function with the data and aesthetic mappings, 
 ggplot(data = surveys, mapping = aes(x = weight, y = hindfoot_length)) +
   geom_point()
 ```
+
+<br />
+
+:::exercise
+### Exercise - Boxplot
+The plot we created above was a simple scatter plot, which used the `geom_point()` function. There are many different types of geoms in ggplot and to explore this we would like you to create a [box plot](https://en.wikipedia.org/wiki/Box_plot), using the same data set.
+
+* The geoms are named quite logically, so finding the right geom for a box plot should be OK
+* The scatter plot uses two continuous variables. A box plot should only have a continuous y-variable, so on the x-axis you should plot a categorical variable (think back of your `summary()` output!)
+
+<details><summary>Answer</summary>
+```{r boxplot, message=FALSE, warning=FALSE, purl=TRUE}
+# There are different options for the x-axis
+ggplot(data = surveys, aes(x = plot_type, y = hindfoot_length)) +
+  geom_boxplot()
+
+```
+
+</details>
+:::
 
 <br />
 
@@ -278,8 +298,7 @@ The `sex` column is a character and thus needs to be quoted, whereas the `year` 
 <br />
 
 :::exercise
-**Pipes**
-
+### Exercise - Pipes
 Subset the `surveys_complete` data to keep only the `species_id`, `weight`, `hindfoot_length`, `year` and `sex` columns and the animals collected on and after 1995. How many rows are left?
 
 <details><summary>Answer</summary>

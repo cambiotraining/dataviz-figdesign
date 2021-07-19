@@ -648,8 +648,8 @@ div.tocify {
 #&gt; #   taxa &lt;chr&gt;, plot_type &lt;chr&gt;</code></pre>
 <p>The first line of the output shows the <strong>data structure</strong> used to store the data imported into: <strong><code>tibble</code></strong>. A <code>tibble</code> is the main data structure used in <code>tidyverse</code>. You can look at <code>tibble</code> as the <code>data.frame</code> version of <code>tidyverse</code>. The first immediate difference from a <code>data.frame</code> is that a <code>tibble</code> displays the data type of each column under its name (handy) and it only prints as many columns as fit on one screen (even handier, otherwise it would print 34,786 rows!).</p>
 <p><br/></p>
-<div class="exercise">
-<p><strong>Understanding data</strong></p>
+<div id="exercise---understanding-data" class="section level3 exercise">
+<h3>Exercise - Understanding data</h3>
 <p>Now it is time for you to practice some of these things. Try to do the following:</p>
 <ol style="list-style-type: decimal">
 <li>Download the data into the <code>data_raw</code> folder within your working directory</li>
@@ -696,6 +696,24 @@ div.tocify {
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="img/R-ecology-ggplot-scatterplot-1.png" width="672" /></p>
 <p><br /></p>
+<div id="exercise---boxplot" class="section level3 exercise">
+<h3>Exercise - Boxplot</h3>
+<p>The plot we created above was a simple scatter plot, which used the <code>geom_point()</code> function. There are many different types of geoms in ggplot and to explore this we would like you to create a <a href="https://en.wikipedia.org/wiki/Box_plot">box plot</a>, using the same data set.</p>
+<ul>
+<li>The geoms are named quite logically, so finding the right geom for a box plot should be OK</li>
+<li>The scatter plot uses two continuous variables. A box plot should only have a continuous y-variable, so on the x-axis you should plot a categorical variable (think back of your <code>summary()</code> output!)</li>
+</ul>
+<details>
+<summary>
+Answer
+</summary>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># There are different options for the x-axis</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> surveys, <span class="fu">aes</span>(<span class="at">x =</span> plot_type, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="img/R-ecology-boxplot-1.png" width="672" /></p>
+</details>
+</div>
+<p><br /></p>
 </div>
 <div id="transforming-data---dplyr" class="section level2">
 <h2>Transforming data - dplyr</h2>
@@ -714,27 +732,27 @@ div.tocify {
 <p>Before we move onto the different ways that we can transform our data, we’ll discuss one of the most powerful additions to R, <strong>pipes</strong>.</p>
 <p>Pipes let you take the output of one function and send it directly to the next, which is useful when you need to do many things to the same dataset. Pipes in R look like <code>%&gt;%</code> and are made available via the <strong><code>magrittr</code></strong> package, installed automatically with <code>dplyr</code>.</p>
 <p>Let’s say we are interested only in the data that do not contain any missing values. Using pipes, we do the following:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code></pre></div>
 <p>This takes the argument on the left (<code>surveys</code>) and passes it on to the function after it (<code>drop_na</code>, which removes all rows with missing values).</p>
 <p>If we want to create a new object with the transformed data we can assign it a new name as below:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="ot">&lt;-</span> surveys <span class="sc">%&gt;%</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">drop_na</span>()</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>surveys_complete</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="ot">&lt;-</span> surveys <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">drop_na</span>()</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>surveys_complete</span></code></pre></div>
 <p>Although at this point pipes might not seem like a revolutionary invention, they become more powerful when combining multiple operations. This we’ll see next.</p>
 <p><br/></p>
 </div>
 <div id="selecting-columns" class="section level3">
 <h3>Selecting columns</h3>
 <p>To select columns of a data frame or tibble, use the<code>select</code> function. The first argument is the data frame or tibble you are working on (in our example it is <code>surveys</code>, which we pipe through), and the subsequent arguments are the columns to keep.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract species_id, weight, hindfoot_lenth, year and sex columns from surveys dataset.</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span> </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species_id, weight, hindfoot_length, year, sex)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract species_id, weight, hindfoot_lenth, year and sex columns from surveys dataset.</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species_id, weight, hindfoot_length, year, sex)</span></code></pre></div>
 <p>To select all columns <em>except</em> certain ones, put a <code>-</code> in front of the column to exclude it.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select all columns of the surveys dataset apart from record_id and species_id columns.</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>record_id, <span class="sc">-</span>species_id)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select all columns of the surveys dataset apart from record_id and species_id columns.</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>record_id, <span class="sc">-</span>species_id)</span></code></pre></div>
 <p><br/></p>
 </div>
 <div id="filtering-rows" class="section level3">
@@ -744,47 +762,47 @@ div.tocify {
 <div id="filtering-rows-by-values" class="section level4">
 <h4>Filtering rows by values</h4>
 <p>To choose rows based on a specific condition, use the <code>filter</code> function as follows:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only the observations of animals collected from 1995 onwards from the surveys dataset.</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span> </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">1995</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only the observations of animals collected from 1995 onwards from the surveys dataset.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">1995</span>)</span></code></pre></div>
 <p>You can filter on multiple conditions:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only the observations of animals collected from 1995 onwards</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># that are female from the surveys dataset.</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span> </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span><span class="dv">1995</span>,</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>         sex <span class="sc">==</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only the observations of animals collected from 1995 onwards</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># that are female from the surveys dataset.</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span><span class="dv">1995</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>         sex <span class="sc">==</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
 <div class="note">
 <p><strong>To quote or not to quote?</strong></p>
 <p>The <code>sex</code> column is a character and thus needs to be quoted, whereas the <code>year</code> column is numerical and does not. Also note that the filter arguments could have been written on a single line, but it is useful to break up your code sometimes to make it more readable.</p>
 </div>
 <p><br /></p>
-<div class="exercise">
-<p><strong>Pipes</strong></p>
+</div>
+</div>
+<div id="exercise---pipes" class="section level3 exercise">
+<h3>Exercise - Pipes</h3>
 <p>Subset the <code>surveys_complete</code> data to keep only the <code>species_id</code>, <code>weight</code>, <code>hindfoot_length</code>, <code>year</code> and <code>sex</code> columns and the animals collected on and after 1995. How many rows are left?</p>
 <details>
 <summary>
 Answer
 </summary>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select columns</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species_id, weight, hindfoot_length, year, sex) <span class="sc">%&gt;%</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter rows</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">1995</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select columns</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species_id, weight, hindfoot_length, year, sex) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter rows</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">1995</span>)</span></code></pre></div>
 </details>
 </div>
 <p><br/></p>
-</div>
-</div>
 <div id="creating-new-columns" class="section level3">
 <h3>Creating new columns</h3>
 <p>Often you’ll want to create new columns based on the values in existing columns, for example to do unit conversions, or to find the ratio of values in two columns. For this we’ll use the <code>mutate</code> function.</p>
 <p>To create a new column of weight in kg:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight_kg =</span> weight <span class="sc">/</span> <span class="dv">1000</span>)</span></code></pre></div>
-<p>You can also create a second new column based on the first new column within the same call of <code>mutate()</code>:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight_kg =</span> weight <span class="sc">/</span> <span class="dv">1000</span>,</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">weight_lbs =</span> weight_kg <span class="sc">*</span> <span class="fl">2.20462</span>)</span></code></pre></div>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight_kg =</span> weight <span class="sc">/</span> <span class="dv">1000</span>)</span></code></pre></div>
+<p>You can also create a second new column based on the first new column within the same call of <code>mutate()</code>:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight_kg =</span> weight <span class="sc">/</span> <span class="dv">1000</span>,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">weight_lbs =</span> weight_kg <span class="sc">*</span> <span class="fl">2.20462</span>)</span></code></pre></div>
 <p>There are other ways on how to create new columns. Refer to the <a href="https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf">dplyr cheat sheet</a> <em>Make New Variables</em> section.</p>
 <p><br/></p>
 </div>

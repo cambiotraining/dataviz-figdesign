@@ -307,7 +307,7 @@ p1
 ```
 
 :::exercise
-
+### Exercise - multi-panel figures
 Combining what we've learned so far, try and create the following 3 graphs, 
 which should be saved as `p1`, `p2` and `p3`.
 

@@ -202,6 +202,7 @@ Remember to try and avoid capitalisation and spaces (use the underscore instead)
 <br />
 
 :::exercise
+### Exercise - creating folders
 1. Create an R project, if you haven't done so already.
 2. Create a `data_raw`, `data_output`, `scripts` and `fig_output` folder within your working directory.
 :::

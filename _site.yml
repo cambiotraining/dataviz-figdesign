@@ -29,7 +29,14 @@ navbar:
           href: 05-customising-plots.html
     - text: "Homework"
       menu:
-        - text: "TODO"
+        - text: "20 July 2021"
+        - href: 06-hw_2021_07_20.html
+        - text: "27 July 2021"
+        - href: 07-hw_2021_07_27.html
+        - text: "03 August 2021"
+        - href: 08-hw_2021_08_03.html
+        - text: "12 August 2021"
+        - href: 09-hw_2021_08_12.html
     - text: "Extras"
       menu:
         - text: "TODO: Cheatsheet?"

@@ -1,6 +1,5 @@
 ---
 title: Homework 20 July 2021
-toc: hide
 ---
 
 <br/>

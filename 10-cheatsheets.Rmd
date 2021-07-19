@@ -1,6 +1,5 @@
 ---
 title: "Cheatsheets"
-toc: hide
 ---
 
 List of useful cheatsheets.

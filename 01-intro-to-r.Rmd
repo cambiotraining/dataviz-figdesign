@@ -10,7 +10,6 @@ surveys <- read_csv("data_raw/portal_data_joined.csv")
 <br/>
 
 ## Creating objects in R
-
 You can get output from R simply by typing math in the console:
 
 ```{r, purl = FALSE}
@@ -113,8 +112,7 @@ What do you think is the current content of the object `weight_lb`? 126.5 or 220
 
 <br/>
 
-## Comments
-
+### Comments in scripts
 The comment character in R is `#`, anything to the right of a `#` in a script
 will be ignored by R. It is useful to leave notes and explanations in your
 scripts.
@@ -124,6 +122,8 @@ lines you  want to comment, press at the same time on your keyboard
 out one line, you can put the cursor at any location of that line (i.e. no need 
 to select the whole line), then press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + 
 <kbd>C</kbd>.
+
+<br />
 
 :::exercise
 ### Exercise - assigning values
@@ -154,7 +154,6 @@ mass_index <- mass/age  # mass_index?
 <br/>
 
 ## Functions and their arguments
-
 Functions are "canned scripts" that automate more complicated sets of commands
 including operations assignments, etc. Many functions are predefined, or can be
 made available by importing R *packages* (more on that later). A function
@@ -235,11 +234,6 @@ doing.
 <br/>
 
 ## Vectors and data types
-
-```{r, echo = FALSE, purl = TRUE}
-### Vectors and data types
-```
-
 A vector is the most common and basic data type in R, and is pretty much
 the workhorse of R. A vector is composed by a series of values, which can be
 either numbers or characters. We can assign a series of values to a vector using
@@ -298,7 +292,6 @@ factors (`factor`) and arrays (`array`).
 <br/>
 
 ## Missing data
-
 As R was designed to analyse datasets, it includes the concept of missing data
 (which is uncommon in other programming languages). Missing data are represented
 in vectors as `NA`.
@@ -318,8 +311,7 @@ max(heights, na.rm = TRUE)
 ```
 
 If your data include missing values, you may want to become familiar with the
-functions `is.na()`, `na.omit()`, and `complete.cases()`. See below for
-examples.
+functions `is.na()`, `na.omit()`, and `complete.cases()`. We will discuss dealing with missing values a bit later on.
 
 Now that we have learned how to write scripts, and the basics of R's data
 structures, we are ready to learn a bit more about using external functions in R.
@@ -334,11 +326,9 @@ The package that we will be using in this course is called **tidyverse.**  It is
 
 <center><img src="img/tidyverse_workflow.png" width = 75%/></center>
 
-<!--image of tidyverse-->
-
 <br />
 
-Tidyverse is a recent package (launched in 2016) when compared to _R base_ (stable version in 2000), thus you will still come across R resources that do not use _tidyverse_.  However, since its release, _tidyverse_ has been increasing in popularity throughout the R programming community and it is now very popular in Data Science as it was designed with the aim to help Data Scientists perform their tasks more efficiently.  
+Tidyverse is a relatively recent package (launched in 2016) when compared to _R base_ (stable version in 2000), thus you will still come across R resources that do not use _tidyverse_.  However, since its release, _tidyverse_ has been increasing in popularity throughout the R programming community and it is now very popular in Data Science as it was designed with the aim to help Data Scientists perform their tasks more efficiently.  
 
 Some of the main advantages of _tidyverse_ over _R base_ are:
 
@@ -356,13 +346,16 @@ Some of the main advantages of _tidyverse_ over _R base_ are:
 
 ### Installing and loading packages
 Before using a package for the first time you will need to install it on your machine, and then you should import it in every subsequent R session when you need it. To install a package in R on your machine you need to use the `install.packages` function.  To install the `tidyverse` package type the following straight into the console:  
+
 ```{r, eval=FALSE, purl = FALSE}
 # Install the tidyverse package
 install.packages("tidyverse")
 ```
+
 It is better to install packages straight from the console then from your script as there's no need to re-install packages every time you run the script.
 
 Then, to load the package type:
+
 ```{r}
 # Load the tidyverse package
 library(tidyverse)

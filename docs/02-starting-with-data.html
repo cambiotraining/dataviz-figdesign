@@ -516,13 +516,13 @@ div.tocify {
 </li>
 <li>The last step in the data exploration workflow is to <strong>communicate</strong> your results. This is very important as you will need to be able to communicate your results to others to have a successful project.</li>
 </ol>
-<p>All these stages in the data exploration workflow can be achieved by programming in R. In this course we will not look into the <em>Model</em> and <em>Communicate</em> stages of the workflow in this course. You will be able to learn more about these in the following courses:</p>
+<p>All these stages in the data exploration workflow can be achieved by programming in R. In these sessions we will not look into the <em>Model</em> and <em>Communicate</em> stages of the workflow, but there are specialised courses available here at the Bioinformatics Training Facility that cover those topics. If you want to know more, see:</p>
 <ul>
 <li>Model: <a href="https://training.cam.ac.uk/bioinformatics/event/2815748">Statistics for Biologists in R</a> and <a href="https://training.cam.ac.uk/bioinformatics/event/3043850">An Introduction to Machine Learning</a></li>
 <li>Communicate: <a href="https://training.cam.ac.uk/bioinformatics/event/3114638">Reproducible Research with R</a></li>
 </ul>
-<p>In the next sections we will be looking at the <em>import</em>, <em>tidy</em>, <em>transform</em> and <em>visualise</em> stages of the data exploration workflow by using one of the most popular packages in data science in R; <strong>Tidyverse</strong>.</p>
-<p><br/></p>
+<p>In the next sections we will be looking at the <em>import</em>, <em>tidy</em>, <em>transform</em> and <em>visualise</em> stages of the data exploration workflow by using one of the most popular packages in data science in R; <strong>tidyverse</strong>. We introduced this in the previous session and now we will see a lot more of its functionality.</p>
+<p><br /></p>
 </div>
 <div id="understanding-data" class="section level2">
 <h2>Understanding data</h2>
@@ -648,6 +648,17 @@ div.tocify {
 #&gt; #   taxa &lt;chr&gt;, plot_type &lt;chr&gt;</code></pre>
 <p>The first line of the output shows the <strong>data structure</strong> used to store the data imported into: <strong><code>tibble</code></strong>. A <code>tibble</code> is the main data structure used in <code>tidyverse</code>. You can look at <code>tibble</code> as the <code>data.frame</code> version of <code>tidyverse</code>. The first immediate difference from a <code>data.frame</code> is that a <code>tibble</code> displays the data type of each column under its name (handy) and it only prints as many columns as fit on one screen (even handier, otherwise it would print 34,786 rows!).</p>
 <p><br/></p>
+<div class="exercise">
+<p><strong>Understanding data</strong></p>
+<p>Now it is time for you to practice some of these things. Try to do the following:</p>
+<ol style="list-style-type: decimal">
+<li>Download the data into the <code>data_raw</code> folder within your working directory</li>
+<li>Read in the data using the <code>read_csv()</code> function and store it in an object <code>surveys</code></li>
+<li>Find out what data types are in <code>surveys</code></li>
+<li>Are there missing values in the data? If so, can you see how many?</li>
+</ol>
+<p><strong>hint</strong> you can use the <code>summary()</code> function to get more information on your data set</p>
+</div>
 </div>
 <div id="data-frames" class="section level2">
 <h2>Data frames</h2>
@@ -747,9 +758,8 @@ div.tocify {
 <p>The <code>sex</code> column is a character and thus needs to be quoted, whereas the <code>year</code> column is numerical and does not. Also note that the filter arguments could have been written on a single line, but it is useful to break up your code sometimes to make it more readable.</p>
 </div>
 <p><br /></p>
-</div>
-<div id="challenge---pipes" class="section level4 exercise">
-<h4>Challenge - pipes</h4>
+<div class="exercise">
+<p><strong>Pipes</strong></p>
 <p>Subset the <code>surveys_complete</code> data to keep only the <code>species_id</code>, <code>weight</code>, <code>hindfoot_length</code>, <code>year</code> and <code>sex</code> columns and the animals collected on and after 1995. How many rows are left?</p>
 <details>
 <summary>
@@ -764,9 +774,10 @@ Answer
 </div>
 <p><br/></p>
 </div>
+</div>
 <div id="creating-new-columns" class="section level3">
 <h3>Creating new columns</h3>
-<p>Frequently you’ll want to create new columns based on the values in existing columns, for example to do unit conversions, or to find the ratio of values in two columns. For this we’ll use the <code>mutate</code> function.</p>
+<p>Often you’ll want to create new columns based on the values in existing columns, for example to do unit conversions, or to find the ratio of values in two columns. For this we’ll use the <code>mutate</code> function.</p>
 <p>To create a new column of weight in kg:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight_kg =</span> weight <span class="sc">/</span> <span class="dv">1000</span>)</span></code></pre></div>

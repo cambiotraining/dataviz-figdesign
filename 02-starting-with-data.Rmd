@@ -32,17 +32,16 @@ _e.g._ In the _surveys_ data frame the _month_ column specifies months as an int
 5.  **Modelling** the data involves applying statistics or other mathematical or computational models on your data to explore if there are correlations or patterns in the data set to help you answer the scientific question you are trying to solve.  
 6.  The last step in the data exploration workflow is to **communicate** your results.  This is very important as you will need to be able to communicate your results to others to have a successful project.
 
-All these stages in the data exploration workflow can be achieved by programming in R.  In this course we will not look into the _Model_ and _Communicate_ stages of the workflow in this course.  You will be able to learn more about these in the following courses:
+All these stages in the data exploration workflow can be achieved by programming in R.  In these sessions we will not look into the _Model_ and _Communicate_ stages of the workflow, but there are specialised courses available here at the Bioinformatics Training Facility that cover those topics. If you want to know more, see:
 
 * Model:  [Statistics for Biologists in R](https://training.cam.ac.uk/bioinformatics/event/2815748) and [An Introduction to Machine Learning](https://training.cam.ac.uk/bioinformatics/event/3043850) 
 * Communicate: [Reproducible Research with R](https://training.cam.ac.uk/bioinformatics/event/3114638)
 
-In the next sections we will be looking at the _import_, _tidy_, _transform_ and _visualise_ stages of the data exploration workflow by using one of the most popular packages in data science in R; **Tidyverse**.
+In the next sections we will be looking at the _import_, _tidy_, _transform_ and _visualise_ stages of the data exploration workflow by using one of the most popular packages in data science in R; **tidyverse**. We introduced this in the previous session and now we will see a lot more of its functionality.
 
-<br/>
+<br />
 
 ## Understanding data
-
 To do in-depth data analyses, it is crucial you understand your data. So before we start doing any form of analyses we will first try to understand the data set that we will be using throughout this course.  Let us first download the file and have a look at the data.
 
 Thinking back to the structure of our R project, we have a working directory. Within the working directory we can create folders to organise our files.
@@ -64,6 +63,7 @@ We are now ready to download the data, using the R function `download.file()` to
 download.file(url="https://ndownloader.figshare.com/files/2292169",
               destfile = "data_raw/portal_data_joined.csv")
 ```
+
 Inside the download.file command, the first entry is a character string with the source URL 
 ("https://ndownloader.figshare.com/files/2292169"). This source URL downloads a CSV file from figshare. The text after the comma ("data_raw/portal_data_joined.csv") is the destination of the file on your local machine. 
 
@@ -88,7 +88,6 @@ The data set has the following columns, with each row holding information for a 
 <br/>
 
 ## Reading in data from a file
-
 Next we need to load the data into R and look at _how_ the data is loaded into R.  We will use `read_csv()` from the `tidyverse` package to load into memory the content of the CSV file.
 
 :::note
@@ -117,8 +116,20 @@ The first line of the output shows the **data structure** used to store the data
 
 <br/>
 
-## Data frames
+:::exercise
+**Understanding data**
 
+Now it is time for you to practice some of these things. Try to do the following:
+
+1. Download the data into the `data_raw` folder within your working directory
+2. Read in the data using the `read_csv()` function and store it in an object `surveys`
+3. Find out what data types are in `surveys`
+4. Are there missing values in the data? If so, can you see how many?
+
+**hint** you can use the `summary()` function to get more information on your data set
+:::
+
+## Data frames
 Data frames are one of the most widely used type of data structure in R.  It is very popular as most of the data is readily available in tabular form and it is the also the data structure used when plotting and performing most analyses in R.
 
 A data frame can be compared to what you would see in an Excel spreadsheet: a rectangular data set.
@@ -136,7 +147,6 @@ Now that we have loaded our data into R and understand the underlying structure 
 <br/>
 
 ## Creating plots
-
 One of the best ways of looking at your data is to visualise them. We have already seen that the `tidyverse` package contains lots of functions that make data analysis easier. The function that helps you visualise your data is called `ggplot()`.
 
 Like many functions in `tidyverse`, there is a logic to it and `ggplot()` is no different. The basic format for using `ggplot()` is as follows:
@@ -164,7 +174,6 @@ ggplot(data = surveys, mapping = aes(x = weight, y = hindfoot_length))
 <br />
 
 ## Adding layers
-
 If you just specify the `ggplot` function with the data and aesthetic mappings, it will create a plot, but the data itself is not displayed.  Let us now add the `geom_function` for the scatter plot (`geom_point()`) as a layer to the plot:
 
 ```{r ggplot-scatterplot, message=FALSE, warning=FALSE, purl = FALSE}
@@ -175,7 +184,6 @@ ggplot(data = surveys, mapping = aes(x = weight, y = hindfoot_length)) +
 <br />
 
 ## Transforming data - dplyr
-
 In most of the cases you will need to change the format of your dataset because it will not be in the right format that you will need to plot or analyse the data.  `tidyverse` has a package called `dplyr` which contains functions that help you to select columns/rows, sort, combine and perform other data types of data transformations. In the next sections we will look at different ways to transform our dataset.  Now that we already know the basics of visualising data with `ggplot` we will also learn how to visualise other plots with the transformed dataset as we go along.  
 
 :::note
@@ -190,7 +198,6 @@ If you find these resources difficult to understand, return to these after compl
 <br />
 
 ### Pipes
-
 Before we move onto the different ways that we can transform our data, we'll discuss one of the most powerful additions to R, **pipes**.
 
 Pipes let you take the output of one function and send it directly to the next, which is useful when you need to do many things to the same dataset.  Pipes in R look like
@@ -220,7 +227,6 @@ Although at this point pipes might not seem like a revolutionary invention, they
 <br/>
 
 ### Selecting columns
-
 To select columns of a data frame or tibble, use the`select` function. The first argument
 is the data frame or tibble you are working on (in our example it is `surveys`, which we pipe through), and the subsequent arguments are the columns to keep.
 
@@ -241,13 +247,11 @@ surveys %>%
 <br/>
 
 ### Filtering rows
-
 To remove rows from a data frame or tibble use the `filter` function from the `dplyr` package.  The first argument is the data frame or tibble to perform the filtering on (in this case we pipe the data through) and the next arguments are the conditions on which to keep the rows. 
 
 <br/>
 
 #### Filtering rows by values
-
 To choose rows based on a specific condition, use the `filter` function as follows:
 
 ```{r, eval=FALSE}
@@ -274,7 +278,7 @@ The `sex` column is a character and thus needs to be quoted, whereas the `year` 
 <br />
 
 :::exercise
-#### Challenge - pipes
+**Pipes**
 
 Subset the `surveys_complete` data to keep only the `species_id`, `weight`, `hindfoot_length`, `year` and `sex` columns and the animals collected on and after 1995. How many rows are left?
 
@@ -294,8 +298,7 @@ surveys_complete %>%
 <br/>
 
 ### Creating new columns
-
-Frequently you'll want to create new columns based on the values in existing columns, for example to do unit conversions, or to find the ratio of values in two columns. For this we'll use the `mutate` function.  
+Often you'll want to create new columns based on the values in existing columns, for example to do unit conversions, or to find the ratio of values in two columns. For this we'll use the `mutate` function.  
 
 To create a new column of weight in kg:
 

@@ -247,7 +247,7 @@ the <kbd>`Ctrl`</kbd> + <kbd>`Enter`</kbd> shortcut (on Macs, <kbd>`Cmd`</kbd> +
 <kbd>`Return`</kbd> will work, too). The command on the current line in the
 script (indicated by the cursor) or all of the commands in the currently
 selected text will be sent to the console and executed when you press
-<kbd>`Ctrl`</kbd> + <kbd>`Enter`</kbd>. You can find other keyboard shortcuts in this [RStudio cheatsheet about the RStudio IDE](https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf).
+<kbd>`Ctrl`</kbd> + <kbd>`Enter`</kbd>. You can find other keyboard short cuts in this [RStudio cheatsheet about the RStudio IDE](https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf).
 
 At some point in your analysis you may want to check the content of a variable
 or the structure of an object, without necessarily keeping a record of it in
@@ -273,12 +273,12 @@ command and return you to the `>` prompt.
 
 <br/>
 
-## How to learn more after the course?
+## How to learn more after these sessions?
 
-The material we cover during this course will give you an initial taste of how you can use R to analyze data for your own research. However, you will need to learn more to do advanced operations such as cleaning your data set, using statistical methods, or creating beautiful graphics. The best way to become proficient and efficient at R, as with any other tool, is to use it to address your actual research questions. As a beginner, it can feel daunting to have to write a script from scratch, and given that many people make their code available online, modifying existing code to suit your purpose might make it easier for you to get started.
+The material we cover during these sessions will give you an initial taste of how you can use R to analyse data for your own research. However, you will need to learn more to do advanced operations such as cleaning your data set, using statistical methods, or creating beautiful graphics. The best way to become proficient and efficient at R, as with any other tool, is to use it to address your actual research questions. As a beginner, it can feel daunting to have to write a script from scratch, and given that many people make their code available online, modifying existing code to suit your purpose might make it easier for you to get started.
 
 
-```{r kitten-img, results='markup', echo=FALSE, purl=FALSE, out.width='400px', fig.align='center'}
+```{r kitten-img, results='markup', echo=FALSE, purl=FALSE, out.width='200px', fig.align='center'}
 knitr::include_graphics("img/kitten-try-things.jpg")
 ```
 
@@ -346,7 +346,9 @@ problem (e.g. "subscript out of bounds"). If the message is very generic, you
 might also include the name of the function or package you're using in your
 query.
 
-However, you should check Stack Overflow. Search using the `[r]` tag. Most
+
+### Additional information
+A good place to check is Stack Overflow. Search using the `[r]` tag. Most
 questions have already been answered, but the challenge is to use the right
 words in the search to find the
 answers:

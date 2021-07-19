@@ -10,7 +10,7 @@ timetable <- read_csv("timetable.csv")
 
 <br/>
 
-### General information
+## General information
 
 **Location: **
 
@@ -26,12 +26,12 @@ Bioinformatics Training Facility. [How to find us.](https://bioinfotraining.bio.
 
 <br/>
 
-### Time table
+## Time table
 ```{r, echo = FALSE, results = 'asis'}
 kable(timetable)
 ```
 
-### Description
+## Description
 
 **R** is one of the leading programming languages in **Data Science**. It is widely used to perform statistics, machine learning, visualisations and data analyses. It is an open source programming language so **all the software we will use in the course is free**. This course is an introduction to R **designed for participants with no programming experience** and it particularly focuses on learning to understand (your) data and how to communicate your data. We will start by briefly introducing programming in R and will teach you how to read in data.
 
@@ -43,12 +43,12 @@ During the sessions we will be working in **RStudio** which is a software used t
 
 <br/>
 
-### Target Audience
+## Target Audience
 This course is designed for participants with no programming experience.
 
 <br/>
 
-### Session overview
+## Session overview
 
 **Session 1**
 
@@ -58,21 +58,35 @@ This course is designed for participants with no programming experience.
 
 **Session 2**
 
-- Starting your Project in RStudio; variables, calling functions, data types
+- Introduction to R
+- R Studio
+- R projects and working directories
+- Using R, functions, vectors and missing data
+- Packages and `tidyverse`
 
 **Session 3**
 
-- Data structures (data frames) and reading and writing from/into files
+- Data exploration
+- Reading in data
+- Creating plots with `ggplot`
+- Transforming data with `dplyr`
 
 **Session 4**
 
-- Introduction to `ggplot2`, geometries, aesthetics, etc
+- Improving plotting skills
+- Changing transparency, colour
+- Using your data to colour plots
+- Visually splitting your data with faceting
 
 **Session 5**
 
-- Facets, custom scales (colour brewer), etc.
-- Saving and assembling plots (`patchwork` or `ggarrange`).
-- Data visualisation homework exercise
+- Customising your plots: labels and annotations
+- Adding lines to your plot
+- Adjusting axes
+- Themes
+- Assembling plots with `patchwork`
+- Saving publication-ready plots
+- 
 
 **Session 6**
 
@@ -80,7 +94,7 @@ This course is designed for participants with no programming experience.
 
 <br/>
 
-### Data
+## Data
 
 Data are from the paper [S. K. Morgan Ernest, Thomas J. Valone, and James H. Brown. 2009. Long-term monitoring and experimental manipulation of a Chihuahuan Desert ecosystem near Portal, Arizona, USA. Ecology 90:1708.](https://pubmed.ncbi.nlm.nih.gov/28792597/)
 
@@ -91,10 +105,10 @@ However, we will download them directly from R during the lessons when we need t
 
 <br/>
 
-### Contributors
+## Contributors
 
 This course has originally been created by Alexia Cardona. It has been adapted to suit these practicals by Martin van Rongen, Hugo Tavares, Gita Yadav, Matt Castle and Natalie Wallis.
 
-The materials are based on the original [Data Carpentry lesson in Ecology](http://datacarpentry.org/R-ecology-lesson/):
+The materials are very loosely based on the original [Data Carpentry lesson in Ecology](http://datacarpentry.org/R-ecology-lesson/):
 
 Michonneau F, Teal T, Fournier A, Seok B, Obeng A, Pawlik AN, Conrado AC, Woo K, Lijnzaad P, Hart T, White EP, Marwick B, Bolker B, Jordan KL, Ashander J, Dashnow H, Hertweck K, Cuesta SM, Becker EA, Guillou S, Shiklomanov A, Klinges D, Odom GJ, Jean M, Mislan KAS, Johnson K, Jahn N, Mannheimer S, Pederson S, Pletzer A, Fouilloux A, Switzer C, Bahlai C, Li D, Kerchner D, Rodriguez-Sanchez F, Rajeg GPW, Ye H, Tavares H, Leinweber K, Peck K, Lepore ML, Hancock S, Sandmann T, Hodges T, Tirok K, Jean M, Bailey A, von Hardenberg A, Theobold A, Wright A, Basu A, Johnson C, Voter C, Hulshof C, Bouquin D, Quinn D, Vanichkina D, Wilson E, Strauss E, Bledsoe E, Gan E, Fishman D, Boehm F, Daskalova G, Tavares H, Kaupp J, Dunic J, Keane J, Stachelek J, Herr JR, Millar J, Lotterhos K, Cranston K, Direk K, Tylén K, Chatzidimitriou K, Deer L, Tarkowski L, Chiapello M, Burle M, Ankenbrand M, Czapanskiy M, Moreno M, Culshaw-Maurer M, Koontz M, Weisner M, Johnston M, Carchedi N, Burge OR, Harrison P, Humburg P, Pauloo R, Peek R, Elahi R, Cortijo S, sfn_brt, Umashankar S, Goswami S, Sumedh, Yanco S, Webster T, Reiter T, Pearse W, Li Y (2019). “datacarpentry/R-ecology-lesson: Data Carpentry: Data Analysis and Visualization in R for Ecologists, June 2019.” doi: 10.5281/zenodo.3264888, http://datacarpentry.org/R-ecology-lesson/.

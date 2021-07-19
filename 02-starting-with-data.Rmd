@@ -16,7 +16,7 @@ Before we start, I want to emphasise that even though the data used in this cour
 
 <br />
 
-# Data exploration workflow
+## Data exploration workflow
 When you are working on a project that requires data analysis, you will normally need to perform the following steps:
 
 <img src="img/data-science-explore.png" width=75%/>)
@@ -39,20 +39,16 @@ All these stages in the data exploration workflow can be achieved by programming
 
 In the next sections we will be looking at the _import_, _tidy_, _transform_ and _visualise_ stages of the data exploration workflow by using one of the most popular packages in data science in R; **Tidyverse**.
 
-<!--image of model with tidyverse hexagons under the ones that we will be covering in this course-->
+<br/>
 
 ## Understanding data
 
-```{r, echo=FALSE, purl=TRUE, warning=FALSE}
-### Presentation of the survey data
-```
-
-To be able to do proper data analyses, it is crucial you understand your data. So before we start doing any form of analyses we will first try to understand the data set that we will be using throughout this course.  Let us first download the file and have a look at the data.
+To do in-depth data analyses, it is crucial you understand your data. So before we start doing any form of analyses we will first try to understand the data set that we will be using throughout this course.  Let us first download the file and have a look at the data.
 
 Thinking back to the structure of our R project, we have a working directory. Within the working directory we can create folders to organise our files.
 We are going to download some raw data and it is good practice to keep your raw data separate from other data, because that way you can always refer back to the data that you started with.
 
-In this case **we have generated the relevant folders for you**, but in case you would want to do this yourself in the future, you could do the following:
+In this case **we have already generated the relevant folders** in the [Getting started](.\00-getting-started.Rmd) section, but in case you still need to do this, here is a reminder:
 
 You can create folders straight from RStudio from the right bottom pane in the Files section > New Folder icon.
 
@@ -89,6 +85,8 @@ The data set has the following columns, with each row holding information for a 
 | taxon            | e.g. Rodent, Reptile, Bird, Rabbit |
 | plot\_type       | type of plot                       |
 
+<br/>
+
 ## Reading in data from a file
 
 Next we need to load the data into R and look at _how_ the data is loaded into R.  We will use `read_csv()` from the `tidyverse` package to load into memory the content of the CSV file.
@@ -117,6 +115,8 @@ surveys
 
 The first line of the output shows the **data structure** used to store the data imported into: **`tibble`**. A `tibble` is the main data structure used in `tidyverse`.  You can look at `tibble` as the `data.frame` version of `tidyverse`. The first immediate difference from a `data.frame` is that a `tibble` displays the data type of each column under its name (handy) and it only prints as many columns as fit on one screen (even handier, otherwise it would print 34,786 rows!). 
 
+<br/>
+
 ## Data frames
 
 Data frames are one of the most widely used type of data structure in R.  It is very popular as most of the data is readily available in tabular form and it is the also the data structure used when plotting and performing most analyses in R.
@@ -132,6 +132,47 @@ numeric, a character, and a logical vector.
 ![](./img/data-frame.svg)
 
 Now that we have loaded our data into R and understand the underlying structure of the data, we can move on to analysing our data!
+
+<br/>
+
+## Creating plots
+
+One of the best ways of looking at your data is to visualise them. We have already seen that the `tidyverse` package contains lots of functions that make data analysis easier. The function that helps you visualise your data is called `ggplot()`.
+
+Like many functions in `tidyverse`, there is a logic to it and `ggplot()` is no different. The basic format for using `ggplot()` is as follows:
+
+```
+ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) +  <GEOM_FUNCTION>()
+```
+As you can see, there are 3 main elements that you need to create a plot:
+
+The `ggplot` function takes 2 arguments:
+
+* **data**: This is the data frame to attach to the plot.  The data frame must contain the variables to plot as columns and the rows must contain the observations that you need to plot.
+* **mapping**: Aesthetic mappings describe how variables in the data are mapped to visual properties of the plot.  
+
+Using the `ggplot` function on its own will not plot anything. We need to add a **geom_function** as a layer. Layers are added to plots by using `+`.  They are added on top of the other previous layers that might be present.    
+
+* **geom_function**: This specifies the type of plot would you like to plot.  The greatest advantage of this is that you can easily change the plot type by just changing the geom_function and keeping everything else the same.  You can see a whole list of plots that you can plot  [here](https://ggplot2.tidyverse.org/reference/index.html#section-layer-geoms).
+
+Let's practice this on our `surveys` data set. We would like to create a scatter plot with `weight` on the x-axis, `hindfoot_length` on the y-axis:
+
+```{r ggplot-empty}
+ggplot(data = surveys, mapping = aes(x = weight, y = hindfoot_length))
+```
+
+<br />
+
+## Adding layers
+
+If you just specify the `ggplot` function with the data and aesthetic mappings, it will create a plot, but the data itself is not displayed.  Let us now add the `geom_function` for the scatter plot (`geom_point()`) as a layer to the plot:
+
+```{r ggplot-scatterplot, message=FALSE, warning=FALSE, purl = FALSE}
+ggplot(data = surveys, mapping = aes(x = weight, y = hindfoot_length)) +
+  geom_point()
+```
+
+<br />
 
 ## Transforming data - dplyr
 
@@ -176,6 +217,8 @@ surveys_complete
 
 Although at this point pipes might not seem like a revolutionary invention, they become more powerful when combining multiple operations. This we'll see next.
 
+<br/>
+
 ### Selecting columns
 
 To select columns of a data frame or tibble, use the`select` function. The first argument
@@ -200,6 +243,8 @@ surveys %>%
 ### Filtering rows
 
 To remove rows from a data frame or tibble use the `filter` function from the `dplyr` package.  The first argument is the data frame or tibble to perform the filtering on (in this case we pipe the data through) and the next arguments are the conditions on which to keep the rows. 
+
+<br/>
 
 #### Filtering rows by values
 

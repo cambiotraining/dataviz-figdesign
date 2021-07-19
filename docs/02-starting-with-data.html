@@ -364,6 +364,12 @@ div.tocify {
   border-radius: 0px;
 }
 
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
 
 </style>
 
@@ -438,7 +444,18 @@ div.tocify {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">TODO</li>
+    <li>
+      <a href="06-hw_2021_07_20.html">20 July 2021</a>
+    </li>
+    <li>
+      <a href="07-hw_2021_07_27.html">27 July 2021</a>
+    </li>
+    <li>
+      <a href="08-hw_2021_08_03.html">03 August 2021</a>
+    </li>
+    <li>
+      <a href="09-hw_2021_08_12.html">12 August 2021</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -448,8 +465,12 @@ div.tocify {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">TODO: Cheatsheet?</li>
-    <li class="dropdown-header">Other Resources?</li>
+    <li>
+      <a href="10-cheatsheets.html">Cheatsheets</a>
+    </li>
+    <li>
+      <a href="11-resources.html">Other Resources</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -477,8 +498,8 @@ div.tocify {
 <p>Before we start, I want to emphasise that even though the data used in this course are from an ecological study, the principals you learn can be applied to any analysis of tabular data.</p>
 </div>
 <p><br /></p>
-<div id="data-exploration-workflow" class="section level1">
-<h1>Data exploration workflow</h1>
+<div id="data-exploration-workflow" class="section level2">
+<h2>Data exploration workflow</h2>
 <p>When you are working on a project that requires data analysis, you will normally need to perform the following steps:</p>
 <p><img src="img/data-science-explore.png" width=75%/>)</p>
 <p>More information on this workflow can be found in the <a href="https://r4ds.had.co.nz/">R for Data Science</a> book. To understand better the workflow in the illustration above, let us go over each stage to see what each step entails:</p>
@@ -501,12 +522,13 @@ div.tocify {
 <li>Communicate: <a href="https://training.cam.ac.uk/bioinformatics/event/3114638">Reproducible Research with R</a></li>
 </ul>
 <p>In the next sections we will be looking at the <em>import</em>, <em>tidy</em>, <em>transform</em> and <em>visualise</em> stages of the data exploration workflow by using one of the most popular packages in data science in R; <strong>Tidyverse</strong>.</p>
-<!--image of model with tidyverse hexagons under the ones that we will be covering in this course-->
+<p><br/></p>
+</div>
 <div id="understanding-data" class="section level2">
 <h2>Understanding data</h2>
-<p>To be able to do proper data analyses, it is crucial you understand your data. So before we start doing any form of analyses we will first try to understand the data set that we will be using throughout this course. Let us first download the file and have a look at the data.</p>
+<p>To do in-depth data analyses, it is crucial you understand your data. So before we start doing any form of analyses we will first try to understand the data set that we will be using throughout this course. Let us first download the file and have a look at the data.</p>
 <p>Thinking back to the structure of our R project, we have a working directory. Within the working directory we can create folders to organise our files. We are going to download some raw data and it is good practice to keep your raw data separate from other data, because that way you can always refer back to the data that you started with.</p>
-<p>In this case <strong>we have generated the relevant folders for you</strong>, but in case you would want to do this yourself in the future, you could do the following:</p>
+<p>In this case <strong>we have already generated the relevant folders</strong> in the <a href=".\00-getting-started.Rmd">Getting started</a> section, but in case you still need to do this, here is a reminder:</p>
 <p>You can create folders straight from RStudio from the right bottom pane in the Files section &gt; New Folder icon.</p>
 <p><img src="img/new_folder.png" width="200"/></p>
 <p>Remember to try and avoid capitalisation and spaces (use the underscore instead).</p>
@@ -578,6 +600,7 @@ div.tocify {
 </tr>
 </tbody>
 </table>
+<p><br/></p>
 </div>
 <div id="reading-in-data-from-a-file" class="section level2">
 <h2>Reading in data from a file</h2>
@@ -624,6 +647,7 @@ div.tocify {
 #&gt; # … with 34,776 more rows, and 4 more variables: genus &lt;chr&gt;, species &lt;chr&gt;,
 #&gt; #   taxa &lt;chr&gt;, plot_type &lt;chr&gt;</code></pre>
 <p>The first line of the output shows the <strong>data structure</strong> used to store the data imported into: <strong><code>tibble</code></strong>. A <code>tibble</code> is the main data structure used in <code>tidyverse</code>. You can look at <code>tibble</code> as the <code>data.frame</code> version of <code>tidyverse</code>. The first immediate difference from a <code>data.frame</code> is that a <code>tibble</code> displays the data type of each column under its name (handy) and it only prints as many columns as fit on one screen (even handier, otherwise it would print 34,786 rows!).</p>
+<p><br/></p>
 </div>
 <div id="data-frames" class="section level2">
 <h2>Data frames</h2>
@@ -632,6 +656,35 @@ div.tocify {
 <p>A data frame is the representation of data in the format of a table where the columns are vectors that all have the same length. Because columns are vectors, each column must contain a single type of data (e.g., characters, integers, logical). For example, here is a figure depicting a data frame comprising a numeric, a character, and a logical vector.</p>
 <p><img src="img/data-frame.svg" /></p>
 <p>Now that we have loaded our data into R and understand the underlying structure of the data, we can move on to analysing our data!</p>
+<p><br/></p>
+</div>
+<div id="creating-plots" class="section level2">
+<h2>Creating plots</h2>
+<p>One of the best ways of looking at your data is to visualise them. We have already seen that the <code>tidyverse</code> package contains lots of functions that make data analysis easier. The function that helps you visualise your data is called <code>ggplot()</code>.</p>
+<p>Like many functions in <code>tidyverse</code>, there is a logic to it and <code>ggplot()</code> is no different. The basic format for using <code>ggplot()</code> is as follows:</p>
+<pre><code>ggplot(data = &lt;DATA&gt;, mapping = aes(&lt;MAPPINGS&gt;)) +  &lt;GEOM_FUNCTION&gt;()</code></pre>
+<p>As you can see, there are 3 main elements that you need to create a plot:</p>
+<p>The <code>ggplot</code> function takes 2 arguments:</p>
+<ul>
+<li><strong>data</strong>: This is the data frame to attach to the plot. The data frame must contain the variables to plot as columns and the rows must contain the observations that you need to plot.</li>
+<li><strong>mapping</strong>: Aesthetic mappings describe how variables in the data are mapped to visual properties of the plot.</li>
+</ul>
+<p>Using the <code>ggplot</code> function on its own will not plot anything. We need to add a <strong>geom_function</strong> as a layer. Layers are added to plots by using <code>+</code>. They are added on top of the other previous layers that might be present.</p>
+<ul>
+<li><strong>geom_function</strong>: This specifies the type of plot would you like to plot. The greatest advantage of this is that you can easily change the plot type by just changing the geom_function and keeping everything else the same. You can see a whole list of plots that you can plot <a href="https://ggplot2.tidyverse.org/reference/index.html#section-layer-geoms">here</a>.</li>
+</ul>
+<p>Let’s practice this on our <code>surveys</code> data set. We would like to create a scatter plot with <code>weight</code> on the x-axis, <code>hindfoot_length</code> on the y-axis:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> surveys, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length))</span></code></pre></div>
+<p><img src="img/R-ecology-ggplot-empty-1.png" width="672" /></p>
+<p><br /></p>
+</div>
+<div id="adding-layers" class="section level2">
+<h2>Adding layers</h2>
+<p>If you just specify the <code>ggplot</code> function with the data and aesthetic mappings, it will create a plot, but the data itself is not displayed. Let us now add the <code>geom_function</code> for the scatter plot (<code>geom_point()</code>) as a layer to the plot:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> surveys, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="img/R-ecology-ggplot-scatterplot-1.png" width="672" /></p>
+<p><br /></p>
 </div>
 <div id="transforming-data---dplyr" class="section level2">
 <h2>Transforming data - dplyr</h2>
@@ -650,43 +703,45 @@ div.tocify {
 <p>Before we move onto the different ways that we can transform our data, we’ll discuss one of the most powerful additions to R, <strong>pipes</strong>.</p>
 <p>Pipes let you take the output of one function and send it directly to the next, which is useful when you need to do many things to the same dataset. Pipes in R look like <code>%&gt;%</code> and are made available via the <strong><code>magrittr</code></strong> package, installed automatically with <code>dplyr</code>.</p>
 <p>Let’s say we are interested only in the data that do not contain any missing values. Using pipes, we do the following:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code></pre></div>
 <p>This takes the argument on the left (<code>surveys</code>) and passes it on to the function after it (<code>drop_na</code>, which removes all rows with missing values).</p>
 <p>If we want to create a new object with the transformed data we can assign it a new name as below:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="ot">&lt;-</span> surveys <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">drop_na</span>()</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>surveys_complete</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="ot">&lt;-</span> surveys <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">drop_na</span>()</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>surveys_complete</span></code></pre></div>
 <p>Although at this point pipes might not seem like a revolutionary invention, they become more powerful when combining multiple operations. This we’ll see next.</p>
+<p><br/></p>
 </div>
 <div id="selecting-columns" class="section level3">
 <h3>Selecting columns</h3>
 <p>To select columns of a data frame or tibble, use the<code>select</code> function. The first argument is the data frame or tibble you are working on (in our example it is <code>surveys</code>, which we pipe through), and the subsequent arguments are the columns to keep.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract species_id, weight, hindfoot_lenth, year and sex columns from surveys dataset.</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species_id, weight, hindfoot_length, year, sex)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract species_id, weight, hindfoot_lenth, year and sex columns from surveys dataset.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species_id, weight, hindfoot_length, year, sex)</span></code></pre></div>
 <p>To select all columns <em>except</em> certain ones, put a <code>-</code> in front of the column to exclude it.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select all columns of the surveys dataset apart from record_id and species_id columns.</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>record_id, <span class="sc">-</span>species_id)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select all columns of the surveys dataset apart from record_id and species_id columns.</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>record_id, <span class="sc">-</span>species_id)</span></code></pre></div>
 <p><br/></p>
 </div>
 <div id="filtering-rows" class="section level3">
 <h3>Filtering rows</h3>
 <p>To remove rows from a data frame or tibble use the <code>filter</code> function from the <code>dplyr</code> package. The first argument is the data frame or tibble to perform the filtering on (in this case we pipe the data through) and the next arguments are the conditions on which to keep the rows.</p>
+<p><br/></p>
 <div id="filtering-rows-by-values" class="section level4">
 <h4>Filtering rows by values</h4>
 <p>To choose rows based on a specific condition, use the <code>filter</code> function as follows:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only the observations of animals collected from 1995 onwards from the surveys dataset.</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span> </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">1995</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only the observations of animals collected from 1995 onwards from the surveys dataset.</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">1995</span>)</span></code></pre></div>
 <p>You can filter on multiple conditions:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only the observations of animals collected from 1995 onwards</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># that are female from the surveys dataset.</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span> </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span><span class="dv">1995</span>,</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>         sex <span class="sc">==</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only the observations of animals collected from 1995 onwards</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># that are female from the surveys dataset.</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span><span class="dv">1995</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>         sex <span class="sc">==</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
 <div class="note">
 <p><strong>To quote or not to quote?</strong></p>
 <p>The <code>sex</code> column is a character and thus needs to be quoted, whereas the <code>year</code> column is numerical and does not. Also note that the filter arguments could have been written on a single line, but it is useful to break up your code sometimes to make it more readable.</p>
@@ -700,11 +755,11 @@ div.tocify {
 <summary>
 Answer
 </summary>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select columns</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species_id, weight, hindfoot_length, year, sex) <span class="sc">%&gt;%</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter rows</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">1995</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select columns</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species_id, weight, hindfoot_length, year, sex) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter rows</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">1995</span>)</span></code></pre></div>
 </details>
 </div>
 <p><br/></p>
@@ -713,15 +768,14 @@ Answer
 <h3>Creating new columns</h3>
 <p>Frequently you’ll want to create new columns based on the values in existing columns, for example to do unit conversions, or to find the ratio of values in two columns. For this we’ll use the <code>mutate</code> function.</p>
 <p>To create a new column of weight in kg:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight_kg =</span> weight <span class="sc">/</span> <span class="dv">1000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight_kg =</span> weight <span class="sc">/</span> <span class="dv">1000</span>)</span></code></pre></div>
 <p>You can also create a second new column based on the first new column within the same call of <code>mutate()</code>:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight_kg =</span> weight <span class="sc">/</span> <span class="dv">1000</span>,</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">weight_lbs =</span> weight_kg <span class="sc">*</span> <span class="fl">2.20462</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight_kg =</span> weight <span class="sc">/</span> <span class="dv">1000</span>,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">weight_lbs =</span> weight_kg <span class="sc">*</span> <span class="fl">2.20462</span>)</span></code></pre></div>
 <p>There are other ways on how to create new columns. Refer to the <a href="https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf">dplyr cheat sheet</a> <em>Make New Variables</em> section.</p>
 <p><br/></p>
-</div>
 </div>
 </div>
 
@@ -780,7 +834,7 @@ $(document).ready(function ()  {
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
     };
-    options.showAndHide = true;
+    options.showAndHide = false;
     options.smoothScroll = true;
 
     // tocify

@@ -174,7 +174,7 @@ create directories (folders) for **scripts**, **data**, and **documents**.
    datasets you may create for the need of a particular analysis. For the sake
    of transparency and [provenance](https://en.wikipedia.org/wiki/Provenance),
    you should *always* keep a copy of your raw data accessible and do as much
-   of your data cleanup and preprocessing programmatically (*i.e.,* with scripts,
+   of your data clean up and preprocessing programmatically (*i.e.,* with scripts,
    rather than manually). Separating raw data from processed data
    is also a good idea. For example, you could have files
    `data/raw/survey.plot1.txt` and `data/raw/survey.plot2.txt` kept separate from
@@ -189,16 +189,24 @@ needs, but these should form the backbone of your working directory.
 
 ![Example of a working directory structure.](img/working_directory_structure.png)
 
-For this course, we will need a `data_raw` folder to store our raw data, and we
-will use `data_processed` for when we learn how to export data as CSV files, and
-`fig_output/` folder for the figures that we will save. For this course the necessary folders have been created already if you are working through the virtual learning environment, but if you want to add new folders yourself you can do the following:
+For this course, we will keep things a bit simple and we'll use a `data_raw` folder to store our raw data and `data_processed` for when we learn how to export data as CSV files. We will also need a `scripts` folder to store our scripts and a `fig_output` folder for the figures that we will save.
+
+These directories do not exist yet, so we will have to create them after we have started our R project:
 
 * Under the `Files` tab on the right of the screen, click on `New Folder` to create a folder within your newly created working directory (e.g., `~/my-first-project/data`).
 
-We are going to keep the script in the root of our working directory because we
-are only going to use one file and it will make things easier.
+<img src="img/new_folder.png" width="200"/>
 
-Your working directory should now along the lines of this:
+Remember to try and avoid capitalisation and spaces (use the underscore instead).
+
+<br />
+
+:::exercise
+1. Create an R project, if you haven't done so already.
+2. Create a `data_raw`, `data_output`, `scripts` and `fig_output` folder within your working directory.
+:::
+
+Your working directory should now look along the lines of this:
 
 ```{r, results='markup',fig.cap="How it should look like at the beginning of this lesson", echo=FALSE, purl=FALSE, out.width='50%', fig.align='center'}
 knitr::include_graphics("img/workingdir-files.png")

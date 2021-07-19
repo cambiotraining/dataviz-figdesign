@@ -6,8 +6,8 @@ output:
     highlight: pygments
     css: "assets/styles.css"
     toc: true
-    toc_float: true
-    collapsed: FALSE
+    toc_float:
+      collapsed: false
 navbar:
   title: "<img id=\"logo\" style=\"height: 25px;\" src=\"assets/img/logo.svg\" />"
   left:
@@ -30,17 +30,19 @@ navbar:
     - text: "Homework"
       menu:
         - text: "20 July 2021"
-        - href: 06-hw_2021_07_20.html
+          href: 06-hw_2021_07_20.html
         - text: "27 July 2021"
-        - href: 07-hw_2021_07_27.html
+          href: 07-hw_2021_07_27.html
         - text: "03 August 2021"
-        - href: 08-hw_2021_08_03.html
+          href: 08-hw_2021_08_03.html
         - text: "12 August 2021"
-        - href: 09-hw_2021_08_12.html
+          href: 09-hw_2021_08_12.html
     - text: "Extras"
       menu:
-        - text: "TODO: Cheatsheet?"
-        - text: "Other Resources?"
+        - text: "Cheatsheets"
+          href: 10-cheatsheets.html
+        - text: "Other Resources"
+          href: 11-resources.html
   right:
     - text: "GitHub"
       href: https://github.com/cambiotraining

@@ -31,7 +31,7 @@ In this session we are going to expand on our skills using the `ggplot2` package
 
 For this lesson, we'll use the `surveys` dataset. Let's read it into R, along with loading the `tidyverse` package.
 
-```{r, message=FALSE}
+```{r read-data, message=FALSE}
 # load package
 library(tidyverse)
 # read data - specify that missing values are encoded as an empty value

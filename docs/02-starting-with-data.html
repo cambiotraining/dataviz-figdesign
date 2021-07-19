@@ -582,7 +582,10 @@ div.tocify {
 <div id="reading-in-data-from-a-file" class="section level2">
 <h2>Reading in data from a file</h2>
 <p>Next we need to load the data into R and look at <em>how</em> the data is loaded into R. We will use <code>read_csv()</code> from the <code>tidyverse</code> package to load into memory the content of the CSV file.</p>
-<p>You can do this using:</p>
+<div class="note">
+<p>We already installed and loaded the <code>tidyverse</code> library, but if you have not, then use <code>install.packages("tidyverse")</code> to install it and <code>library(tidyverse)</code> to load it.</p>
+</div>
+<p>You can load the data using the following command:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>surveys <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data_raw/portal_data_joined.csv&quot;</span>)</span></code></pre></div>
 <pre><code>#&gt; 
 #&gt; ── Column specification ────────────────────────────────────────────────────────
@@ -601,7 +604,8 @@ div.tocify {
 #&gt;   taxa = col_character(),
 #&gt;   plot_type = col_character()
 #&gt; )</code></pre>
-<p>This statement doesn’t produce any output because, as you might recall, assignments don’t display anything. It does give you information on how the data was loaded. Note that some columns are classed as <code>col_double</code> (numbers) and others as <code>col_character</code> (text). This can be useful and important information, because it tells you the type of data R considers it to be. It also helps you check your data. For example, if R would view a column as <code>col_character</code> but you know that it should only contain numbers, then you know that some of the data are probably text, meaning there are errors in your data that need a closer look.</p>
+<p>What this does is to use the <code>read_csv()</code> function to read in the CSV file that contains our data. the data should be in a <code>data_raw</code> folder, within your working directory. It then assigns the data to an object called <code>surveys</code>.</p>
+<p>The statement doesn’t produce any output because, as you might recall, because assignments don’t display anything. It does give you information on how the data was loaded. Note that some columns are classed as <code>col_double</code> (numbers) and others as <code>col_character</code> (text). This can be useful and important information, because it tells you the type of data R considers it to be. It also helps you check your data. For example, if R would view a column as <code>col_character</code> but you know that it should only contain numbers, then you know that some of the data are probably text, meaning there are errors in your data that need a closer look.</p>
 <p>If we want to find out how our data has been loaded, we can visualise the contents of the data frame by typing its name <code>surveys</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>surveys</span></code></pre></div>
 <pre><code>#&gt; # A tibble: 34,786 x 13
@@ -628,6 +632,96 @@ div.tocify {
 <p>A data frame is the representation of data in the format of a table where the columns are vectors that all have the same length. Because columns are vectors, each column must contain a single type of data (e.g., characters, integers, logical). For example, here is a figure depicting a data frame comprising a numeric, a character, and a logical vector.</p>
 <p><img src="img/data-frame.svg" /></p>
 <p>Now that we have loaded our data into R and understand the underlying structure of the data, we can move on to analysing our data!</p>
+</div>
+<div id="transforming-data---dplyr" class="section level2">
+<h2>Transforming data - dplyr</h2>
+<p>In most of the cases you will need to change the format of your dataset because it will not be in the right format that you will need to plot or analyse the data. <code>tidyverse</code> has a package called <code>dplyr</code> which contains functions that help you to select columns/rows, sort, combine and perform other data types of data transformations. In the next sections we will look at different ways to transform our dataset. Now that we already know the basics of visualising data with <code>ggplot</code> we will also learn how to visualise other plots with the transformed dataset as we go along.</p>
+<div class="note">
+<p>To learn more about <code>dplyr</code> please look at the following resources:</p>
+<ul>
+<li><a href="https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf">dplyr cheat sheet</a></li>
+<li><a href="https://dplyr.tidyverse.org/">dplyr documentation</a></li>
+</ul>
+<p>If you find these resources difficult to understand, return to these after completing the course.</p>
+</div>
+<p><br /></p>
+<div id="pipes" class="section level3">
+<h3>Pipes</h3>
+<p>Before we move onto the different ways that we can transform our data, we’ll discuss one of the most powerful additions to R, <strong>pipes</strong>.</p>
+<p>Pipes let you take the output of one function and send it directly to the next, which is useful when you need to do many things to the same dataset. Pipes in R look like <code>%&gt;%</code> and are made available via the <strong><code>magrittr</code></strong> package, installed automatically with <code>dplyr</code>.</p>
+<p>Let’s say we are interested only in the data that do not contain any missing values. Using pipes, we do the following:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code></pre></div>
+<p>This takes the argument on the left (<code>surveys</code>) and passes it on to the function after it (<code>drop_na</code>, which removes all rows with missing values).</p>
+<p>If we want to create a new object with the transformed data we can assign it a new name as below:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="ot">&lt;-</span> surveys <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">drop_na</span>()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>surveys_complete</span></code></pre></div>
+<p>Although at this point pipes might not seem like a revolutionary invention, they become more powerful when combining multiple operations. This we’ll see next.</p>
+</div>
+<div id="selecting-columns" class="section level3">
+<h3>Selecting columns</h3>
+<p>To select columns of a data frame or tibble, use the<code>select</code> function. The first argument is the data frame or tibble you are working on (in our example it is <code>surveys</code>, which we pipe through), and the subsequent arguments are the columns to keep.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract species_id, weight, hindfoot_lenth, year and sex columns from surveys dataset.</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species_id, weight, hindfoot_length, year, sex)</span></code></pre></div>
+<p>To select all columns <em>except</em> certain ones, put a <code>-</code> in front of the column to exclude it.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select all columns of the surveys dataset apart from record_id and species_id columns.</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>record_id, <span class="sc">-</span>species_id)</span></code></pre></div>
+<p><br/></p>
+</div>
+<div id="filtering-rows" class="section level3">
+<h3>Filtering rows</h3>
+<p>To remove rows from a data frame or tibble use the <code>filter</code> function from the <code>dplyr</code> package. The first argument is the data frame or tibble to perform the filtering on (in this case we pipe the data through) and the next arguments are the conditions on which to keep the rows.</p>
+<div id="filtering-rows-by-values" class="section level4">
+<h4>Filtering rows by values</h4>
+<p>To choose rows based on a specific condition, use the <code>filter</code> function as follows:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only the observations of animals collected from 1995 onwards from the surveys dataset.</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">1995</span>)</span></code></pre></div>
+<p>You can filter on multiple conditions:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only the observations of animals collected from 1995 onwards</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># that are female from the surveys dataset.</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span><span class="dv">1995</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>         sex <span class="sc">==</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
+<div class="note">
+<p><strong>To quote or not to quote?</strong></p>
+<p>The <code>sex</code> column is a character and thus needs to be quoted, whereas the <code>year</code> column is numerical and does not. Also note that the filter arguments could have been written on a single line, but it is useful to break up your code sometimes to make it more readable.</p>
+</div>
+<p><br /></p>
+</div>
+<div id="challenge---pipes" class="section level4 exercise">
+<h4>Challenge - pipes</h4>
+<p>Subset the <code>surveys_complete</code> data to keep only the <code>species_id</code>, <code>weight</code>, <code>hindfoot_length</code>, <code>year</code> and <code>sex</code> columns and the animals collected on and after 1995. How many rows are left?</p>
+<details>
+<summary>
+Answer
+</summary>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select columns</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species_id, weight, hindfoot_length, year, sex) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter rows</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">1995</span>)</span></code></pre></div>
+</details>
+</div>
+<p><br/></p>
+</div>
+<div id="creating-new-columns" class="section level3">
+<h3>Creating new columns</h3>
+<p>Frequently you’ll want to create new columns based on the values in existing columns, for example to do unit conversions, or to find the ratio of values in two columns. For this we’ll use the <code>mutate</code> function.</p>
+<p>To create a new column of weight in kg:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight_kg =</span> weight <span class="sc">/</span> <span class="dv">1000</span>)</span></code></pre></div>
+<p>You can also create a second new column based on the first new column within the same call of <code>mutate()</code>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight_kg =</span> weight <span class="sc">/</span> <span class="dv">1000</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">weight_lbs =</span> weight_kg <span class="sc">*</span> <span class="fl">2.20462</span>)</span></code></pre></div>
+<p>There are other ways on how to create new columns. Refer to the <a href="https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf">dplyr cheat sheet</a> <em>Make New Variables</em> section.</p>
+<p><br/></p>
+</div>
 </div>
 </div>
 

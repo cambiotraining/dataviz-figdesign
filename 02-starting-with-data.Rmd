@@ -86,21 +86,26 @@ The data set has the following columns, with each row holding information for a 
 | weight           | weight of the animal in grams      |
 | genus            | genus of animal                    |
 | species          | species of animal                  |
-| taxon             | e.g. Rodent, Reptile, Bird, Rabbit |
+| taxon            | e.g. Rodent, Reptile, Bird, Rabbit |
 | plot\_type       | type of plot                       |
 
 ## Reading in data from a file
 
-Next we need to load the data into R and look at _how_ the data is loaded into R.  We will use `read_csv()` from the `tidyverse` package to load into memory the content of the CSV file. 
+Next we need to load the data into R and look at _how_ the data is loaded into R.  We will use `read_csv()` from the `tidyverse` package to load into memory the content of the CSV file.
 
-You can do this using:
+:::note
+We already installed and loaded the `tidyverse` library, but if you have not, then use `install.packages("tidyverse")` to install it and `library(tidyverse)` to load it. 
+:::
+
+You can load the data using the following command:
 
 ```{r, eval=TRUE,  purl=FALSE}
 surveys <- read_csv("data_raw/portal_data_joined.csv")
 ```
 
-This statement doesn't produce any output because, as you might recall,
-assignments don't display anything. It does give you information on how the data was loaded.
+What this does is to use the `read_csv()` function to read in the CSV file that contains our data. the data should be in a `data_raw` folder, within your working directory. It then assigns the data to an object called `surveys`.
+
+The statement doesn't produce any output because, as you might recall, because assignments don't display anything. It does give you information on how the data was loaded.
 Note that some columns are classed as `col_double` (numbers) and others as `col_character` (text).
 This can be useful and important information, because it tells you the type of data R considers it to be. It also helps you check your data. For example, if R would view a column as `col_character` but you know that it should only contain numbers, then you know that some of the data are probably text, meaning there are errors in your data that need a closer look.
 
@@ -127,3 +132,141 @@ numeric, a character, and a logical vector.
 ![](./img/data-frame.svg)
 
 Now that we have loaded our data into R and understand the underlying structure of the data, we can move on to analysing our data!
+
+## Transforming data - dplyr
+
+In most of the cases you will need to change the format of your dataset because it will not be in the right format that you will need to plot or analyse the data.  `tidyverse` has a package called `dplyr` which contains functions that help you to select columns/rows, sort, combine and perform other data types of data transformations. In the next sections we will look at different ways to transform our dataset.  Now that we already know the basics of visualising data with `ggplot` we will also learn how to visualise other plots with the transformed dataset as we go along.  
+
+:::note
+To learn more about `dplyr` please look at the following resources:
+
+- [dplyr cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf)
+- [dplyr documentation](https://dplyr.tidyverse.org/)
+
+If you find these resources difficult to understand, return to these after completing the course.
+:::
+
+<br />
+
+### Pipes
+
+Before we move onto the different ways that we can transform our data, we'll discuss one of the most powerful additions to R, **pipes**.
+
+Pipes let you take the output of one function and send it directly to the next, which is useful when you need to do many things to the same dataset.  Pipes in R look like
+`%>%` and are made available via the **`magrittr`** package, installed automatically
+with `dplyr`. 
+
+Let's say we are interested only in the data that do not contain any missing values. Using pipes, we do the following:
+
+```{r, eval=FALSE}
+surveys %>%
+  drop_na()
+```
+
+This takes the argument on the left (`surveys`) and passes it on to the function after it (`drop_na`, which removes all rows with missing values).
+
+If we want to create a new object with the transformed data we can assign it a new name as below:
+
+```{r, eval=TRUE}
+surveys_complete <- surveys %>%
+                  drop_na()
+
+surveys_complete
+```
+
+Although at this point pipes might not seem like a revolutionary invention, they become more powerful when combining multiple operations. This we'll see next.
+
+### Selecting columns
+
+To select columns of a data frame or tibble, use the`select` function. The first argument
+is the data frame or tibble you are working on (in our example it is `surveys`, which we pipe through), and the subsequent arguments are the columns to keep.
+
+```{r, eval=FALSE}
+# Extract species_id, weight, hindfoot_lenth, year and sex columns from surveys dataset.
+surveys %>% 
+  select(species_id, weight, hindfoot_length, year, sex)
+```
+
+To select all columns *except* certain ones, put a `-` in front of the column to exclude it.
+
+```{r, eval=FALSE}
+# Select all columns of the surveys dataset apart from record_id and species_id columns.
+surveys %>%
+  select(-record_id, -species_id)
+```
+
+<br/>
+
+### Filtering rows
+
+To remove rows from a data frame or tibble use the `filter` function from the `dplyr` package.  The first argument is the data frame or tibble to perform the filtering on (in this case we pipe the data through) and the next arguments are the conditions on which to keep the rows. 
+
+#### Filtering rows by values
+
+To choose rows based on a specific condition, use the `filter` function as follows:
+
+```{r, eval=FALSE}
+# Keep only the observations of animals collected from 1995 onwards from the surveys dataset.
+surveys %>% 
+  filter(year >= 1995)
+```
+
+You can filter on multiple conditions:
+```{r, eval=FALSE}
+# Keep only the observations of animals collected from 1995 onwards
+# that are female from the surveys dataset.
+surveys %>% 
+  filter(year >=1995,
+         sex == "F")
+```
+
+:::note
+**To quote or not to quote?**
+
+The `sex` column is a character and thus needs to be quoted, whereas the `year` column is numerical and does not. Also note that the filter arguments could have been written on a single line, but it is useful to break up your code sometimes to make it more readable.
+:::
+
+<br />
+
+:::exercise
+#### Challenge - pipes
+
+Subset the `surveys_complete` data to keep only the `species_id`, `weight`, `hindfoot_length`, `year` and `sex` columns and the animals collected on and after 1995. How many rows are left?
+
+<details><summary>Answer</summary>
+
+```{r, purl=TRUE, eval=TRUE}
+surveys_complete %>%
+  # Select columns
+  select(species_id, weight, hindfoot_length, year, sex) %>%
+  # Filter rows
+  filter(year >= 1995)
+```
+
+</details>
+:::
+
+<br/>
+
+### Creating new columns
+
+Frequently you'll want to create new columns based on the values in existing columns, for example to do unit conversions, or to find the ratio of values in two columns. For this we'll use the `mutate` function.  
+
+To create a new column of weight in kg:
+
+```{r, purl = FALSE}
+surveys_complete %>%
+  mutate(weight_kg = weight / 1000)
+```
+
+You can also create a second new column based on the first new column within the same call of `mutate()`:
+
+```{r, purl = FALSE}
+surveys_complete %>%
+  mutate(weight_kg = weight / 1000,
+         weight_lbs = weight_kg * 2.20462)
+```
+
+There are other ways on how to create new columns.  Refer to the [dplyr cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf) *Make New Variables* section. 
+
+<br/>

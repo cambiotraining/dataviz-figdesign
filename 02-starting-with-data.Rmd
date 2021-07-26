@@ -14,7 +14,7 @@ source("setup.R")
 Before we start, I want to emphasise that even though the data used in this course are from an ecological study, the principals you learn can be applied to any analysis of tabular data.
 :::
 
-<br />
+<br/>
 
 ## Data exploration workflow
 When you are working on a project that requires data analysis, you will normally need to perform the following steps:
@@ -39,7 +39,7 @@ All these stages in the data exploration workflow can be achieved by programming
 
 In the next sections we will be looking at the _import_, _tidy_, _transform_ and _visualise_ stages of the data exploration workflow by using one of the most popular packages in data science in R; **tidyverse**. We introduced this in the previous session and now we will see a lot more of its functionality.
 
-<br />
+<br/>
 
 ## Understanding data
 To do in-depth data analyses, it is crucial you understand your data. So before we start doing any form of analyses we will first try to understand the data set that we will be using throughout this course.  Let us first download the file and have a look at the data.
@@ -55,7 +55,7 @@ You can create folders straight from RStudio from the right bottom pane in the F
 
 Remember to try and avoid capitalisation and spaces (use the underscore instead).
 
-<br />
+<br/>
 
 We are now ready to download the data, using the R function `download.file()` to download the CSV file that contains the data.
 
@@ -119,26 +119,33 @@ The first line of the output shows the **data structure** used to store the data
 :::exercise
 ### Exercise - Understanding data
 
-Now it is time for you to practice some of these things. Try to do the following:
+Try to do the following:
 
-1. Download the data into the `data_raw` folder within your working directory
-2. Read in the data using the `read_csv()` function and store it in an object `surveys`
-3. Find out what data types are in `surveys`
-4. Are there missing values in the data? If so, can you see how many?
+1. Find out what data types there are in `surveys` (numeric, categorical).
+1. Are there missing values in the data? If so, can you see how many?
 
 **Hint:** you can use the `summary()` function to get more information on your data set
 
 <details><summary>Answer</summary>
+
+Using the `summary()` function gives us information about each variable with summary metrics (such as the average and quartiles of numeric variables). 
+It also gives us information about missing values (`NA`'s). 
+
 ```{r}
 # Each variable will come with its own summary statistics
 summary(surveys)
 ```
+
+For example, from this output we can see that we have 2503 missing values for "weight" and 3348 missing values for "hindfoot_length". 
+
 </details>
 :::
 
-<br />
+<br/>
+
 
 ## Data frames
+
 Data frames are one of the most widely used type of data structure in R.  It is very popular as most of the data is readily available in tabular form and it is the also the data structure used when plotting and performing most analyses in R.
 
 A data frame can be compared to what you would see in an Excel spreadsheet: a rectangular data set.
@@ -151,18 +158,36 @@ numeric, a character, and a logical vector.
 
 ![](./img/data-frame.svg)
 
-Now that we have loaded our data into R and understand the underlying structure of the data, we can move on to analysing our data!
+We can access the values of a single column of the data.frame using the `$` notation, as such:
+
+```{r, results="hide"}
+surveys$hindfoot_length
+```
+
+The result is a _vector_ (not a data.frame), similar to what we created using the `c()` function in the [Introduction to R](01-intro-to-r.html) section. 
+
+Therefore we can use functions such as the ones we used with vectors, for example to calculate the mean of this variable:
+
+```{r}
+mean(surveys$hindfoot_length, na.rm = TRUE)
+```
+
+Now that we have loaded our data into R and understand its underlying structure, we can move on to doing some analysis!
 
 <br/>
 
-## Creating plots
-One of the best ways of looking at your data is to visualise them. We have already seen that the `tidyverse` package contains lots of functions that make data analysis easier. The function that helps you visualise your data is called `ggplot()`.
 
-Like many functions in `tidyverse`, there is a logic to it and `ggplot()` is no different. The basic format for using `ggplot()` is as follows:
+## Creating plots
+
+One of the best ways of looking at your data is to visualise them. 
+The function that helps you visualise your data is called `ggplot()`.
+
+The basic format for using `ggplot()` is as follows:
 
 ```
 ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) +  <GEOM_FUNCTION>()
 ```
+
 As you can see, there are 3 main elements that you need to create a plot:
 
 The `ggplot` function takes 2 arguments:
@@ -180,9 +205,11 @@ Let's practice this on our `surveys` data set. We would like to create a scatter
 ggplot(data = surveys, mapping = aes(x = weight, y = hindfoot_length))
 ```
 
-<br />
+<br/>
+
 
 ## Adding layers
+
 If you just specify the `ggplot` function with the data and aesthetic mappings, it will create a plot, but the data itself is not displayed.  Let us now add the `geom_function` for the scatter plot (`geom_point()`) as a layer to the plot:
 
 ```{r ggplot-scatterplot, message=FALSE, warning=FALSE, purl = FALSE}
@@ -190,16 +217,18 @@ ggplot(data = surveys, mapping = aes(x = weight, y = hindfoot_length)) +
   geom_point()
 ```
 
-<br />
+<br/>
 
 :::exercise
 ### Exercise - Boxplot
-The plot we created above was a simple scatter plot, which used the `geom_point()` function. There are many different types of geoms in ggplot and to explore this we would like you to create a [box plot](https://en.wikipedia.org/wiki/Box_plot), using the same data set.
+
+The plot we created above was a simple scatter plot, which used the `geom_point()` function. There are many different types of geoms in ggplot and to explore this we would like you to create a [box plot](https://www.data-to-viz.com/caveat/boxplot.html), using the same data set.
 
 * The geoms are named quite logically, so finding the right geom for a box plot should be OK
 * The scatter plot uses two continuous variables. A box plot should only have a continuous y-variable, so on the x-axis you should plot a categorical variable (think back of your `summary()` output!)
 
 <details><summary>Answer</summary>
+
 ```{r boxplot, message=FALSE, warning=FALSE, purl=TRUE}
 # There are different options for the x-axis
 ggplot(data = surveys, aes(x = plot_type, y = hindfoot_length)) +
@@ -209,9 +238,11 @@ ggplot(data = surveys, aes(x = plot_type, y = hindfoot_length)) +
 </details>
 :::
 
-<br />
+<br/>
+
 
 ## Transforming data - dplyr
+
 In most of the cases you will need to change the format of your dataset because it will not be in the right format that you will need to plot or analyse the data.  `tidyverse` has a package called `dplyr` which contains functions that help you to select columns/rows, sort, combine and perform other data types of data transformations. In the next sections we will look at different ways to transform our dataset.  Now that we already know the basics of visualising data with `ggplot` we will also learn how to visualise other plots with the transformed dataset as we go along.  
 
 :::note
@@ -223,7 +254,7 @@ To learn more about `dplyr` please look at the following resources:
 If you find these resources difficult to understand, return to these after completing the course.
 :::
 
-<br />
+<br/>
 
 ### Pipes
 Before we move onto the different ways that we can transform our data, we'll discuss one of the most powerful additions to R, **pipes**.
@@ -303,13 +334,15 @@ surveys %>%
 The `sex` column is a character and thus needs to be quoted, whereas the `year` column is numerical and does not. Also note that the filter arguments could have been written on a single line, but it is useful to break up your code sometimes to make it more readable.
 :::
 
-<br />
+<br/>
 
 :::exercise
 ### Exercise - Pipes
 Subset the `surveys_complete` data to keep only the `species_id`, `weight`, `hindfoot_length`, `year` and `sex` columns and the animals collected on and after 1995. How many rows are left?
 
 <details><summary>Answer</summary>
+
+We can use the `select()` and `filter()` functions to achieve this:
 
 ```{r, purl=TRUE, eval=TRUE}
 surveys_complete %>%
@@ -318,6 +351,8 @@ surveys_complete %>%
   # Filter rows
   filter(year >= 1995)
 ```
+
+The output of this command shows that we are left with 12484 rows of data. 
 
 </details>
 :::

@@ -13,7 +13,6 @@
 
 <title>Data visualisation with tidyverse</title>
 
-<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -33,6 +32,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -53,19 +53,19 @@
   }
 </style>
 <style type="text/css" data-origin="pandoc">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -85,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -385,12 +385,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
+<div class="col-sm-12 col-md-4 col-lg-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
 
 
 
@@ -450,12 +450,8 @@ div.tocify {
     <li>
       <a href="07-hw_2021_07_27.html">27 July 2021</a>
     </li>
-    <li>
-      <a href="08-hw_2021_08_03.html">03 August 2021</a>
-    </li>
-    <li>
-      <a href="09-hw_2021_08_12.html">12 August 2021</a>
-    </li>
+    <li class="dropdown-header">03 August 2021</li>
+    <li class="dropdown-header">12 August 2021</li>
   </ul>
 </li>
 <li class="dropdown">
@@ -492,69 +488,100 @@ div.tocify {
 </div>
 
 
-<p><br /></p>
+<p><br></p>
 <p><img src="img/ggplot2.png" width="50"/></p>
-<p>Visualising is probably one of the most satisfying parts of doing data analysis. After all, who doesn’t like a nice plot? We have already seen that creating plots with <code>ggplot()</code> can be pretty straightforward, because it has a modular way of using tabular data to create the plots.</p>
-<p>As a reminder, the basic syntax follows this format:</p>
+<p>Visualising is probably one of the most satisfying parts of doing data analysis. After all, who doesn’t like a nice plot? We have already seen the basic syntax to create a <code>ggplot()</code>:</p>
 <pre><code>ggplot(data = &lt;DATA&gt;, mapping = aes(&lt;MAPPINGS&gt;)) +  &lt;GEOM_FUNCTION&gt;()</code></pre>
-<p>and with it, you can easily create plots like this:</p>
+<p>and with it, you can create plots such as this:</p>
 <p><img src="img/R-ecology-ggplot-example-1.png" width="672" /></p>
-<div id="moving-beyond-basic-plots" class="section level2">
-<h2>Moving beyond basic plots</h2>
+<p>Make sure you loaded the surveys data:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>surveys &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data_raw/portal_data_joined.csv&quot;</span>)</span></code></pre></div>
+<pre><code>#&gt; 
+#&gt; ── Column specification ────────────────────────────────────────────────────────
+#&gt; cols(
+#&gt;   record_id = col_double(),
+#&gt;   month = col_double(),
+#&gt;   day = col_double(),
+#&gt;   year = col_double(),
+#&gt;   plot_id = col_double(),
+#&gt;   species_id = col_character(),
+#&gt;   sex = col_character(),
+#&gt;   hindfoot_length = col_double(),
+#&gt;   weight = col_double(),
+#&gt;   genus = col_character(),
+#&gt;   species = col_character(),
+#&gt;   taxa = col_character(),
+#&gt;   plot_type = col_character()
+#&gt; )</code></pre>
+<p>For this lesson we’re going to remove missing values from our table. This is not always desirable (you might be throwing away good data!), but it will help us make this lesson clearer.</p>
+<p>We will use the function <code>drop_na()</code>, which removes rows with any missing data:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>surveys_complete &lt;-<span class="st"> </span>surveys <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">drop_na</span>()</span></code></pre></div>
+<div id="customising-geometries" class="section level2">
+<h2>Customising Geometries</h2>
 <p>Plots creating with <code>ggplot()</code> are extremely versatile - you can change any component of the plot, whether it is the data points, the axes, the titles, the ticks on the axes etc. Some of these custom options you will want to use often, whilst others are perhaps less relevant. There are too many options to cover all of them, but we will go through some of the most useful ones.</p>
-<p><br /></p>
-<div id="transparency" class="section level3">
-<h3>Transparency</h3>
-<p>Sometimes your data points are really close together, or even overlapping. In these cases we can add some transparency (<code>alpha</code>) to avoid over plotting. This is done with the <code>alpha</code> argument, which takes values from 0 (100% transparency) to 1 (0% transparency):</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> surveys,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<p>Geometries themselves can be changed in several ways, for example their transparency, colour, size, shape, etc.</p>
+<p>To know which <em>aesthetic</em> components can be changed in a particular geometry, look at its documentation (e.g. <code>?geom_point</code>) and look under the “Aesthetics” section of the help page. For example, the documentation for <code>?geom_point</code> says:</p>
+<blockquote>
+<p>geom_point() understands the following aesthetics (required aesthetics are in bold): - <strong>x</strong> - <strong>y</strong> - alpha - colour - fill - group - shape - size - stroke</p>
+</blockquote>
+<p>You can also find a list of aesthetics for each type of plot in the <a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf">ggplot2 cheat sheet</a>.</p>
+<p>For example, we can use the <code>alpha</code> aesthetic to change the transparence of the points. This is very useful when your data points are really close together, or even overlapping. The <code>alpha</code> argument takes values from 0 (100% transparency) to 1 (0% transparency):</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> surveys_complete,</span>
+<span id="cb5-2"><a href="#cb5-2"></a>       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> weight, <span class="dt">y =</span> hindfoot_length)) <span class="op">+</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.2</span>)</span></code></pre></div>
 <p><img src="img/R-ecology-adding-transparency-1.png" width="672" /></p>
-<p>You can find a list of aesthetics for each type of plot in the <a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf">ggplot2 cheat sheet</a>.</p>
-<p><br /></p>
-</div>
-<div id="adding-colour" class="section level3">
-<h3>Adding colour</h3>
-<p>We can also add colours for all the points by adding the <code>colour</code> argument to the geom.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> surveys,</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<div class="exercise">
+<p>Try changing the size, shape and colour of the points in our plot (hint: web search “ggplot2 point shapes” to see how to make a triangle).</p>
+<details>
+<p><summary>Answer</summary></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> surveys_complete,</span>
+<span id="cb6-2"><a href="#cb6-2"></a>       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> weight, <span class="dt">y =</span> hindfoot_length)) <span class="op">+</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">shape =</span> <span class="dv">6</span>, <span class="dt">size =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p><img src="img/R-ecology-adding-colours-1.png" width="672" /></p>
-<p><br /></p>
+</details>
 </div>
-<div id="colouring-by-variable" class="section level3">
-<h3>Colouring by variable</h3>
-<p>Another way of colouring data points is <strong>based on a variable</strong>. For example, if we were interested to see which data points belong to each plot type - to see if there is any pattern in the data - then we could give each plot type its own colour. The way to specify this is in the <code>aes()</code> helper function, where we give the <code>colour</code> argument the relevant variable (i.e. the name of the column in our data set that contains this variable).</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> surveys,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length, <span class="at">colour =</span> plot_type)) <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code></pre></div>
+<div id="changing-aesthetics-based-on-data" class="section level3">
+<h3>Changing aesthetics based on data</h3>
+<p>Another way of modifying geometries is <strong>based on a variable</strong>. For example, if we were interested to see which data points belong to each plot type - to see if there is any pattern in the data - then we could give each plot type its own colour. The way to specify this is in the <code>aes()</code> helper function, where we give the <code>colour</code> argument the relevant variable (i.e. the name of the column in our data set that contains this variable).</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> surveys_complete,</span>
+<span id="cb7-2"><a href="#cb7-2"></a>       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> weight, <span class="dt">y =</span> hindfoot_length, <span class="dt">colour =</span> plot_type)) <span class="op">+</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="st">    </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="img/R-ecology-adding-colours-data-1.png" width="672" /></p>
 <div class="note">
-<p><strong>Colour within <code>aes()</code> or not?</strong></p>
-<p>It might be a bit confusing where the <code>colour</code> argument needs to go. When we were colouring all the data points blue it went in the <code>geom_point()</code> and not within an <code>aes()</code>, whereas when we were colouring based on <code>plot_type</code> it had to go inside the <code>aes()</code>. An easy way to remember what to use is: <em>If the colour is based on the data, then it goes inside <code>aes()</code>, otherwise it does not.</em></p>
+<p><strong>Aesthetics: within <code>aes()</code> or not?</strong></p>
+<p>It might be a bit confusing where the <code>colour</code>/<code>size</code>/<code>alpha</code>/etc. arguments need to go. For example, when we were colouring all the data points blue in the previous exercise, it went in the <code>geom_point()</code> and not within an <code>aes()</code>, whereas when we were colouring based on <code>plot_type</code> it had to go inside the <code>aes()</code>. An easy way to remember what to use is: <strong>if we want the aesthetic to change based on the data, then it goes inside <code>aes()</code>, otherwise it does not</strong>.</p>
 </div>
-<p><br /></p>
+<div class="exercise">
+<p>Using the <code>geom_boxplot()</code> geometry, make a boxplot that shows the distribution of weight (y-axis) for each genus (x-axis). Colour the inside of the boxplots by sex</p>
+<details>
+<p><summary>Answer</summary></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">ggplot</span>(surveys_complete, <span class="kw">aes</span>(<span class="dt">x =</span> genus, <span class="dt">y =</span> weight, <span class="dt">fill =</span> sex)) <span class="op">+</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="img/R-ecology-unnamed-chunk-4-1.png" width="672" /></p>
+</details>
+</div>
 </div>
 </div>
 <div id="same-data-different-plots" class="section level2">
 <h2>Same data different plots</h2>
-<p>If we would like to try other type of plots on the data, the best thing is to save the ggplot into a variable as below:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign plot to a variable</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>surveys_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> surveys, </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length))</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw a scatter plot</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>surveys_plot <span class="sc">+</span> </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code></pre></div>
-<p>As you can see, when we assigned the plot to <code>surveys_plot</code> we did not specify a <code>geom_function</code>. That is because if we store the plot backbone into a variable, we can then easily add the <code>geom_function</code> we are interested in, without having to type all the initial plot data again.</p>
-<p>Now let’s draw a <code>geom_smooth</code> plot. This plot is good when you need to see if there is any pattern between the two variables being plotted that you would not normally see in a scatter plot due to over plotting.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>surveys_plot <span class="sc">+</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>()</span></code></pre></div>
+<p>If we would like to try other type of plots on the data, one option is to save the ggplot into a variable as below:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Assign plot to a variable</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>surveys_complete_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> surveys_complete, </span>
+<span id="cb9-3"><a href="#cb9-3"></a>                       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> weight, <span class="dt">y =</span> hindfoot_length))</span>
+<span id="cb9-4"><a href="#cb9-4"></a></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="co"># Draw a scatter plot</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>surveys_complete_plot <span class="op">+</span><span class="st"> </span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="st">    </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<p>As you can see, when we assigned the plot to <code>surveys_complete_plot</code> we did not specify a <code>geom_function</code>. That is because if we store the plot backbone into a variable, we can then easily add the <code>geom_function</code> we are interested in, without having to type all the initial plot data again.</p>
+<p>Now let’s use a <code>geom_smooth()</code> instead of <code>geom_point()</code>. This geometry is good when you need to see if there is any pattern between the two variables being plotted that you would not normally see in a scatter plot due to over plotting.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>surveys_complete_plot <span class="op">+</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="st">    </span><span class="kw">geom_smooth</span>()</span></code></pre></div>
 <p><img src="img/R-ecology-ggplot-smooth-1.png" width="672" /></p>
-<p>Rather than seeing each plot separately, sometimes plotting multiple plots on top of each other is a better way. You can add multiple plots as layers on top of each other as follows:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>surveys_plot <span class="sc">+</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
+<p>Rather than seeing each geometry separately, sometimes plotting multiple geometries on top of each other is a better way. You can add multiple plots as layers on top of each other as follows:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>surveys_complete_plot <span class="op">+</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>()</span></code></pre></div>
 <p><img src="img/R-ecology-ggplot-multiple-layers-1.png" width="672" /></p>
 <div class="note">
 <p><strong>Argument inheritance in plots</strong></p>
@@ -563,41 +590,94 @@ div.tocify {
 <li>You can also specify mappings for a given geom independently of the mappings defined globally in the <code>ggplot()</code> function.</li>
 <li>The <code>+</code> sign used to add new layers must be placed at the end of the line containing the <em>previous</em> layer. If, instead, the <code>+</code> sign is added at the beginning of the line containing the new layer, &gt;<strong><code>ggplot2</code></strong> will not add the new layer and will return an error message.</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is the correct syntax for adding layers</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>surveys_plot <span class="sc">+</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># This will not add the new layer and will return an error message</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>surveys_plot </span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># This is the correct syntax for adding layers</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>surveys_complete_plot <span class="op">+</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span>
+<span id="cb12-4"><a href="#cb12-4"></a></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="co"># This will not add the new layer and will return an error message</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a>surveys_complete_plot </span>
+<span id="cb12-7"><a href="#cb12-7"></a>  <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</span></code></pre></div>
 </div>
-<p><br /></p>
-<div id="exercise---geom_density2d" class="section level3 exercise">
-<h3>Exercise - geom_density2d</h3>
-<p>Scatter plots can be useful exploratory tools for small data sets. For data sets with large numbers of observations, such as the <code>surveys</code> data set, over plotting of points can be a limitation of scatter plots. We have already seen how we can visualise data better when we have over-plotting with the <code>geom_smooth</code> plot. Another way for handling over-plotting is to display the density of the data through contours. This is handled by the <code>geom_density</code> geometry. For this challenge do the following:</p>
-<ol style="list-style-type: decimal">
-<li>Create a script called <code>plot_density2d.R</code></li>
-<li>In this script, load the data from <code>data_raw/portal_data_joined.csv</code> into a variable <code>surveys</code>.</li>
-<li>Using <code>ggplot</code>, plot the <code>weight</code> on the x-axis and <code>hindfoot_length</code> on the y-axis in and create a <code>geom_density2d</code> plot.</li>
-</ol>
+<div class="exercise">
+<p>Make a <em>boxplot</em> of <code>genus</code> (x-axis) by <code>hindfoot_length</code> (y-axis). Add a new geometry layer <em>behind</em> the boxplot using <code>geom_violin()</code>.</p>
+<p>Bonus: either by doing a web-search or by looking at the help page of <code>geom_boxplot()</code> and <code>geom_violin()</code>, see if you can find how you can scale the violins so that they all have the same width and make the width of the boxplots smaller.</p>
 <details>
-<summary>
-Answer
-</summary>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the surveys data</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>surveys <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data_raw/portal_data_joined.csv&quot;</span>)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Attach data and map x and y axes</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>surveys_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> surveys, </span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length))</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw geom_density2d</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>surveys_plot <span class="sc">+</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density2d</span>()</span></code></pre></div>
+<p><summary>Answer</summary></p>
+<p>The basic plot is:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">ggplot</span>(surveys_complete, <span class="kw">aes</span>(genus, weight)) <span class="op">+</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="st">  </span><span class="kw">geom_violin</span>() <span class="op">+</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="img/R-ecology-unnamed-chunk-5-1.png" width="672" /></p>
+<p>However, the boxplots offuscate the violin plots. Looking at the help for <code>geom_boxplot()</code> and <code>geom_violin()</code>, we can see there are some options to change this behaviour.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">ggplot</span>(surveys_complete, <span class="kw">aes</span>(genus, weight)) <span class="op">+</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="st">  </span><span class="kw">geom_violin</span>(<span class="dt">scale =</span> <span class="st">&quot;width&quot;</span>) <span class="op">+</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<p><img src="img/R-ecology-unnamed-chunk-6-1.png" width="672" /></p>
 </details>
 </div>
-<p><br /></p>
+<!--
+:::exercise
+### Exercise - geom_density2d
+
+Scatter plots can be useful exploratory tools for small data sets. For data sets with large numbers of observations, such as the `surveys_complete` data set, over plotting of points can be a limitation of scatter plots. We have already seen how we can visualise data better when we have over-plotting by adding transparency to our points. Another way for handling over-plotting is to display the density of the data through contours. This is handled by the `geom_density()` geometry. 
+
+1. Create a script called `plot_density2d.R`
+2. In this script, load the data from `data_raw/portal_data_joined.csv` into a variable `surveys_complete`.
+3. Using `ggplot`, plot the `weight` on the x-axis and `hindfoot_length` on the y-axis in and create a `geom_density2d` plot.
+
+<details><summary>Answer</summary>
+
+
+```r
+library(tidyverse)
+
+# Load the surveys_complete data
+surveys_complete <- read_csv("data_raw/portal_data_joined.csv")
+ 
+# Attach data and map x and y axes
+surveys_complete_plot <- ggplot(data = surveys_complete, 
+                       mapping = aes(x = weight, y = hindfoot_length))
+# Draw geom_density2d
+surveys_complete_plot +
+  geom_point(alpha = 0.1) +
+  geom_density2d()
+```
+
+</details>
+:::
+
+-->
+</div>
+<div id="controlling-aesthetics-in-individual-geometries" class="section level2">
+<h2>Controlling aesthetics in individual geometries</h2>
+<p>Let’s say that, in the plot from our previous exercise, we wanted to colour the violins by genus, but keep the boxplots without colour.</p>
+<p>As we’ve learned, because we want to colour our geometries based on data, this goes inside the aes() part of the graph:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">ggplot</span>(surveys_complete, <span class="kw">aes</span>(<span class="dt">x =</span> genus, <span class="dt">y =</span> weight, <span class="dt">fill =</span> genus)) <span class="op">+</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="st">  </span><span class="kw">geom_violin</span>(<span class="dt">scale =</span> <span class="st">&quot;width&quot;</span>) <span class="op">+</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<pre><code>#&gt; Warning: Removed 2503 rows containing non-finite values (stat_ydensity).</code></pre>
+<pre><code>#&gt; Warning: Removed 2503 rows containing non-finite values (stat_boxplot).</code></pre>
+<p><img src="img/R-ecology-unnamed-chunk-7-1.png" width="672" /></p>
+<p>OK, this is not what we wanted. Both geometries (boxplots and violins) got coloured.</p>
+<p>It turns out that we can control aesthetics individually in each geometry, using the aes() function. Like this:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">ggplot</span>(surveys_complete, <span class="kw">aes</span>(<span class="dt">x =</span> genus, <span class="dt">y =</span> weight)) <span class="op">+</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="st">  </span><span class="kw">geom_violin</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> genus), <span class="dt">scale =</span> <span class="st">&quot;width&quot;</span>) <span class="op">+</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<pre><code>#&gt; Warning: Removed 2503 rows containing non-finite values (stat_ydensity).</code></pre>
+<pre><code>#&gt; Warning: Removed 2503 rows containing non-finite values (stat_boxplot).</code></pre>
+<p><img src="img/R-ecology-unnamed-chunk-8-1.png" width="672" /></p>
+<div class="exercise">
+<p>Modify the graph above by colouring the inside of the boxplots by genus and the inside of the violins in grey colour.</p>
+<pre><code>#&gt; Warning: Removed 2503 rows containing non-finite values (stat_ydensity).</code></pre>
+<pre><code>#&gt; Warning: Removed 2503 rows containing non-finite values (stat_boxplot).</code></pre>
+<p><img src="img/R-ecology-unnamed-chunk-9-1.png" width="672" /></p>
+<details>
+<p><summary>Answer</summary></p>
+<pre><code>#&gt; Warning: Removed 2503 rows containing non-finite values (stat_ydensity).</code></pre>
+<pre><code>#&gt; Warning: Removed 2503 rows containing non-finite values (stat_boxplot).</code></pre>
+<p><img src="img/R-ecology-unnamed-chunk-10-1.png" width="672" /></p>
+</details>
+</div>
 </div>
 <div id="facets" class="section level2">
 <h2>Facets</h2>
@@ -613,53 +693,53 @@ Answer
 <li><code>facet_wrap(facets = vars(facet_variable))</code></li>
 <li><code>facet_grid(rows = vars(row_variable), cols = vars(col_variable))</code>.</li>
 </ul>
-<p><br /></p>
+<p><br></p>
 <div id="using-facet_wrap" class="section level3">
 <h3>Using <code>facet_wrap()</code></h3>
 <p>If we wanted to visualise the scatter plot we created above, but split by <code>plot_type</code> we would have to use <code>facet_wrap()</code>, since we are splitting the data by one variable (<code>plot_type</code>):</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(surveys, </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="at">facets =</span> <span class="fu">vars</span>(plot_type))</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">ggplot</span>(surveys_complete, </span>
+<span id="cb25-2"><a href="#cb25-2"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> weight, <span class="dt">y =</span> hindfoot_length)) <span class="op">+</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="dt">facets =</span> <span class="kw">vars</span>(plot_type))</span></code></pre></div>
 <p><img src="img/R-ecology-facet-wrap-1.png" width="672" /></p>
-<p><br /></p>
+<p><br></p>
 </div>
 <div id="using-facet_grid" class="section level3">
 <h3>Using <code>facet_grid</code></h3>
 <p>What if we wanted to split the data by <code>plot_type</code>, but also further divide the data by <code>sex</code> to see if there are any clear differences between male and female observations? In that case we would have to split the data based on <em>two</em> variables, which means we have to use <code>facet_grid()</code>:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(surveys, </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(sex), <span class="at">cols =</span> <span class="fu">vars</span>(plot_type))</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">ggplot</span>(surveys_complete, </span>
+<span id="cb26-2"><a href="#cb26-2"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> weight, <span class="dt">y =</span> hindfoot_length)) <span class="op">+</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb26-4"><a href="#cb26-4"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">rows =</span> <span class="kw">vars</span>(sex), <span class="dt">cols =</span> <span class="kw">vars</span>(plot_type))</span></code></pre></div>
 <p><img src="img/R-ecology-facet-grid-1.png" width="672" /></p>
 <p>Finally, with <code>facet_grid()</code>, you can organise the panels just by rows or just by columns. Try running this code yourself:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One column, facet by rows</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(surveys, </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(sex))</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># One row, facet by column</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(surveys, </span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">cols =</span> <span class="fu">vars</span>(sex))</span></code></pre></div>
-<p><br /></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># One column, facet by rows</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="kw">ggplot</span>(surveys_complete, </span>
+<span id="cb27-3"><a href="#cb27-3"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> weight, <span class="dt">y =</span> hindfoot_length)) <span class="op">+</span></span>
+<span id="cb27-4"><a href="#cb27-4"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb27-5"><a href="#cb27-5"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">rows =</span> <span class="kw">vars</span>(sex))</span>
+<span id="cb27-6"><a href="#cb27-6"></a></span>
+<span id="cb27-7"><a href="#cb27-7"></a><span class="co"># One row, facet by column</span></span>
+<span id="cb27-8"><a href="#cb27-8"></a><span class="kw">ggplot</span>(surveys_complete, </span>
+<span id="cb27-9"><a href="#cb27-9"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> weight, <span class="dt">y =</span> hindfoot_length)) <span class="op">+</span></span>
+<span id="cb27-10"><a href="#cb27-10"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb27-11"><a href="#cb27-11"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">cols =</span> <span class="kw">vars</span>(sex))</span></code></pre></div>
+<p><br></p>
 </div>
 </div>
 <div id="saveplot" class="section level2">
 <h2>Saving a plot to a file</h2>
 <p>Saving a plot is something you will want to do often. Fortunately it is quite easy to do this with <code>tidyverse</code>.</p>
-<p>To save a plot to file we use the <code>ggsave</code> function. If you look at the <a href="https://ggplot2.tidyverse.org/reference/ggsave.html">documentation of ggsave</a> you can see the different arguments the <code>ggsave</code> function takes. Let’s save the plot present in the <code>surveys_plot</code> variable into a file called <code>plot_weight_hindfoot_density2d.png</code> and place this into the <code>img_output</code> folder within our working directory (check that it is present, if not you need to create it).</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save plot that you would like to save into a variable</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>out_plot <span class="ot">&lt;-</span> surveys_plot <span class="sc">+</span> <span class="fu">geom_density2d</span>()</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Save plot to file</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">&quot;img_output/plot_weight_hindfoot_density2d.png&quot;</span>, <span class="at">plot =</span> out_plot)</span></code></pre></div>
-<p><br /></p>
+<p>To save a plot to file we use the <code>ggsave</code> function. If you look at the <a href="https://ggplot2.tidyverse.org/reference/ggsave.html">documentation of ggsave</a> you can see the different arguments the <code>ggsave</code> function takes. Let’s save the plot present in the <code>surveys_complete_plot</code> variable into a file called <code>plot_weight_hindfoot_density2d.png</code> and place this into the <code>img_output</code> folder within our working directory (check that it is present, if not you need to create it).</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># Save plot that you would like to save into a variable</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>out_plot &lt;-<span class="st"> </span>surveys_complete_plot <span class="op">+</span><span class="st"> </span><span class="kw">geom_density2d</span>()</span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="co"># Save plot to file</span></span>
+<span id="cb28-4"><a href="#cb28-4"></a><span class="kw">ggsave</span>(<span class="dt">filename =</span> <span class="st">&quot;img_output/plot_weight_hindfoot_density2d.png&quot;</span>, <span class="dt">plot =</span> out_plot)</span></code></pre></div>
+<p><br></p>
 <div class="note">
 <p>You do not necessarily need to save the plot into a variable before saving it to file. If you do not specify the <code>plot</code> argument in the <code>ggsave</code> function, <code>ggsave</code> will take the last plot that you plotted and save it into the <code>filename</code> specified.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save plot to file</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">&quot;img_output/plot_weight_hindfoot_density2d.png&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># Save plot to file</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="kw">ggsave</span>(<span class="dt">filename =</span> <span class="st">&quot;img_output/plot_weight_hindfoot_density2d.png&quot;</span>)</span></code></pre></div>
 <p>Alternatively, you can go to the Plots pane and click on the <strong>Export</strong> button. This can be easy if you quickly want to share a plot, but it does mean that it is not reproducible. So if you want other people to recreate your work, then always use code to save your plots!</p>
 </div>
 </div>

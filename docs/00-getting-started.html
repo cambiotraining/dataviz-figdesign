@@ -13,7 +13,6 @@
 
 <title>Getting Started</title>
 
-<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -33,6 +32,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -53,19 +53,19 @@
   }
 </style>
 <style type="text/css" data-origin="pandoc">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -85,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -385,12 +385,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
+<div class="col-sm-12 col-md-4 col-lg-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
 
 
 
@@ -450,12 +450,8 @@ div.tocify {
     <li>
       <a href="07-hw_2021_07_27.html">27 July 2021</a>
     </li>
-    <li>
-      <a href="08-hw_2021_08_03.html">03 August 2021</a>
-    </li>
-    <li>
-      <a href="09-hw_2021_08_12.html">12 August 2021</a>
-    </li>
+    <li class="dropdown-header">03 August 2021</li>
+    <li class="dropdown-header">12 August 2021</li>
   </ul>
 </li>
 <li class="dropdown">
@@ -583,9 +579,8 @@ div.tocify {
 <p><img src="img/new_folder.png" width="200"/></p>
 <p>Remember to try and avoid capitalisation and spaces (use the underscore instead).</p>
 <p><br /></p>
-</div>
-<div id="exercise---creating-folders" class="section level3 exercise">
-<h3>Exercise - creating folders</h3>
+<div class="exercise">
+<h3 id="exercise---creating-folders">Exercise - creating folders</h3>
 <ol style="list-style-type: decimal">
 <li>Create an R project, if you haven’t done so already.</li>
 <li>Create a <code>data_raw</code>, <code>data_output</code>, <code>scripts</code> and <code>fig_output</code> folder within your working directory.</li>
@@ -600,6 +595,7 @@ How it should look like at the beginning of this lesson
 </div>
 <p>The working directory is an important concept to understand. It is the place from where R will be looking for and saving the files. When you write code for your project, it should refer to files in relation to the root of your working directory and only need files within this structure.</p>
 <p><br/></p>
+</div>
 </div>
 <div id="interacting-with-r" class="section level2">
 <h2>Interacting with R</h2>
@@ -631,13 +627,13 @@ How it should look like at the beginning of this lesson
 <p><br /></p>
 <p><strong>I know the name of the function I want to use, but I’m not sure how to use it</strong></p>
 <p>If you need help with a specific function, let’s say <code>barplot()</code>, you can type:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>?barplot</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>?barplot</span></code></pre></div>
 <p>If you just need to remind yourself of the names of the arguments, you can use:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">args</span>(lm)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">args</span>(lm)</span></code></pre></div>
 <p><br /></p>
 <p><strong>I want to use a function that does X, there must be a function for it but I don’t know which one…</strong></p>
 <p>If you are looking for a function to do a particular task, you can use the <code>help.search()</code> function, which is called by the double question mark <code>??</code>. However, this only looks through the installed packages for help pages with a match to your search request</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>??kruskal</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>??kruskal</span></code></pre></div>
 <p>If you can’t find what you are looking for, you can use the <a href="http://www.rdocumentation.org">rdocumentation.org</a> website that searches through the help files across all packages available.</p>
 <p>Finally, a generic Google or internet search “R &lt;task&gt;” will often either send you to the appropriate package documentation or a helpful forum where someone else has already asked your question.</p>
 <p><br /></p>

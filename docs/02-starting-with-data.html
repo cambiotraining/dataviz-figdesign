@@ -450,7 +450,9 @@ div.tocify {
     <li>
       <a href="07-hw_2021_07_27.html">27 July 2021</a>
     </li>
-    <li class="dropdown-header">03 August 2021</li>
+    <li>
+      <a href="08-hw_2021_08_03.html">03 August 2021</a>
+    </li>
     <li class="dropdown-header">12 August 2021</li>
   </ul>
 </li>
@@ -693,7 +695,7 @@ div.tocify {
 </ul>
 <p>Let’s practice this on our <code>surveys</code> data set. We would like to create a scatter plot with <code>weight</code> on the x-axis, <code>hindfoot_length</code> on the y-axis:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> surveys, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> weight, <span class="dt">y =</span> hindfoot_length))</span></code></pre></div>
-<p><img src="img/R-ecology-ggplot-empty-1.png" width="672" /></p>
+<p><img src="img/R-ecology-02-ggplot-empty-1.png" width="672" /></p>
 <p><br/></p>
 </div>
 <div id="adding-layers" class="section level2">
@@ -701,7 +703,7 @@ div.tocify {
 <p>If you just specify the <code>ggplot</code> function with the data and aesthetic mappings, it will create a plot, but the data itself is not displayed. Let us now add the <code>geom_function</code> for the scatter plot (<code>geom_point()</code>) as a layer to the plot:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> surveys, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> weight, <span class="dt">y =</span> hindfoot_length)) <span class="op">+</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
-<p><img src="img/R-ecology-ggplot-scatterplot-1.png" width="672" /></p>
+<p><img src="img/R-ecology-02-ggplot-scatterplot-1.png" width="672" /></p>
 <p><br/></p>
 <div class="exercise">
 <h3 id="exercise---boxplot">Exercise - Boxplot</h3>
@@ -715,7 +717,7 @@ div.tocify {
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># There are different options for the x-axis</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> surveys, <span class="kw">aes</span>(<span class="dt">x =</span> plot_type, <span class="dt">y =</span> hindfoot_length)) <span class="op">+</span></span>
 <span id="cb12-3"><a href="#cb12-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
-<p><img src="img/R-ecology-boxplot-1.png" width="672" /></p>
+<p><img src="img/R-ecology-02-boxplot-1.png" width="672" /></p>
 </details>
 </div>
 <p><br/></p>

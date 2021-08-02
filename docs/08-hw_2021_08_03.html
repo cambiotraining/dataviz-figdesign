@@ -450,7 +450,9 @@ div.tocify {
     <li>
       <a href="07-hw_2021_07_27.html">27 July 2021</a>
     </li>
-    <li class="dropdown-header">03 August 2021</li>
+    <li>
+      <a href="08-hw_2021_08_03.html">03 August 2021</a>
+    </li>
     <li class="dropdown-header">12 August 2021</li>
   </ul>
 </li>
@@ -488,51 +490,62 @@ div.tocify {
 </div>
 
 
+<p>These exercises continue from last week’s, so you need to make sure you’ve read the gapminder dataset:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>gapminder &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data_raw/gapminder2010_socioeconomic.csv&quot;</span>)</span></code></pre></div>
 <div id="task-5" class="section level2">
 <h2>Task 5</h2>
 <p>Let’s take the scatterplot from our previous exercise and continue working on it:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> gapminder, </span>
-<span id="cb1-2"><a href="#cb1-2"></a>       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> life_expectancy, <span class="dt">y =</span> income_per_person)) <span class="op">+</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
-<pre><code>#&gt; Warning: Removed 6 rows containing missing values (geom_point).</code></pre>
-<p><img src="img/R-ecology-08-unnamed-chunk-2-1.png" width="672" /></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> gapminder, </span>
+<span id="cb2-2"><a href="#cb2-2"></a>       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> life_expectancy, <span class="dt">y =</span> income_per_person)) <span class="op">+</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<p><img src="img/R-ecology-08-unnamed-chunk-3-1.png" width="672" /></p>
 <ol style="list-style-type: decimal">
-<li>Colour the scatter plot points in red and add in a smooth trend line.
+<li>Colour the points brown, make them 80% transparent and increase their size.</li>
+<li>Add a smooth trend line to the plot.
 <details>
 <summary>Hint</summary>Use <code>geom_smooth()</code> to add a trend line to the data.
 </details></li>
-<li>Colour the points by the variable “world_region” instead.</li>
-<li>Assign the scatter plot (with the trendline) to an appropriately named object.</li>
+<li>Modify the previous plot and colour the points by the variable “world_region”.</li>
+<li>Assign (<code>&lt;-</code>) the plot to an appropriately named object.</li>
 </ol>
 <details>
 <p><summary>Answer</summary></p>
+<p>We can use the options <code>colour</code>, <code>alpha</code> (transparency) and <code>size</code> to modify the points as requested:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> gapminder, </span>
 <span id="cb3-2"><a href="#cb3-2"></a>       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> life_expectancy, <span class="dt">y =</span> income_per_person)) <span class="op">+</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>()</span></code></pre></div>
-<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing non-finite values (stat_smooth).</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing missing values (geom_point).</code></pre>
-<p><img src="img/R-ecology-08-unnamed-chunk-3-1.png" width="672" /></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> gapminder, </span>
-<span id="cb7-2"><a href="#cb7-2"></a>       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> life_expectancy, <span class="dt">y =</span> income_per_person)) <span class="op">+</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> world_region)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>()</span></code></pre></div>
-<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing non-finite values (stat_smooth).</code></pre>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">colour =</span> <span class="st">&quot;brown&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.8</span>, <span class="dt">size =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>#&gt; Warning: Removed 6 rows containing missing values (geom_point).</code></pre>
 <p><img src="img/R-ecology-08-unnamed-chunk-4-1.png" width="672" /></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>income_life_expectancy_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> gapminder, </span>
-<span id="cb11-2"><a href="#cb11-2"></a>                                      <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> life_expectancy, <span class="dt">y =</span> income_per_person)) <span class="op">+</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour=</span>world_region)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>()</span></code></pre></div>
-<p>Note: assigning it to a variable helps your code stay clean and also helps when it comes to saving plots.</p>
-<p>If you want to see the plot, you have to print it on the console</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>income_life_expectancy_plot</span></code></pre></div>
+<p>To add a trend line, we add a new geometry to our plot:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> gapminder, </span>
+<span id="cb5-2"><a href="#cb5-2"></a>       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> life_expectancy, <span class="dt">y =</span> income_per_person)) <span class="op">+</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">colour =</span> <span class="st">&quot;brown&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.8</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>()</span></code></pre></div>
+<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing missing values (geom_point).</code></pre>
+<p><img src="img/R-ecology-08-unnamed-chunk-5-1.png" width="672" /></p>
+<p>To colour the points by a variable, we move the <code>colour</code> option into the <code>aes()</code> giving it the variable name instead of a colour name (ggplot takes care of picking some default colours for us):</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> gapminder, </span>
+<span id="cb9-2"><a href="#cb9-2"></a>       <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> life_expectancy, <span class="dt">y =</span> income_per_person)) <span class="op">+</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> world_region)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>()</span></code></pre></div>
 <pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
 <pre><code>#&gt; Warning: Removed 6 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>#&gt; Warning: Removed 6 rows containing missing values (geom_point).</code></pre>
 <p><img src="img/R-ecology-08-unnamed-chunk-6-1.png" width="672" /></p>
+<p>To save the plot into an object, we use the assignment operator <code>&lt;-</code>, like so:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>income_life_expectancy_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> gapminder, </span>
+<span id="cb13-2"><a href="#cb13-2"></a>                                      <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> life_expectancy, <span class="dt">y =</span> income_per_person)) <span class="op">+</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour=</span>world_region)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>()</span></code></pre></div>
+<p>Note: assigning it to a variable helps your code stay clean and also helps when it comes to saving plots.</p>
+<p>If you want to see the plot, you have to print it on the console</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>income_life_expectancy_plot</span></code></pre></div>
+<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing missing values (geom_point).</code></pre>
+<p><img src="img/R-ecology-08-unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 <div id="task-6" class="section level2">
 <h2>Task 6</h2>
@@ -547,15 +560,15 @@ div.tocify {
 <details>
 <p><summary>Answer</summary></p>
 <p>We can use the <code>facet_wrap()</code> function to achieve this:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>income_life_expectancy_plot  <span class="op">+</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="dt">facets =</span> <span class="kw">vars</span>(is_oecd))</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>income_life_expectancy_plot  <span class="op">+</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="dt">facets =</span> <span class="kw">vars</span>(is_oecd))</span></code></pre></div>
 <pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
 <pre><code>#&gt; Warning: Removed 6 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>#&gt; Warning: Removed 6 rows containing missing values (geom_point).</code></pre>
-<p><img src="img/R-ecology-08-unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="img/R-ecology-08-unnamed-chunk-9-1.png" width="672" /></p>
 <p>To facet by a different variable, we can adapt the code above and just replace the variable we are facetting by:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>income_life_expectancy_plot  <span class="op">+</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="dt">facets =</span> <span class="kw">vars</span>(main_religion))</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>income_life_expectancy_plot  <span class="op">+</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="dt">facets =</span> <span class="kw">vars</span>(main_religion))</span></code></pre></div>
 <pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
 <pre><code>#&gt; Warning: Removed 6 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>#&gt; Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
@@ -591,52 +604,65 @@ div.tocify {
 <pre><code>#&gt; Warning: Removed 6 rows containing missing values (geom_point).</code></pre>
 <pre><code>#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning -
 #&gt; Inf</code></pre>
-<p><img src="img/R-ecology-08-unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="img/R-ecology-08-unnamed-chunk-10-1.png" width="672" /></p>
 <p>This is where we can clearly see how the spelling/formatting mistakes affect our data. Variables are recognised as different if capitalisation is different e.g. “christian” vs “Christian”. There is also a more subtle typo between “eastern religions” (one space between words) and “eastern religions” (two spaces between words). We turn to try and fix this problem in the next exercise.</p>
 <p>Finally, we were asked to facet by <code>children_per_woman</code></p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>income_life_expectancy_plot <span class="op">+</span></span>
-<span id="cb35-2"><a href="#cb35-2"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="dt">facets =</span> <span class="kw">vars</span>(children_per_woman))</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>income_life_expectancy_plot <span class="op">+</span></span>
+<span id="cb37-2"><a href="#cb37-2"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="dt">facets =</span> <span class="kw">vars</span>(children_per_woman))</span></code></pre></div>
 <pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="img/R-ecology-08-unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="img/R-ecology-08-unnamed-chunk-11-1.png" width="672" /></p>
 <p>This “works” (as in, the code gives no error). But it is very messy and not informative! This is a good example of how NOT to present data - this would be a more suitable variable to use for “coloured by” as opposed to facet.</p>
 </details>
 </div>
-<div id="task-5-1" class="section level2">
-<h2>Task 5</h2>
+<div id="task-7" class="section level2">
+<h2>Task 7</h2>
 <p>In previous exercises we have seen that the <code>main_religion</code> column contains several typos. The <code>stringr</code> package (part of <code>tidyverse</code>) is very useful to correct these kinds of mistakes. For example, the function <code>str_squish()</code> removes any whitespaces inside a string. While the function <code>str_to_lower()</code> converts words to lowercase.</p>
 <p>You have also seen how to use the <code>mutate()</code> function to <em>modify</em> a column in your table. For example:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb37-2"><a href="#cb37-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">income_total =</span> population <span class="op">*</span><span class="st"> </span>income_per_person)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb39-2"><a href="#cb39-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">income_total =</span> population <span class="op">*</span><span class="st"> </span>income_per_person)</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Use <code>mutate()</code>, <code>str_squish()</code> and <code>str_to_lower()</code> to fix the typos in the <code>main_religion</code> column in our table.</li>
-<li></li>
 </ol>
 <details>
 <p><summary>Answer</summary></p>
 <p>We can pipe two <code>mutate()</code> commands, at each step modifying the column with one of the <code>str_*()</code> functions:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>gapminder &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb38-2"><a href="#cb38-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">main_religion =</span> <span class="kw">str_squish</span>(main_religion)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb38-3"><a href="#cb38-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">main_religion =</span> <span class="kw">str_to_lower</span>(main_religion))</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>gapminder &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb40-2"><a href="#cb40-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">main_religion =</span> <span class="kw">str_squish</span>(main_religion)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb40-3"><a href="#cb40-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">main_religion =</span> <span class="kw">str_to_lower</span>(main_religion))</span></code></pre></div>
 <p>Alternatively, we could have also done both tasks at once by “nesting” one function inside the other:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb39-2"><a href="#cb39-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">main_religion =</span> <span class="kw">str_squish</span>(<span class="kw">str_to_lower</span>(main_religion)))</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb41-2"><a href="#cb41-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">main_religion =</span> <span class="kw">str_squish</span>(<span class="kw">str_to_lower</span>(main_religion)))</span></code></pre></div>
 <p>We can check that the issue has been solved, for example by re-doing our plot facetted by this variable:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="co"># create new version of the base plot</span></span>
-<span id="cb40-2"><a href="#cb40-2"></a>income_life_expectancy_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(gapminder, <span class="kw">aes</span>(life_expectancy, income_per_person)) <span class="op">+</span></span>
-<span id="cb40-3"><a href="#cb40-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb40-4"><a href="#cb40-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>()</span>
-<span id="cb40-5"><a href="#cb40-5"></a></span>
-<span id="cb40-6"><a href="#cb40-6"></a><span class="co"># plot with facets</span></span>
-<span id="cb40-7"><a href="#cb40-7"></a>income_life_expectancy_plot <span class="op">+</span></span>
-<span id="cb40-8"><a href="#cb40-8"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="dt">facets =</span> <span class="kw">vars</span>(main_religion))</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="co"># create new version of the base plot</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a>income_life_expectancy_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(gapminder, <span class="kw">aes</span>(life_expectancy, income_per_person)) <span class="op">+</span></span>
+<span id="cb42-3"><a href="#cb42-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb42-4"><a href="#cb42-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>()</span>
+<span id="cb42-5"><a href="#cb42-5"></a></span>
+<span id="cb42-6"><a href="#cb42-6"></a><span class="co"># plot with facets</span></span>
+<span id="cb42-7"><a href="#cb42-7"></a>income_life_expectancy_plot <span class="op">+</span></span>
+<span id="cb42-8"><a href="#cb42-8"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="dt">facets =</span> <span class="kw">vars</span>(main_religion))</span></code></pre></div>
 <pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
 <pre><code>#&gt; Warning: Removed 6 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>#&gt; Warning: Removed 6 rows containing missing values (geom_point).</code></pre>
-<p><img src="img/R-ecology-08-unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="img/R-ecology-08-unnamed-chunk-15-1.png" width="672" /></p>
 </details>
 </div>
-<div id="task-6-1" class="section level2">
-<h2>Task 6</h2>
+<div id="task-8" class="section level2">
+<h2>Task 8</h2>
+<p>Make a violin + boxplot of main_religion (x-axis) by income_per_person (y-axis) - where the violin is coloured by the x variable but the boxplot is not (it is white by default). Give the boxplot a width of 0.25.</p>
+<p>In terms of figure design, what do you think about our choice of colouring the inside of the violin plots by main_religion?</p>
+<details>
+<p><summary>Answer</summary></p>
+<p>We can make the desired plot by passing the <code>fill</code> aesthetic to the <code>geom_violin()</code> only, and we can set the <code>width</code> option in <code>geom_boxplot()</code>:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="kw">ggplot</span>(gapminder, <span class="kw">aes</span>(<span class="dt">x =</span> main_religion, <span class="dt">y =</span> income_per_person)) <span class="op">+</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a><span class="st">  </span><span class="kw">geom_violin</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> main_religion)) <span class="op">+</span></span>
+<span id="cb46-3"><a href="#cb46-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width =</span> <span class="fl">0.25</span>)</span></code></pre></div>
+<p><img src="img/R-ecology-08-unnamed-chunk-16-1.png" width="672" /></p>
+<p>Colouring the violin plots by <code>main_religion</code> is redundant with the x-axis, so it doesn’t seem justified in this case. Maybe if this plot was part of a series of other plots where the colouring was necessary, then it might make sense to colour them, for consistency across figure panels. In that case, we could still improve this plot by remove the colour legend on the right, to de-clutter the plot (we will see how to do this in the next lesson).</p>
+</details>
+</div>
+<div id="task-9" class="section level2">
+<h2>Task 9</h2>
 <ol style="list-style-type: decimal">
 <li>Split your scatter plot by rows and columns. Row = <code>is_oecd</code>, Columns = <code>main_religion</code>.</li>
 <li>Apart from the warning related to 6 missing values, we get other warnings. What do you think these are related to?</li>
@@ -644,8 +670,8 @@ div.tocify {
 <details>
 <p><summary>Answer</summary></p>
 <p>In this case, we want to use <code>facet_grid()</code>, which lets us split the plot by “rows” and “columns” on a grid:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>income_life_expectancy_plot  <span class="op">+</span></span>
-<span id="cb44-2"><a href="#cb44-2"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">rows =</span> <span class="kw">vars</span>(is_oecd), <span class="dt">cols =</span> <span class="kw">vars</span>(main_religion))</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>income_life_expectancy_plot  <span class="op">+</span></span>
+<span id="cb47-2"><a href="#cb47-2"></a><span class="st">  </span><span class="kw">facet_grid</span>(<span class="dt">rows =</span> <span class="kw">vars</span>(is_oecd), <span class="dt">cols =</span> <span class="kw">vars</span>(main_religion))</span></code></pre></div>
 <pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
 <pre><code>#&gt; Warning: Removed 6 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>#&gt; Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
@@ -678,20 +704,20 @@ div.tocify {
 <pre><code>#&gt; Warning: Computation failed in `stat_smooth()`:
 #&gt; NA/NaN/Inf in foreign function call (arg 5)</code></pre>
 <pre><code>#&gt; Warning: Removed 6 rows containing missing values (geom_point).</code></pre>
-<p><img src="img/R-ecology-08-unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="img/R-ecology-08-unnamed-chunk-17-1.png" width="672" /></p>
 <p>The warnings we get are from <code>geom_smooth()</code>, which in some groups has such few points that it cannot make a smooth line (e.g. very few countries that are both part of the OECD and where the main religion falls in the category “eastern religions”).</p>
 </details>
 </div>
-<div id="task-7" class="section level2">
-<h2>Task 7</h2>
+<div id="task-10" class="section level2">
+<h2>Task 10</h2>
 <ol style="list-style-type: decimal">
 <li>Save one of the plots (of your choice) to a file with appropriate file name. Choose the one you think best represents the data and think why.</li>
 </ol>
 <details>
 <p><summary>Answer</summary></p>
 <p>We can use the <code>ggsave()</code> function to achieve this:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a><span class="kw">ggsave</span>(<span class="dt">filename =</span> <span class="st">&quot;img_output/plot_income_lifeExpt_trend.png&quot;</span>, </span>
-<span id="cb61-2"><a href="#cb61-2"></a>       <span class="dt">plot =</span> income_life_expectancy_plot)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a><span class="kw">ggsave</span>(<span class="dt">filename =</span> <span class="st">&quot;img_output/plot_income_lifeExpt_trend.png&quot;</span>, </span>
+<span id="cb64-2"><a href="#cb64-2"></a>       <span class="dt">plot =</span> income_life_expectancy_plot)</span></code></pre></div>
 <p>The extension we use in the filename is important, as it will determine the file format that the plot will be saved as. In this case we’re saving it as a <em>PNG</em> file. Another good option is to save as a <em>PDF</em> file (<code>.pdf</code> extension).</p>
 <p>We chose to just save the plot pre-facetting. This is because, sometimes, too many variables represented in a single plot confuses things and makes it extremely hard to interpret (and very easy to misinterpret!).</p>
 </details>

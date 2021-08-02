@@ -4,6 +4,8 @@ title: Data manipulation with tidyverse
 
 ```{r, echo=FALSE, purl=FALSE, message = FALSE}
 source("setup.R")
+knitr::opts_chunk$set(fig.path = paste0(knitr::opts_chunk$get("fig.path"),
+                                        "04-"))
 surveys <- read_csv("data_raw/portal_data_joined.csv")
 suppressWarnings(surveys$date <- lubridate::ymd(paste(surveys$year,
                                                      surveys$month,

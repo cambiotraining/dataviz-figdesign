@@ -4,6 +4,8 @@ title: "Starting with data"
 
 ```{r, echo = FALSE, purl = FALSE, message = FALSE}
 source("setup.R")
+knitr::opts_chunk$set(fig.path = paste0(knitr::opts_chunk$get("fig.path"),
+                                        "02-"))
 ```
 
 <br/>

@@ -450,7 +450,9 @@ div.tocify {
     <li>
       <a href="07-hw_2021_07_27.html">27 July 2021</a>
     </li>
-    <li class="dropdown-header">03 August 2021</li>
+    <li>
+      <a href="08-hw_2021_08_03.html">03 August 2021</a>
+    </li>
     <li class="dropdown-header">12 August 2021</li>
   </ul>
 </li>
@@ -498,7 +500,7 @@ div.tocify {
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> surveys, </span>
 <span id="cb2-2"><a href="#cb2-2"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> weight, <span class="dt">y =</span> hindfoot_length)) <span class="op">+</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> plot_type))</span></code></pre></div>
-<p><img src="img/R-ecology-custom-start-1.png" width="672" /></p>
+<p><img src="img/R-ecology-05-custom-start-1.png" width="672" /></p>
 <p>Let’s revise what we’ve done here:</p>
 <ul>
 <li>We’ve defined <code>surveys</code> as the data frame to be used as data</li>
@@ -517,7 +519,7 @@ div.tocify {
 <span id="cb3-2"><a href="#cb3-2"></a>       <span class="kw">aes</span>(<span class="dt">x =</span> weight, <span class="dt">y =</span> hindfoot_length)) <span class="op">+</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> plot_type)) <span class="op">+</span></span>
 <span id="cb3-4"><a href="#cb3-4"></a><span class="st">  </span><span class="kw">scale_colour_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Dark2&quot;</span>)</span></code></pre></div>
-<p><img src="img/R-ecology-brewer-palette-1.png" width="672" /></p>
+<p><img src="img/R-ecology-05-brewer-palette-1.png" width="672" /></p>
 <p>Let’s save this graph in an object (you can do this with <em>ggplot</em> graphs). This is optional, but often convenient when we want try different customisations or when assembling different plots together, as we will see later on.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># save our graph within an object called `p1`</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> surveys, </span>
@@ -541,7 +543,7 @@ div.tocify {
 <span id="cb6-6"><a href="#cb6-6"></a>       <span class="dt">title =</span> <span class="st">&quot;Relationship between weight and hindfoot length&quot;</span>, </span>
 <span id="cb6-7"><a href="#cb6-7"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Based on Portal data set&quot;</span>,</span>
 <span id="cb6-8"><a href="#cb6-8"></a>       <span class="dt">caption =</span> <span class="st">&quot;done with ggplot2 in R&quot;</span>)</span></code></pre></div>
-<p><img src="img/R-ecology-labels-1.png" width="672" /></p>
+<p><img src="img/R-ecology-05-labels-1.png" width="672" /></p>
 <div class="note">
 <p><strong>Numbering panels</strong></p>
 <p>The <code>tag</code> label is particularly useful for numbering panels in composite figures. However, we will see an even more convenient way of doing it later on using the <code>patchwork</code> package.</p>
@@ -554,11 +556,11 @@ div.tocify {
 <p>For example, let’s label each of our countries with their respective name:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>p1 <span class="op">+</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> species))</span></code></pre></div>
-<p><img src="img/R-ecology-label-points-1.png" width="672" /></p>
+<p><img src="img/R-ecology-05-label-points-1.png" width="672" /></p>
 <p>Oh dear, that’s a bit too much, and not very informative. We can do better, by telling the geometry to check for overlaps:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>p1 <span class="op">+</span><span class="st"> </span></span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> species), <span class="dt">check_overlap =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="img/R-ecology-label-points-overlap-1.png" width="672" /></p>
+<p><img src="img/R-ecology-05-label-points-overlap-1.png" width="672" /></p>
 <p><br /></p>
 </div>
 <div id="free-annotations" class="section level3">
@@ -573,7 +575,7 @@ div.tocify {
 <span id="cb9-6"><a href="#cb9-6"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="dt">geom =</span> <span class="st">&quot;segment&quot;</span>, <span class="dt">x =</span> <span class="dv">40</span>, <span class="dt">xend =</span> <span class="dv">50</span>, <span class="dt">y =</span> <span class="dv">65</span>, <span class="dt">yend =</span> <span class="dv">68</span>) <span class="op">+</span></span>
 <span id="cb9-7"><a href="#cb9-7"></a><span class="st">  </span><span class="co"># add some text</span></span>
 <span id="cb9-8"><a href="#cb9-8"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="dt">geom =</span> <span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="dv">85</span>, <span class="dt">y =</span> <span class="dv">70</span>, <span class="dt">label =</span> <span class="st">&quot;Clear outlier&quot;</span>)</span></code></pre></div>
-<p><img src="img/R-ecology-annotations-1.png" width="672" /></p>
+<p><img src="img/R-ecology-05-annotations-1.png" width="672" /></p>
 <p>Adding annotations “manually” can be tedious, as it requires a lot of trial-and-error to get it just right, but it can be convenient when we want to highlight something very specific in our graph.</p>
 <p><br /></p>
 </div>
@@ -585,20 +587,20 @@ div.tocify {
 <span id="cb10-3"><a href="#cb10-3"></a>p1 <span class="op">+</span></span>
 <span id="cb10-4"><a href="#cb10-4"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">20</span>, <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
 <span id="cb10-5"><a href="#cb10-5"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">100</span>, <span class="dt">size =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="img/R-ecology-adding-lines-1.png" width="672" /></p>
+<p><img src="img/R-ecology-05-adding-lines-1.png" width="672" /></p>
 <p>You can also add a sloped line, using <code>geom_abline()</code>, which needs information about the y-intercept and slope of the line:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>p1 <span class="op">+</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="dv">0</span>, <span class="dt">slope =</span> <span class="fl">0.9</span>, <span class="dt">size =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="img/R-ecology-abline-1.png" width="672" /></p>
+<p><img src="img/R-ecology-05-abline-1.png" width="672" /></p>
 <p>This function is often useful to use when looking at the correlation between two variables on the same scale, and thus highlighting x = y (<code>intercept = 0, slope = 1</code>, which is the default of the function).</p>
 <p>Finally, you can also use <code>geom_smooth()</code> to add a trend line to your data.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>()</span></code></pre></div>
 <pre><code>#&gt; `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
-<p><img src="img/R-ecology-trend-line-1.png" width="672" /></p>
+<p><img src="img/R-ecology-05-trend-line-1.png" width="672" /></p>
 <p>What <code>geom_smooth()</code> does is fit a model to the data, and then graphs the mean prediction (with error estimate) from that model. By default, the model used is a <a href="https://youtu.be/Vf7oJ6z2LCc">LOESS regression</a>. Another common usage is to display the result of a <a href="https://youtu.be/PaFPbb66DxQ">linear regression</a> fit to the data, in which case we can change the <code>method</code> option to “lm” (to use the linear model function from R):</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>p1 <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
 <pre><code>#&gt; `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="img/R-ecology-trend-line-lm-1.png" width="672" /></p>
+<p><img src="img/R-ecology-05-trend-line-lm-1.png" width="672" /></p>
 <p>You can also remove the standard error by setting <code>se = FALSE</code> inside the function.</p>
 <p><br /></p>
 </div>
@@ -608,7 +610,7 @@ div.tocify {
 <p>You can use the <code>coord_cartesian()</code> function to adjust x and y limits. For example, let’s highlight the observations that we annotated with the rectangle earlier:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>p1 <span class="op">+</span><span class="st"> </span></span>
 <span id="cb16-2"><a href="#cb16-2"></a><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">200</span>, <span class="dv">285</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">25</span>, <span class="dv">40</span>))</span></code></pre></div>
-<p><img src="img/R-ecology-axes-limits-1.png" width="672" /></p>
+<p><img src="img/R-ecology-05-axes-limits-1.png" width="672" /></p>
 <p><br /></p>
 </div>
 <div id="themes" class="section level2">
@@ -620,7 +622,7 @@ div.tocify {
 <p><code>ggplot2</code> comes with some pre-defined <em>themes</em>, which can be accessed using the <code>theme_*</code> family of functions. For example, let’s use <code>theme_classic()</code> for a cleaner-looking graph:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>p1 <span class="op">+</span><span class="st"> </span></span>
 <span id="cb17-2"><a href="#cb17-2"></a><span class="st">  </span><span class="kw">theme_classic</span>()</span></code></pre></div>
-<p><img src="img/R-ecology-themes-1.png" width="672" /></p>
+<p><img src="img/R-ecology-05-themes-1.png" width="672" /></p>
 <p>Here’s the themes available with <code>ggplot2</code>:</p>
 <div class="figure">
 <img src="https://d33wubrfki0l68.cloudfront.net/6be25cfb939e69d72df9fbc68e7a0334e1febefe/10e92/images/visualization-themes.png" alt="" />
@@ -658,7 +660,7 @@ div.tocify {
 <span id="cb19-5"><a href="#cb19-5"></a>                  <span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">12</span>)))</span></code></pre></div>
 <p>Now, every time you display your graphs, they will use the theme set in this way:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>p1</span></code></pre></div>
-<p><img src="img/R-ecology-custom-theme-plot-1.png" width="672" /></p>
+<p><img src="img/R-ecology-05-custom-theme-plot-1.png" width="672" /></p>
 <div class="exercise">
 <h3 id="exercise---multi-panel-figures">Exercise - multi-panel figures</h3>
 <p>Combining what we’ve learned so far, try and create the following 3 graphs, which should be saved as <code>p1</code>, <code>p2</code> and <code>p3</code>.</p>
@@ -675,7 +677,7 @@ div.tocify {
 <li>To create the log-scale y-axis in <code>p3</code>, use <code>scale_y_continuous()</code>); you can further improve the readability of the plot by using the <code>annotate_logticks()</code> function to add the ticks on the y-axis; and use the <code>theme()</code> function to ensure the legend doesn’t show and that the x-axis labels are at a 45 degree angle.</li>
 </ul>
 </details>
-<p><img src="img/R-ecology-customising-exercise-1.png" width="672" /></p>
+<p><img src="img/R-ecology-05-customising-exercise-1.png" width="672" /></p>
 <details>
 <p><summary>Answer</summary></p>
 <p>Here is the full code for each plot:</p>
@@ -722,29 +724,29 @@ div.tocify {
 <p>Here is an example using the plots we’ve made on our exercise:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># side by side</span></span>
 <span id="cb22-2"><a href="#cb22-2"></a>p1 <span class="op">|</span><span class="st"> </span>p2</span></code></pre></div>
-<p><img src="img/R-ecology-composing-plots-1-1.png" width="672" /></p>
+<p><img src="img/R-ecology-05-composing-plots-1-1.png" width="672" /></p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># top and bottom</span></span>
 <span id="cb23-2"><a href="#cb23-2"></a>p1 <span class="op">/</span><span class="st"> </span>p2</span></code></pre></div>
-<p><img src="img/R-ecology-composing-plots-1-2.png" width="672" /></p>
+<p><img src="img/R-ecology-05-composing-plots-1-2.png" width="672" /></p>
 <p>We can combine these two operators for more complex arrangements, by wrapping different parts of the grid of plots with <code>()</code>. For example:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># Put p1 and p2 side by side. Then put those on the top and p3 on the bottom</span></span>
 <span id="cb24-2"><a href="#cb24-2"></a>(p1 <span class="op">|</span><span class="st"> </span>p2) <span class="op">/</span><span class="st"> </span>p3</span></code></pre></div>
-<p><img src="img/R-ecology-composing-plots-2-1.png" width="672" /></p>
+<p><img src="img/R-ecology-05-composing-plots-2-1.png" width="672" /></p>
 <p>Finally, you can customise these arrangements in several ways using the <code>plot_layout()</code> function. For example, we can “collect” the legends and define the relative height of each panel:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>( (p1 <span class="op">|</span><span class="st"> </span>p2) <span class="op">/</span><span class="st"> </span>p3 ) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb25-2"><a href="#cb25-2"></a><span class="st">  </span><span class="kw">plot_layout</span>(<span class="dt">guides =</span> <span class="st">&quot;collect&quot;</span>, <span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="img/R-ecology-composing-plots-3-1.png" width="672" /></p>
+<p><img src="img/R-ecology-05-composing-plots-3-1.png" width="672" /></p>
 <p>We can use <code>plot_spacer()</code> to add an empty space to our graph, which can be useful if we want to add something else later on using another program (e.g.  an image).</p>
 <p>For example, let’s put a “blank” space where the second plot should be</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>( (p1 <span class="op">|</span><span class="st"> </span><span class="kw">plot_spacer</span>()) <span class="op">/</span><span class="st"> </span>p3 ) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb26-2"><a href="#cb26-2"></a><span class="st">  </span><span class="kw">plot_layout</span>(<span class="dt">guides =</span> <span class="st">&quot;collect&quot;</span>, <span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="img/R-ecology-composing-plots-4-1.png" width="672" /></p>
+<p><img src="img/R-ecology-05-composing-plots-4-1.png" width="672" /></p>
 <p>Finally, we can also add annotations, which is very useful to add automatic “tags” to each panel:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>( (p1 <span class="op">|</span><span class="st"> </span>p2) <span class="op">/</span><span class="st"> </span>p3 ) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb27-2"><a href="#cb27-2"></a><span class="st">  </span><span class="kw">plot_layout</span>(<span class="dt">guides =</span> <span class="st">&quot;collect&quot;</span>, <span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">1</span>)) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb27-3"><a href="#cb27-3"></a><span class="st">  </span><span class="kw">plot_annotation</span>(<span class="dt">tag_levels =</span> <span class="st">&quot;A&quot;</span>, </span>
 <span id="cb27-4"><a href="#cb27-4"></a>                  <span class="dt">title =</span> <span class="st">&quot;Figure 1&quot;</span>)</span></code></pre></div>
-<p><img src="img/R-ecology-composing-plots-5-1.png" width="672" /></p>
+<p><img src="img/R-ecology-05-composing-plots-5-1.png" width="672" /></p>
 <p><br /></p>
 </div>
 <div id="saving-graphs" class="section level2">

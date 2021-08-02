@@ -23,6 +23,8 @@ source: Rmd
 
 ```{r, include=FALSE}
 source("setup.R")
+knitr::opts_chunk$set(fig.path = paste0(knitr::opts_chunk$get("fig.path"),
+                                        "05-"))
 #knitr_fig_path("10-")
 #knitr::opts_chunk$set(fig.width=12, fig.height=7) 
 ```

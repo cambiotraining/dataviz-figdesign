@@ -8,29 +8,49 @@ knitr::opts_chunk$set(fig.path = paste0(knitr::opts_chunk$get("fig.path"),
                                         "08-"))
 ```
 
+These exercises continue from last week's, so you need to make sure you've read the gapminder dataset:
+
+```{r, message=FALSE}
+gapminder <- read_csv("data_raw/gapminder2010_socioeconomic.csv")
+```
+
+
 
 ## Task 5
 
 Let's take the scatterplot from our previous exercise and continue working on it:
 
-```{r}
+```{r, warning=FALSE}
 ggplot(data = gapminder, 
        mapping = aes(x = life_expectancy, y = income_per_person)) +
   geom_point()
 ```
 
-1. Colour the scatter plot points in red and add in a smooth trend line. <details><summary>Hint</summary>Use `geom_smooth()` to add a trend line to the data.</details>
-1. Colour the points by the variable "world_region" instead.
-1. Assign the scatter plot (with the trendline) to an appropriately named object. 
+1. Colour the points brown, make them 80% transparent and increase their size.
+1. Add a smooth trend line to the plot. <details><summary>Hint</summary>Use `geom_smooth()` to add a trend line to the data.</details>
+1. Modify the previous plot and colour the points by the variable "world_region".
+1. Assign (`<-`) the plot to an appropriately named object. 
 
 <details><summary>Answer</summary>
+
+We can use the options `colour`, `alpha` (transparency) and `size` to modify the points as requested:
 
 ```{r}
 ggplot(data = gapminder, 
        mapping = aes(x = life_expectancy, y = income_per_person)) +
-  geom_point(colour = "red") + 
+  geom_point(colour = "brown", alpha = 0.8, size = 3)
+```
+
+To add a trend line, we add a new geometry to our plot:
+
+```{r}
+ggplot(data = gapminder, 
+       mapping = aes(x = life_expectancy, y = income_per_person)) +
+  geom_point(colour = "brown", alpha = 0.8, size = 3) + 
   geom_smooth()
 ```
+
+To colour the points by a variable, we move the `colour` option into the `aes()` giving it the variable name instead of a colour name (ggplot takes care of picking some default colours for us):
 
 ```{r}
 ggplot(data = gapminder, 
@@ -38,6 +58,8 @@ ggplot(data = gapminder,
   geom_point(aes(colour = world_region)) + 
   geom_smooth()
 ```
+
+To save the plot into an object, we use the assignment operator `<-`, like so:
 
 ```{r}
 income_life_expectancy_plot <- ggplot(data = gapminder, 
@@ -53,7 +75,6 @@ If you want to see the plot, you have to print it on the console
 ```{r}
 income_life_expectancy_plot
 ```
-
 
 
 ## Task 6
@@ -97,7 +118,7 @@ This is a good example of how NOT to present data - this would be a more suitabl
 </details>
 
 
-## Task 5
+## Task 7
 
 In previous exercises we have seen that the `main_religion` column contains several typos. 
 The `stringr` package (part of `tidyverse`) is very useful to correct these kinds of mistakes. 
@@ -113,7 +134,6 @@ gapminder %>%
 ```
 
 1. Use `mutate()`, `str_squish()` and `str_to_lower()` to fix the typos in the `main_religion` column in our table. 
-1. 
 
 <details><summary>Answer</summary>
 
@@ -148,8 +168,31 @@ income_life_expectancy_plot +
 </details>
 
 
+## Task 8
 
-## Task 6
+Make a violin + boxplot of main_religion (x-axis) by income_per_person (y-axis) - where the violin is coloured by the x variable but the boxplot is not (it is white by default). 
+Give the boxplot a width of 0.25.
+
+In terms of figure design, what do you think about our choice of colouring the inside of the violin plots by main_religion?
+
+<details><summary>Answer</summary>
+
+We can make the desired plot by passing the `fill` aesthetic to the `geom_violin()` only, and we can set the `width` option in `geom_boxplot()`:
+
+```{r}
+ggplot(gapminder, aes(x = main_religion, y = income_per_person)) +
+  geom_violin(aes(fill = main_religion)) +
+  geom_boxplot(width = 0.25)
+```
+
+Colouring the violin plots by `main_religion` is redundant with the x-axis, so it doesn't seem justified in this case. 
+Maybe if this plot was part of a series of other plots where the colouring was necessary, then it might make sense to colour them, for consistency across figure panels. 
+In that case, we could still improve this plot by remove the colour legend on the right, to de-clutter the plot (we will see how to do this in the next lesson). 
+
+</details>
+
+
+## Task 9
 
 1. Split your scatter plot by rows and columns. Row = `is_oecd`, Columns = `main_religion`. 
 1. Apart from the warning related to 6 missing values, we get other warnings. What do you think these are related to?
@@ -168,7 +211,7 @@ The warnings we get are from `geom_smooth()`, which in some groups has such few 
 </details>
 
 
-## Task 7
+## Task 10
 
 1. Save one of the plots (of your choice) to a file with appropriate file name. Choose the one you think best represents the data and think why.
 

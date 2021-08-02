@@ -4,6 +4,8 @@ title: Data visualisation with tidyverse
 
 ```{r, echo=FALSE, purl=FALSE, message = FALSE}
 source("setup.R")
+knitr::opts_chunk$set(fig.path = paste0(knitr::opts_chunk$get("fig.path"),
+                                        "03-"))
 surveys <- read_csv("data_raw/portal_data_joined.csv")
 suppressWarnings(surveys$date <- lubridate::ymd(paste(surveys$year,
                                                      surveys$month,
@@ -127,7 +129,8 @@ An easy way to remember what to use is: **if we want the aesthetic to change bas
 :::exercise
 
 Using the `geom_boxplot()` geometry, make a boxplot that shows the distribution of weight (y-axis) for each genus (x-axis).
-Colour the inside of the boxplots by sex
+Colour the _inside_ of the boxplots by sex.
+<details><summary>Hint</summary>To colour the inside of a geometry you can use the `fill` aesthetic. To learn about the aesthetics that can be used with each geometry, look at the help page of the `geom_*()` function in the section entitled "Aesthetics".</details>
 
 <details><summary>Answer</summary>
 
@@ -197,7 +200,7 @@ surveys_complete_plot
 Make a _boxplot_ of `genus` (x-axis) by `hindfoot_length` (y-axis). 
 Add a new geometry layer _behind_ the boxplot using `geom_violin()`.
 
-Bonus: either by doing a web-search or by looking at the help page of `geom_boxplot()` and `geom_violin()`, see if you can find how you can scale the violins so that they all have the same width and make the width of the boxplots smaller.
+Bonus: either by doing a web-search or by looking at the help page of `geom_boxplot()` and `geom_violin()`, see if you can find how you can re-scale the violins so that they all have the same width and on the other hand make the width of the boxplots narrower.
 
 <details><summary>Answer</summary>
 
@@ -269,7 +272,8 @@ ggplot(surveys_complete, aes(x = genus, y = weight, fill = genus)) +
 
 OK, this is not what we wanted. Both geometries (boxplots and violins) got coloured.
 
-It turns out that we can control aesthetics individually in each geometry, using the aes() function. Like this:
+It turns out that we can control aesthetics individually in each geometry using the aes() function. 
+Like this:
 
 ```{r}
 ggplot(surveys_complete, aes(x = genus, y = weight)) +
@@ -280,9 +284,9 @@ ggplot(surveys_complete, aes(x = genus, y = weight)) +
 
 :::exercise
 
-Modify the graph above by colouring the inside of the boxplots by genus and the inside of the violins in grey colour.
+Modify the graph above by colouring the inside of the boxplots by genus and the inside of the violins in grey colour, as shown below.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE}
 ggplot(surveys_complete, aes(x = genus, y = weight)) +
   geom_violin(fill = "grey", scale = "width") +
   geom_boxplot(aes(fill = genus), width = 0.2)
@@ -290,7 +294,7 @@ ggplot(surveys_complete, aes(x = genus, y = weight)) +
 
 <details><summary>Answer</summary>
 
-```{r, echo=FALSE}
+```{r, warning=FALSE}
 ggplot(surveys_complete, aes(x = genus, y = weight)) +
   geom_violin(fill = "grey", scale = "width") +
   geom_boxplot(aes(fill = genus), width = 0.2)

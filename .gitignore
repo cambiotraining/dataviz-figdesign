@@ -12,7 +12,6 @@
 # RStudio files
 .Rproj.user/
 .Rproj.user
-*.Rproj
 
 # vim backup files
 *.swp

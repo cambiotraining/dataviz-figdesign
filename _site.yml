@@ -36,6 +36,7 @@ navbar:
         - text: "03 August 2021"
           href: 08-hw_2021_08_03.html
         - text: "12 August 2021"
+          href: 09-hw_2021_08_12.html
     - text: "Extras"
       menu:
         - text: "Cheatsheets"

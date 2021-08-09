@@ -5,9 +5,9 @@ if (!file.exists("data_raw/surveys.csv")) {
     download.file("https://ndownloader.figshare.com/files/2292172",
                   "data_raw/surveys.csv")
 }
-if (!file.exists("data_raw/species.csv")) {
-    download.file("https://ndownloader.figshare.com/files/3299483",
-                  "data_raw/species.csv")
+if (!file.exists("data_raw/gapminder2010_socioeconomic.csv")) {
+    download.file("https://github.com/tavareshugo/r-eda-gapminder/raw/gh-pages/_episodes_rmd/data/raw/gapminder2010_socioeconomic.csv",
+                  "data_raw/gapminder2010_socioeconomic.csv")
 }
 if (!file.exists("data_raw/plots.csv")) {
     download.file("https://ndownloader.figshare.com/files/3299474",
@@ -22,6 +22,7 @@ if (!file.exists("data_raw/portal_mammals.sqlite")) {
     download.file("https://ndownloader.figshare.com/files/2292171",
                   "data_raw/portal_mammals.sqlite")
 }
+
 
 
 ## knitr options

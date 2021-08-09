@@ -225,38 +225,7 @@ ggplot(surveys_complete, aes(genus, weight)) +
 
 :::
 
-<!--
-:::exercise
-### Exercise - geom_density2d
-
-Scatter plots can be useful exploratory tools for small data sets. For data sets with large numbers of observations, such as the `surveys_complete` data set, over plotting of points can be a limitation of scatter plots. We have already seen how we can visualise data better when we have over-plotting by adding transparency to our points. Another way for handling over-plotting is to display the density of the data through contours. This is handled by the `geom_density()` geometry. 
-
-1. Create a script called `plot_density2d.R`
-2. In this script, load the data from `data_raw/portal_data_joined.csv` into a variable `surveys_complete`.
-3. Using `ggplot`, plot the `weight` on the x-axis and `hindfoot_length` on the y-axis in and create a `geom_density2d` plot.
-
-<details><summary>Answer</summary>
-
-```{r ggplot-exercise-density, fig.show="hide", answer=TRUE, message=FALSE, warning=FALSE, purl=FALSE}
-library(tidyverse)
-
-# Load the surveys_complete data
-surveys_complete <- read_csv("data_raw/portal_data_joined.csv")
- 
-# Attach data and map x and y axes
-surveys_complete_plot <- ggplot(data = surveys_complete, 
-                       mapping = aes(x = weight, y = hindfoot_length))
-# Draw geom_density2d
-surveys_complete_plot +
-  geom_point(alpha = 0.1) +
-  geom_density2d()
-```
-
-</details>
-:::
-
--->
-
+<br />
 
 ## Controlling aesthetics in individual geometries
 
@@ -362,7 +331,231 @@ ggplot(surveys_complete,
   facet_grid(cols = vars(sex))
 ```
 
-<br>
+<br />
+
+## Improving Visualisation
+
+There are many ways to improve how we visualise our data. 
+We will cover two particular techniques here, which are very useful but require combining `ggplot2` with some of the `dplyr` data manipulation functions we briefly covered in the previous [Starting with Data](02-starting-with-data.html) section. 
+
+The two techniques are:
+
+- highlighting particular data in our plot, what is informally called a "popout"
+- re-ordering categorical variables to better convey differences between them
+
+
+### Popout
+
+Let's take our previous scatterplot of weight vs hindfoot length: 
+
+```{r}
+ggplot(surveys_complete, aes(x = weight, y = hindfoot_length)) +
+  geom_point()
+```
+
+Let's say we wanted to highlight the samples that were collected _after_ 2000. 
+We know how to colour points based on a variable (column) in our data, by adding that variable name to our `aes()`. 
+So, what we need to do is _create_ a new column, which contains information about whether a particular observation was collected after 2000. 
+
+Let's see this in practice: 
+
+```{r}
+# take our table, and then...
+surveys_complete %>% 
+  # add a new column which contains TRUE/FALSE for our condition, and then...
+  mutate(after_2000 = year > 2000) %>% 
+  # select a few columns only (for ease of seeing the contents in the new column)
+  select(genus, weight, hindfoot_length, year, after_2000)
+```
+
+In the code block above, we used the `mutate()` function to _add a new column_ to our table, which contains the result of evaluating a logical condition of whether `year > 2000`. 
+The result is a _logical vector_ containing TRUE/FALSE values, matching whether the observation was collected before or after 2000. 
+
+By using _pipes_ `%>%` we can continue by passing this table with the added column to our ggplot, and colour the points by this new column:
+
+```{r}
+# take our table, and then...
+surveys_complete %>% 
+  # add a new column which contains TRUE/FALSE for our condition, and then...
+  mutate(after_2000 = year > 2000) %>% 
+  # make the plot
+  ggplot(aes(x = weight, y = hindfoot_length, colour = after_2000)) +
+  geom_point()
+```
+
+This is still not perfect (we may want to change colours and adjust the order in which the points are plotted), but at least we now have two colours distinguishing the samples collected before and after 2000. 
+
+To further improve this visualisation, we can sort the rows of our table by the newly created column, because ggplot places points in the order they appear on the table. 
+We can use the `arrange()` function to achieve this, and include it in our block of code: 
+
+```{r}
+# take our table, and then...
+surveys_complete %>% 
+  # add a new column which contains TRUE/FALSE for our condition, and then...
+  mutate(after_2000 = year > 2000) %>% 
+  # arrange the table by new column
+  arrange(after_2000) %>% 
+  # make the plot
+  ggplot(aes(x = weight, y = hindfoot_length, colour = after_2000)) +
+  geom_point()
+```
+
+This is better, now we have all the points that were collected after 2000 plotted on top of the ones that were collected before that year. 
+
+Finally, to achieve the "popout" effect, we may want to play around with the colours, so that the points that are "FALSE" appear in a more neutral colour such as black, whereas the ones that are "TRUE" appear in a more vivid colour. 
+We will talk more about colour customisation in the following section, but for now we can demonstrate how to use the `scale_colour_manual()` function to adjust the colours of our categories manually:
+
+```{r}
+# take our table, and then...
+surveys_complete %>% 
+  # add a new column which contains TRUE/FALSE for our condition, and then...
+  mutate(after_2000 = year > 2000) %>% 
+  # arrange the table by new column
+  arrange(after_2000) %>% 
+  # make the plot
+  ggplot(aes(x = weight, y = hindfoot_length, colour = after_2000)) +
+  geom_point() +
+  scale_colour_manual(values = c("FALSE" = "black", "TRUE" = "orange"))
+```
+
+This is now a more striking visualisation, where the observations collected after 2000 definitely stand out relative to the others.  
+
+
+
+:::exercise
+
+Complete the following code (where `___` appears), to recreate the plot shown below, which highlight points from one of the rare species in the dataset:
+
+```{r, eval=FALSE}
+surveys_complete %>% 
+  mutate(is_ox = species_id == "OX") %>% 
+  arrange(___) %>% 
+  ggplot(aes(x = ___, y = ___)) +
+  geom_point(aes(colour = ___)) +
+  scale_colour_manual(values = c("FALSE" = "___", "___" = "red"))
+```
+
+```{r, echo=FALSE}
+surveys_complete %>% 
+  mutate(is_ox = species_id == "OX") %>% 
+  arrange(is_ox) %>% 
+  ggplot(aes(x = weight, y = hindfoot_length)) +
+  geom_point(aes(colour = is_ox)) +
+  scale_colour_manual(values = c("FALSE" = "black", "TRUE" = "red"))
+```
+
+<details><summary>Answer</summary>
+
+The fixed code for making the plot is:
+
+```{r, results='hide'}
+surveys_complete %>% 
+  mutate(is_ox = species_id == "OX") %>% 
+  arrange(is_ox) %>% 
+  ggplot(aes(x = weight, y = hindfoot_length)) +
+  geom_point(aes(colour = is_ox)) +
+  scale_colour_manual(values = c("FALSE" = "black", "TRUE" = "red"))
+```
+
+</details>
+:::
+
+
+### Reordering Categorical Variables
+
+Another technique that is often useful is to reorder categorical variables in visualisations such as bar plots or box plots. 
+Let's take the previous example of looking at the distribution of weight in the different genera: 
+
+```{r}
+surveys_complete %>% 
+  ggplot(aes(x = genus, y = weight)) +
+  geom_boxplot()
+```
+
+Although this visualisation conveys the overall distribution of each genus, it's not as easy to see which genera are generally lighter relative to each other. 
+This visualisation could be improved by reordering the x-axis by the average weight of each genus. 
+
+By default, ggplot will order categorical variables such as this alphabetically. 
+We can change this behaviour by turning our variable into a _factor_, which we can simply think as a a character variable with added information about the order of the different values the variable can take (these are referred to as the "levels" of the factor). 
+For example, in our `genus` variable, we have 9 distinct levels. 
+
+We can conveniently reorder a categorical variable based on a numerical variable using the `fct_reorder()` function. 
+So, let's modify our plotting code, by turning our `genus` column into a reordered factor:
+
+```{r reorder-boxplot}
+surveys_complete %>% 
+  # modify the genus column by reordering according to weight
+  mutate(genus = fct_reorder(genus, weight)) %>% 
+  # make the plot
+  ggplot(aes(x = genus, y = weight)) +
+  geom_boxplot()
+```
+
+Although this visualisation still suffers from some problems (such as some of the boxes for the lighter genera being too "squished"), it is an improvement over the previous visualisation, because now our categories are ordered in a way that allows us to easily compare their average. 
+
+If you want to know more about factors, please check out these accompanying course materials: https://cambiotraining.github.io/intro-r/02-starting-with-data.html#Factors
+
+
+:::exercise
+
+We want to visualise how many observations of each genus we have in the dataset as an ordered barplot:
+
+```{r, echo=FALSE}
+surveys_complete %>% 
+  count(genus) %>% 
+  mutate(genus = fct_reorder(genus, n)) %>% 
+  ggplot(aes(x = n, y = genus)) +
+  geom_col()
+```
+
+We can use the function `count()` to obtain the number of rows in the data for a categorical variable, like this:
+
+```{r}
+# create a counts table
+genus_counts <- surveys_complete %>% 
+  count(genus)
+
+# check what the table looks like
+genus_counts
+```
+
+We can now use this new counts table to make a barplot using the `geom_col()` (for "column") from ggplot:
+
+```{r, results='hide'}
+genus_counts %>% 
+  ggplot(aes(x = n, y = genus)) +
+  geom_col()
+```
+
+However, the code above will create a barplot where the genus will be ordered alphabetically. 
+Modify the code to include a step that reorders the `genus` column by the number of counts, `n`. 
+
+
+<details><summary>Answer</summary>
+
+We can modify the code by including a step in our pipeline using `mutate()` together with `fct_reorder()` to reorder the genus column:
+
+```{r}
+genus_counts %>% 
+  mutate(genus = fct_reorder(genus, n)) %>% 
+  ggplot(aes(x = n, y = genus)) +
+  geom_col()
+```
+
+Note that although we've created a new object called `genus_counts` for this exercise, we could have also done the whole thing with a series of pipes from our original data:
+
+```{r, results='hide'}
+surveys_complete %>% 
+  count(genus) %>% 
+  mutate(genus = fct_reorder(genus, n)) %>% 
+  ggplot(aes(x = n, y = genus)) +
+  geom_col()
+```
+</details>
+
+:::
+
+<br />
 
 ## Saving a plot to a file {#saveplot}
 

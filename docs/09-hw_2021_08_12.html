@@ -13,7 +13,7 @@
 
 <title>Homework 12 August 2021</title>
 
-<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -626,7 +626,7 @@ Answer
 <pre><code>#&gt; Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
 #&gt; parametric, : at 80.614</code></pre>
 <pre><code>#&gt; Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-#&gt; parametric, : radius 3.6603e-005</code></pre>
+#&gt; parametric, : radius 3.6603e-05</code></pre>
 <pre><code>#&gt; Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
 #&gt; parametric, : all data on boundary of neighborhood. make span bigger</code></pre>
 <pre><code>#&gt; Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
@@ -638,11 +638,11 @@ Answer
 <pre><code>#&gt; Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
 #&gt; parametric, : at 81.836</code></pre>
 <pre><code>#&gt; Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-#&gt; parametric, : radius 3.6603e-005</code></pre>
+#&gt; parametric, : radius 3.6603e-05</code></pre>
 <pre><code>#&gt; Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
 #&gt; parametric, : all data on boundary of neighborhood. make span bigger</code></pre>
 <pre><code>#&gt; Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-#&gt; parametric, : There are other near singularities as well. 3.6603e-005</code></pre>
+#&gt; parametric, : There are other near singularities as well. 3.6603e-05</code></pre>
 <pre><code>#&gt; Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
 #&gt; parametric, : zero-width neighborhood. make span bigger
 
@@ -710,9 +710,6 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

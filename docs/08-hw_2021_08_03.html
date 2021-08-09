@@ -13,7 +13,7 @@
 
 <title>Homework 03 August 2021</title>
 
-<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -566,7 +566,6 @@ Answer
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder, <span class="fu">aes</span>(<span class="at">x =</span> main_religion, <span class="at">y =</span> income_per_person)) <span class="sc">+</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="fu">aes</span>(<span class="at">fill =</span> main_religion)) <span class="sc">+</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.25</span>)</span></code></pre></div>
-<pre><code>#&gt; Warning: Groups with fewer than two data points have been dropped.</code></pre>
 <p><img src="img/R-ecology-08-unnamed-chunk-9-1.png" width="672" /></p>
 <p>Colouring the violin plots by <code>main_religion</code> is redundant with the x-axis, so it doesn’t seem justified in this case. Maybe if this plot was part of a series of other plots where the colouring was necessary, then it might make sense to colour them, for consistency across figure panels. In that case, we could still improve this plot by remove the colour legend on the right, to de-clutter the plot (we will see how to do this in the next lesson).</p>
 </details>
@@ -610,9 +609,6 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

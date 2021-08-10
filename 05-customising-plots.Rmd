@@ -1,24 +1,5 @@
 ---
 title: "Customising plots"
-teaching: 50
-exercises: 30
-questions:
-  - "How can we fully customise a plot, by adding annotations, labels, control the axis limits, and change its overall look?"
-  - "How can we compose several plots together?"
-objectives: 
-  - "Add labelling and annotations to a ggplot using `labs()`, `annotate()`, `geom_text()`, `geom_hline()`, `geom_vline()`, `geom_abline()` and `geom_smooth()`."
-  - "Customise the overall look of a plot using the `theme()` family of functions."
-  - "Use the `patchwork` package to compose a grid of plots."
-keypoints:
-  - "Use `labs()` to customise the labels of your plot's aesthetics (e.g. `x`, `y`, `colour`, `fill`, `size`, etc.)."
-  - "Use `annotate()` to freely add text, segments or rectangles to your plot."
-  - "Use built-in `theme_*()` functions to change the overall look of your graphs."
-  - "Use `theme()` to change the look of every single element of the graph."
-  - "Use `set_theme()` to change the theme for the rest of your R session."
-  - "Use the `patchwork` package to compose graphs, using the `|` and `/` operators to place two plots side-by-side or top-and-bottom, respectively."
-  - "The `plot_layout()` function can be used to adjust your plot arrangement. Useful options are `widths` and `heights` to adjust the relative size of the panels, and `guides = 'collect'` to make a single legend common to the whole figure." 
-  - "Use `plot_annotation(tag = 'A')` to automatically add a letter tag to each panel."
-source: Rmd
 ---
 
 ```{r, include=FALSE}
@@ -29,6 +10,8 @@ knitr::opts_chunk$set(fig.path = paste0(knitr::opts_chunk$get("fig.path"),
 #knitr::opts_chunk$set(fig.width=12, fig.height=7) 
 ```
 
+## Annotating your graphs
+
 In this session we are going to expand on our skills using the `ggplot2` package, which will allow us to further customise our plots. We're also going to learn how to assemble several plots together, and export them in a publication-ready manner.
 
 For this lesson, we'll use the `surveys` dataset. Let's read it into R, along with loading the `tidyverse` package.
@@ -36,8 +19,10 @@ For this lesson, we'll use the `surveys` dataset. Let's read it into R, along wi
 ```{r read-data, message=FALSE}
 # load package
 library(tidyverse)
-# read data - specify that missing values are encoded as an empty value
+# read data the data
 surveys <- read_csv("data_raw/portal_data_joined.csv")
+# create a data set without missing values
+surveys_complete <- surveys %>% drop_na()
 ```
 
 Let's also start by making an initial graph, which includes features that we've 
@@ -59,9 +44,117 @@ Let's revise what we've done here:
   - `y` axis with `hindfoot_length`
   - `colour` with `plot_type`
 
-What if we wanted to customise this plot a bit more? For example, we might want to change the colour scheme that `ggplot` uses. We have already seen that we can manually change colours, but this would be a bit tedious if we are colouring by many different colours.
+What if we wanted to customise this plot a bit more? 
+
+Let's save this graph in an object (you can do this with _ggplot_ graphs). 
+This is optional, but often convenient when we want try different customisations 
+or when assembling different plots together, as we will see later on. 
+
+```{r plot-save}
+# save our graph within an object called `p1`
+p1 <- ggplot(data = surveys, 
+       aes(x = weight, y = hindfoot_length)) +
+  geom_point(aes(colour = plot_type))
+```
+
+To view the plot, you can type its name on the console:
+
+```{r plot-save-plot, eval=FALSE}
+p1
+```
+
+<br />
+
+The beauty of `ggplot()` is that it allows you to customise any part of the plot. Sometimes it can be helpful to change the overall feel of the graph or maybe just a small part of it. Below are some common ways to change the appearance of your graph.
+
+## Themes
+
+You can change the overall look of your graphs by customising the so-called **theme**
+used by `ggplot2`. 
+
+<br />
+
+### Using built-in themes
+
+`ggplot2` comes with some pre-defined _themes_, which can be accessed using 
+the `theme_*` family of functions. For example, let's use `theme_classic()` 
+for a cleaner-looking graph:
+
+```{r themes, warning=FALSE}
+p1 + 
+  theme_classic()
+```
+
+There are multiple themes available in `ggplot2`:
+
+![ggplot2 themes](https://d33wubrfki0l68.cloudfront.net/6be25cfb939e69d72df9fbc68e7a0334e1febefe/10e92/images/visualization-themes.png)
+
+There are also packages that provide with other themes. One of them is the 
+[`ggthemes` package](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/)
+(you can install it with `install.packages("ggthemes")`), which also provides 
+some additional colour scales, including colour blind friendly ones.
+
+<br />
+
+### Finer customisation with `theme()`
+
+To tune individual elements of the graph, you can use the generic `theme()` function. 
+This allows you to change the look of _every single aspect_ of the graph, so we cannot 
+cover it all here (look at `?theme` documentation to see how many things you can 
+customise!). With this function you can essentially make your own theme.
+
+We already noticed that if you plot the weight for each genus, then the x-axis labels of the genera names overlap (see [Reordering Categorical Variables](.\03-intro-ggplot2.html#Reordering_Categorical_Variables)). We can fix this using `theme()`.
+
+The original code we used was as follows:
+
+```{r axis-label-alignment}
+surveys_complete %>% 
+  ggplot(aes(x = genus, y = weight)) +
+  geom_boxplot()
+```
+
+Next, we can specify how we want to orientate the x-axis label:
+
+```{r axis-label-alignment-rotate}
+surveys_complete %>% 
+  ggplot(aes(x = genus, y = weight)) +
+  geom_boxplot() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+The code looks (and is) a bit convoluted, but in most cases, the way to figure out how to do these customisations is to do a web search. For example searching for "ggplot2 how to change axis text orientation" returns [this stackoverflow answer](https://stackoverflow.com/questions/13297995/changing-font-size-and-direction-of-axes-text-in-ggplot2) as one of the top results. 
+
+What this code does is take the x-axis text (`axis.text.x`), then takes the text element within it (`element_text()`) and specify that the angle should be 45 degrees (`angle = 45`). This automatically centres the text in the vertical orientation, so you need to make sure that the text ends where the axis begins by setting the height adjustment (`hjust = 1`).
+
+Here are some other uses of this function that might be useful (try running them yourself!):
+
+```{r customise-theme, eval=FALSE}
+# Change the font size
+p1 + theme(text = element_text(size = 16))
+# Remove legend
+p1 + theme(legend.position = "none") # can also use "top", "bottom", "left"
+# Adjust each grid line
+p1 + theme(panel.grid.minor.x = element_blank(),
+           panel.grid.major.x = element_blank(),
+           panel.grid.minor.y = element_blank(),
+           panel.grid.major.y = element_line(colour = "black", linetype = "dotted"))
+```
+
+<br />
+
+## Colours
+
+We have already seen that we can manually change colours when we created the [popout graph](.\03-intro-ggplot2.html#Popout), but this would be a bit tedious if we are colouring by many different colours.
 
 Fortunately there are many **colour palettes** available in R and one of the most popular ones can be found in the `RColorBrewer` package (documentation can be found [here](https://r4ds.had.co.nz/graphics-for-communication.html#fig:brewer)).
+
+There are _many_ different colour palettes, but it's good practice to ensure that you choose a colour palette that is **clear**, provides **contrast** and is **colour-blind friendly**. Plotting 10 grouping variables in 10 different shades of grey is not going to be helpful, nor is plotting them in red/green combinations if your audience is colour blind (it is [a lot more common](https://www.nhs.uk/conditions/colour-vision-deficiency/) than you might think!).
+
+If you want to have a quick look at the palettes that are colour-blind friendly in the `RColorBrewer` package, you can run the following line of code:
+
+```{r}
+RColorBrewer::display.brewer.all(colorblindFriendly = TRUE)
+```
 
 There are different arguments that you can use from this package and we will give you an example here. If you want to change the colour of the data points, you can use `scale_colour_brewer()` as an extra option in your plot:
 
@@ -72,32 +165,15 @@ ggplot(data = surveys,
   scale_colour_brewer(palette = "Dark2")
 ```
 
-Let's save this graph in an object (you can do this with _ggplot_ graphs). 
-This is optional, but often convenient when we want try different customisations 
-or when assembling different plots together, as we will see later on. 
-
-```{r brewer-save}
-# save our graph within an object called `p1`
-p1 <- ggplot(data = surveys, 
-       aes(x = weight, y = hindfoot_length)) +
-  geom_point(aes(colour = plot_type)) +
-  scale_colour_brewer(palette = "Dark2")
-```
-
-To view the plot, you can type its name on the console:
-
-```{r brewer-plot, eval=FALSE}
-p1
-```
+Equally, you can use `scale_fill_brewer()` to specify fill colours.
 
 <br />
 
-## Annotating your graphs
-
 ### Labels
 
-We can change the labels of every aesthetic using the `labs()` function, added on to 
-the graph. 
+By default `ggplot()` uses the variable names to label the axes and legend. This might not always be exactly what you want and it is possible to change these labels manually. Furthermore, you can also add **titles**, **subtitles** and **captions** to your plot.
+
+We can change the labels of every aesthetic using the `labs()` function, added on to the graph. 
 
 For example:
 
@@ -121,6 +197,159 @@ However, we will see an even more convenient way of doing it later on using the 
 
 <br />
 
+## Saving graphs
+
+We've already covered how to use the `ggsave()` function in the [first ggplot session](.\03-intro-ggplot2.html).
+To save assembled graphs, you can do a similar thing, but instead of saving a single 
+graph, you can save the whole assembly into an object, and then pass that to `ggsave()`:
+
+```{r save-figure, warning=FALSE, eval=FALSE}
+# Save annotated graph to file
+p1_annotated <- p1 + 
+  labs(x = "Weight (g)", 
+       y = "Hindfoot length (mm)", 
+       colour = "Plot type",
+       tag = "A", 
+       title = "Relationship between weight and hindfoot length", 
+       subtitle = "Based on Portal data set",
+       caption = "done with ggplot2 in R")
+
+# save it as PDF using 15cm x 7cm
+ggsave(filename = "figures/weight_vs_hindfoot_per_plot_type.pdf",
+       plot = p1_annotated, 
+       width = 15, 
+       height = 7, 
+       units = "cm")
+```
+
+<br />
+
+## Composing plots with `patchwork`
+
+So far we have mostly created single plots, with the exception of [facetting](.\03-intro-ggplot2.html#Facets) where we were able to divide our data into sub-panels based on a variable (or two).
+
+It is often very useful to create a multi-panel plot, where you combine multiple plots into a single figure. The [`patchwork` package](https://patchwork.data-imaginist.com/) (check its documentation, which is full of excellent examples of its usage) is really useful to do this.
+
+Before we can use it, we need to install it. You can do this by running the following line of code in the console (there is no need to add it to your script, since you do not want to install it every time you run your script):
+
+```{r, eval=FALSE}
+install.packages("patchwork")
+```
+
+Next, we need to load it, so we can add this to our script (remember: packages need to be loaded every time you restart R, so we do add this to our script):
+
+```{r}
+library(patchwork)
+```
+
+The easiest way to use the package is to first save the individual plots we want to 
+assemble in different objects. We have already created a plot called `p1`, so we can create a few other plots to complement that. For completeness we have included the code for three plots, including `p1`. You can run the following:
+
+```{r}
+# scatter plot with weight versus hindfoot length
+p1 <- ggplot(data = surveys_complete, 
+       aes(x = weight, y = hindfoot_length)) +
+  geom_point(aes(colour = plot_type)) +
+  scale_colour_brewer(palette = "Dark2")
+
+# boxplot with weight versus hindfoot length, by genus
+p2 <- surveys_complete %>% 
+  ggplot(aes(x = genus, y = weight)) +
+  geom_boxplot()
+
+# scatter plot with data points after 2000 coloured differently
+p3 <- surveys_complete %>% 
+  mutate(after_2000 = year > 2000) %>% 
+  arrange(after_2000) %>% 
+  ggplot(aes(x = weight, y = hindfoot_length, colour = after_2000)) +
+  geom_point() +
+  scale_colour_brewer(palette = "Dark2")
+```
+
+
+There are different ways in which you can specify how to put graphs together using 
+`patchwork`, but the way we're going to use in this lesson uses these two operators:
+
+- `p1 | p2` puts the first plot on the _left_ and the second on the _right_
+- `p1 / p2` puts the first plot on the _top_ and the second on the _bottom_
+
+Here is an example using the plots we've made on our exercise:
+
+```{r composing-plots-1, warning=FALSE}
+# side by side
+p1 | p2
+# top and bottom
+p1 / p2
+```
+
+We can combine these two operators for more complex arrangements, by wrapping 
+different parts of the grid of plots with `()`. For example:
+
+```{r composing-plots-2, warning=FALSE, fig.height=12}
+# Put p1 and p2 side by side. Then put those on the top and p3 on the bottom
+(p1 | p2) / p3
+```
+
+Finally, you can customise these arrangements in several ways using the `plot_layout()` 
+function. For example, we can "collect" the legends and define the relative height of 
+each panel:
+
+```{r composing-plots-3, warning=FALSE, fig.height=12}
+( (p1 | p2) / p3 ) + 
+  plot_layout(guides = "collect", heights = c(2, 1))
+```
+
+We can use `plot_spacer()` to add an empty space to our graph, which can 
+be useful if we want to add something else later on using another program (e.g. 
+an image).
+
+For example, let's put a "blank" space where the second plot should be
+
+```{r composing-plots-4, warning=FALSE, fig.height=12}
+( (p1 | plot_spacer()) / p3 ) + 
+  plot_layout(guides = "collect", heights = c(2, 1))
+```
+
+Finally, we can also add annotations, which is very useful to add automatic "tags" 
+to each panel:
+
+```{r composing-plots-5, warning=FALSE, fig.height=12}
+( (p1 | p2) / p3 ) + 
+  plot_layout(guides = "collect", heights = c(2, 1)) + 
+  plot_annotation(tag_levels = "A", 
+                  title = "Figure 1")
+```
+
+<br />
+
+## Additional customisation
+
+<br />
+
+### Setting up a custom theme
+
+To avoid having to add the `theme` functions to every graph you make, you can set 
+the default theme you want to use for your graphs using the `theme_set()` function. 
+
+Usually, it may be a good idea to include this at the top of your script, just after 
+you load the libraries:
+
+```{r custom-theme}
+# Use the "classic" theme as the basis, 
+# with horizontal grid lines for the y axis and a bigger font
+theme_set(theme_classic() + 
+            theme(panel.grid.major.y = element_line(colour = "black", linetype = "dotted"),
+                  text = element_text(size = 12)))
+```
+
+Now, every time you display your graphs, they will use the theme set in this way:
+
+```{r custom-theme-plot, warning=FALSE}
+p1
+```
+
+<br />
+
 ### Labelling data points 
 
 You can use the `geom_text()` or `geom_label()` functions to add labels to your data 
@@ -128,17 +357,25 @@ points. These two geometries work similarly to `geom_point()`, except they also 
 an aesthetic called `label` to indicate which variable should be used as the text to 
 plot. 
 
-For example, let's label each of our countries with their respective name:
+For example, let's label each of our data points with their respective species name. To make the plot more readable, we are only selecting a subset of the data:
 
 ```{r label-points, warning=FALSE}
-p1 +
+surveys %>% 
+  filter(year == 2000) %>% 
+  ggplot(aes(x = weight, y = hindfoot_length)) +
+  geom_point(aes(colour = plot_type)) +
+  scale_colour_brewer(palette = "Dark2") +
   geom_text(aes(label = species))
 ```
 
 Oh dear, that's a bit too much, and not very informative. We can do better, by telling the geometry to check for overlaps:
 
 ```{r label-points-overlap, warning=FALSE}
-p1 + 
+surveys %>% 
+  filter(year == 2000) %>% 
+  ggplot(aes(x = weight, y = hindfoot_length)) +
+  geom_point(aes(colour = plot_type)) +
+  scale_colour_brewer(palette = "Dark2") +
   geom_text(aes(label = species), check_overlap = TRUE)
 ```
 
@@ -168,7 +405,7 @@ very specific in our graph.
 
 <br />
 
-### Adding horizontal, vertical, sloped and trend lines
+### Adding lines
 
 You can use `geom_hline()` and `geom_vline()` to add horizontal and vertical lines, 
 respectively. These can be useful, for example, to mark thresholds that you want to 
@@ -215,7 +452,7 @@ You can also remove the standard error by setting `se = FALSE` inside the functi
 
 <br />
 
-## Adjusting axis limits (zooming)
+### Adjusting axis limits (zooming)
 
 You can use the `coord_cartesian()` function to adjust x and y limits. For example, 
 let's highlight the observations that we annotated with the rectangle earlier:
@@ -226,87 +463,6 @@ p1 +
 ```
 
 <br />
-
-## Themes
-
-You can change the overall look of your graphs by customising the so-called **theme**
-used by `ggplot2`. 
-
-<br />
-
-### Using built-in themes
-
-`ggplot2` comes with some pre-defined _themes_, which can be accessed using 
-the `theme_*` family of functions. For example, let's use `theme_classic()` 
-for a cleaner-looking graph:
-
-```{r themes, warning=FALSE}
-p1 + 
-  theme_classic()
-```
-
-Here's the themes available with `ggplot2`:
-
-![ggplot2 themes](https://d33wubrfki0l68.cloudfront.net/6be25cfb939e69d72df9fbc68e7a0334e1febefe/10e92/images/visualization-themes.png)
-
-There are also packages that provide with other themes. One of them is the 
-[`ggthemes` package](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/)
-(you can install it with `install.packages("ggthemes")`), which also provides 
-some additional colour scales, including colour blind friendly ones.
-
-<br />
-
-### Finer customisation with `theme()`
-
-To tune individual elements of the graph, you can use the generic `theme()` function. 
-This allows you to change the look of _every single aspect_ of the graph, so we cannot 
-cover it all here (look at `?theme` documentation to see how many things you can 
-customise!). With this function you can essentially make your own theme.  
-
-Here's some uses of this function that might be useful (try running them yourself!):
-
-```{r customise-theme, eval=FALSE}
-# Change the font size
-p1 + theme(text = element_text(size = 16))
-# Remove legend
-p1 + theme(legend.position = "none") # can also use "top", "bottom", "left"
-# Change orientation of the x-axis text
-p1 + theme(axis.text.x = element_text(angle = 45, hjust = 1))
-# Adjust each grid line
-p1 + theme(panel.grid.minor.x = element_blank(),
-           panel.grid.major.x = element_blank(),
-           panel.grid.minor.y = element_blank(),
-           panel.grid.major.y = element_line(colour = "black", linetype = "dotted"))
-```
-
-In most cases, the way to figure out how to do these customisations is to do a web search. 
-For example searching for "ggplot2 how to change axis text orientation" returns 
-[this stackoverflow answer](https://stackoverflow.com/questions/13297995/changing-font-size-and-direction-of-axes-text-in-ggplot2) 
-as one of the top results. 
-
-<br />
-
-### Setting up a custom theme
-
-To avoid having to add the `theme` functions to every graph you make, you can set 
-the default theme you want to use for your graphs using the `theme_set()` function. 
-
-Usually, it may be a good idea to include this at the top of your script, just after 
-you load the libraries:
-
-```{r custom-theme}
-# Use the "classic" theme as the basis, 
-# with horizontal grid lines for the y axis and a bigger font
-theme_set(theme_classic() + 
-            theme(panel.grid.major.y = element_line(colour = "black", linetype = "dotted"),
-                  text = element_text(size = 12)))
-```
-
-Now, every time you display your graphs, they will use the theme set in this way:
-
-```{r custom-theme-plot, warning=FALSE}
-p1
-```
 
 :::exercise
 ### Exercise - multi-panel figures
@@ -397,87 +553,3 @@ p3 <- ggplot(data = surveys,
 :::
 
 <br />
-
-## Composing plots 
-
-To compose several plots together, we will use the 
-[`patchwork` package](https://patchwork.data-imaginist.com/) (check its documentation, 
-which is full of excellent examples of its usage). 
-
-The easiest way to use the package is to first save the individual plots we want to 
-assemble in different objects. Let's use the plots we made in our exercise. 
-
-There are different ways in which you can specify how to put graphs together using 
-`patchwork`, but the way we're going to use in this lesson uses these two operators:
-
-- `p1 | p2` puts the first plot on the _left_ and the second on the _right_
-- `p1 / p2` puts the first plot on the _top_ and the second on the _bottom_
-
-Here is an example using the plots we've made on our exercise:
-
-```{r composing-plots-1, warning=FALSE}
-# side by side
-p1 | p2
-# top and bottom
-p1 / p2
-```
-
-We can combine these two operators for more complex arrangements, by wrapping 
-different parts of the grid of plots with `()`. For example:
-
-```{r composing-plots-2, warning=FALSE, fig.height=12}
-# Put p1 and p2 side by side. Then put those on the top and p3 on the bottom
-(p1 | p2) / p3
-```
-
-Finally, you can customise these arrangements in several ways using the `plot_layout()` 
-function. For example, we can "collect" the legends and define the relative height of 
-each panel:
-
-```{r composing-plots-3, warning=FALSE, fig.height=12}
-( (p1 | p2) / p3 ) + 
-  plot_layout(guides = "collect", heights = c(2, 1))
-```
-
-We can use `plot_spacer()` to add an empty space to our graph, which can 
-be useful if we want to add something else later on using another program (e.g. 
-an image).
-
-For example, let's put a "blank" space where the second plot should be
-
-```{r composing-plots-4, warning=FALSE, fig.height=12}
-( (p1 | plot_spacer()) / p3 ) + 
-  plot_layout(guides = "collect", heights = c(2, 1))
-```
-
-Finally, we can also add annotations, which is very useful to add automatic "tags" 
-to each panel:
-
-```{r composing-plots-5, warning=FALSE, fig.height=12}
-( (p1 | p2) / p3 ) + 
-  plot_layout(guides = "collect", heights = c(2, 1)) + 
-  plot_annotation(tag_levels = "A", 
-                  title = "Figure 1")
-```
-
-<br />
-
-## Saving graphs
-
-We've already covered how to use the `ggsave()` function in the [first ggplot session](.\03-intro-ggplot2.html).
-To save assembled graphs, you can do a similar thing, but instead of saving a single 
-graph, you can save the whole assembly into an object, and then pass that to `ggsave()`:
-
-```{r save-panel-figure, warning=FALSE, eval=FALSE}
-# Save the "patch" of graphs into an object called fig1
-fig1 <- ( (p1 | p2) / p3 ) + 
-  plot_layout(guides = "collect", heights = c(2, 1)) + 
-  plot_annotation(tag_levels = "A", 
-                  title = "Figure 1")
-# save it as PDF using 15cm x 7cm
-ggsave(filename = "figures/correlations_weight_hindfoot.pdf",
-       plot = fig1, 
-       width = 15, 
-       height = 7, 
-       units = "cm")
-```

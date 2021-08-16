@@ -2,7 +2,7 @@
 title: "Other resources"
 ---
 
-Other courses offered by the Bioinformatics Training Facility, also available to students from other universities (Cambridge University):
+Courses offered by the Bioinformatics Training Facility are also available to students from other universities (Cambridge University):
 
 - [Current available courses](https://training.cam.ac.uk/bioinformatics/search)
 
@@ -18,3 +18,4 @@ Free e-books that may be useful as a complement to this course:
 - [Introduction to Modern Statistics](https://www.openintro.org/book/ims/) - a general introduction to statistics.
 - [Bayes Rules! An Introduction to Bayesian Modelling with R](https://www.bayesrulesbook.com/) - a slightly more advanced topic in statistics.
 - [Modern Statistics for Modern Biology](https://www.huber.embl.de/msmb/) - focusing on statistical concepts applied to biological/bioinformatic problems.
+

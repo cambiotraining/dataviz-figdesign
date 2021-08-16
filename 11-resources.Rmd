@@ -2,4 +2,19 @@
 title: "Other resources"
 ---
 
-Other resources that might be useful (to be added).
+Other courses offered by the Bioinformatics Training Facility, also available to students from other universities (Cambridge University):
+
+- [Current available courses](https://training.cam.ac.uk/bioinformatics/search)
+
+<br />
+
+Materials from other courses:
+
+- [Data Analysis and Visualization in R](https://datacarpentry.org/R-ecology-lesson/) - this expands on some of the topics we covered in this course. 
+- [Data Analysis and Visualization in Python](https://datacarpentry.org/python-ecology-lesson/) - for an equivalent course in Python. 
+Free e-books that may be useful as a complement to this course:
+- [R for Data Science](https://r4ds.had.co.nz/) - focusing on how to use the `tidyverse` package for data analysis. 
+- [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/) - focusing on principles of figure design. 
+- [Introduction to Modern Statistics](https://www.openintro.org/book/ims/) - a general introduction to statistics.
+- [Bayes Rules! An Introduction to Bayesian Modelling with R](https://www.bayesrulesbook.com/) - a slightly more advanced topic in statistics.
+- [Modern Statistics for Modern Biology](https://www.huber.embl.de/msmb/) - focusing on statistical concepts applied to biological/bioinformatic problems.

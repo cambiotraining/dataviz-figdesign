@@ -13,8 +13,8 @@
 
 <title>Starting with data</title>
 
-<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -42,6 +42,7 @@
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
     </style>
+
 
 
 <style type="text/css">
@@ -167,6 +168,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -398,7 +402,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -414,7 +418,7 @@ div.tocify {
   <a href="99-setup.html">Setup</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Materials
      
     <span class="caret"></span>
@@ -438,28 +442,28 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Homework
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="06-hw_2021_07_20.html">20 July 2021</a>
+      <a href="06-hw1.html">Fri, 22 Jul 2022</a>
     </li>
     <li>
-      <a href="07-hw_2021_07_27.html">27 July 2021</a>
+      <a href="07-hw2.html">Fri, 29 Jul 2022</a>
     </li>
     <li>
-      <a href="08-hw_2021_08_03.html">03 August 2021</a>
+      <a href="08-hw3.html">Mon, 01 Aug 2022</a>
     </li>
     <li>
-      <a href="09-hw_2021_08_12.html">12 August 2021</a>
+      <a href="09-hw4.html">Mon, 15 Aug 2022</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Extras
      
     <span class="caret"></span>
@@ -495,49 +499,129 @@ div.tocify {
 <p><br/></p>
 <div class="note">
 <p><strong>General concepts in data analysis</strong></p>
-<p>Before we start, I want to emphasise that even though the data used in this course are from an ecological study, the principals you learn can be applied to any analysis of tabular data.</p>
+<p>Before we start, I want to emphasise that even though the data used
+in this course are from an ecological study, the principals you learn
+can be applied to any analysis of tabular data.</p>
 </div>
 <p><br/></p>
 <div id="data-exploration-workflow" class="section level2">
 <h2>Data exploration workflow</h2>
-<p>When you are working on a project that requires data analysis, you will normally need to perform the following steps:</p>
+<p>When you are working on a project that requires data analysis, you
+will normally need to perform the following steps:</p>
 <p><img src="img/data-science-explore.png" width=75%/>)</p>
-<p>More information on this workflow can be found in the <a href="https://r4ds.had.co.nz/">R for Data Science</a> book. To understand better the workflow in the illustration above, let us go over each stage to see what each step entails:</p>
+<p>More information on this workflow can be found in the <a
+href="https://r4ds.had.co.nz/">R for Data Science</a> book. To
+understand better the workflow in the illustration above, let us go over
+each stage to see what each step entails:</p>
 <ol style="list-style-type: decimal">
-<li>The first step in working with data is to first <strong>import</strong> your data into R. This connects the external file/database to your project in R.</li>
-<li><strong>Cleaning</strong> or <strong>tidying</strong> the data will follow, which involves making sure that the data is consistent and that each row in the data set is an observation and each column is a variable.<br />
-<em>e.g.</em> In the <em>surveys</em> data frame the <em>month</em> column specifies months as an integer from 1 to 12. The data set would have inconsistent data if there was a record in the data set that had a month specified by name, <em>e.g.</em> September rather than 9. A month of 0 or any other number that is not in the range 1 to 12 would have also made the data set inconsistent. Another common problem is capitalisation; the same word in the same column can be written with capitals or without; <em>e.g.</em> <em>Bird</em> or <em>bird</em> in the same <em>taxa</em> column is inconsistent data. During the <em>tidying</em> stage it is important to make the data set consistent and much as possible so that you can focus on the questions you are trying to solve in your analysis.<br />
+<li>The first step in working with data is to first
+<strong>import</strong> your data into R. This connects the external
+file/database to your project in R.</li>
+<li><strong>Cleaning</strong> or <strong>tidying</strong> the data will
+follow, which involves making sure that the data is consistent and that
+each row in the data set is an observation and each column is a
+variable.<br />
+<em>e.g.</em> In the <em>surveys</em> data frame the <em>month</em>
+column specifies months as an integer from 1 to 12. The data set would
+have inconsistent data if there was a record in the data set that had a
+month specified by name, <em>e.g.</em> September rather than 9. A month
+of 0 or any other number that is not in the range 1 to 12 would have
+also made the data set inconsistent. Another common problem is
+capitalisation; the same word in the same column can be written with
+capitals or without; <em>e.g.</em> <em>Bird</em> or <em>bird</em> in the
+same <em>taxa</em> column is inconsistent data. During the
+<em>tidying</em> stage it is important to make the data set consistent
+and much as possible so that you can focus on the questions you are
+trying to solve in your analysis.<br />
 <!--image showing that each row is an observation and that column is a variable--></li>
-<li>Once the data set is tidy, we move to the transformation stage. To be able to <strong>transform</strong> your data you need to plan in advance what analyses you would like to perform on the data set and what plots you would like to create. In this way, you are able to plan ahead what variables/columns you will be using from the data set, what additional variables you will need to create and what variables you will not be using so that you can keep only the columns in the data set that are relevant for your analyses. By the end of the transformation process you will have a data set that is focused for your analyses and you can move on to the main exploratory mechanisms of this workflow which are visualisation and modelling. These two stages complement each other and when exploring your data you normally repeat these two stages several times.<br />
+<li>Once the data set is tidy, we move to the transformation stage. To
+be able to <strong>transform</strong> your data you need to plan in
+advance what analyses you would like to perform on the data set and what
+plots you would like to create. In this way, you are able to plan ahead
+what variables/columns you will be using from the data set, what
+additional variables you will need to create and what variables you will
+not be using so that you can keep only the columns in the data set that
+are relevant for your analyses. By the end of the transformation process
+you will have a data set that is focused for your analyses and you can
+move on to the main exploratory mechanisms of this workflow which are
+visualisation and modelling. These two stages complement each other and
+when exploring your data you normally repeat these two stages several
+times.<br />
 </li>
-<li><strong>Visualising</strong> data is a powerful way to explore your data. Furthermore it helps you understand if there is any pattern in the data.<br />
+<li><strong>Visualising</strong> data is a powerful way to explore your
+data. Furthermore it helps you understand if there is any pattern in the
+data.<br />
 </li>
-<li><strong>Modelling</strong> the data involves applying statistics or other mathematical or computational models on your data to explore if there are correlations or patterns in the data set to help you answer the scientific question you are trying to solve.<br />
+<li><strong>Modelling</strong> the data involves applying statistics or
+other mathematical or computational models on your data to explore if
+there are correlations or patterns in the data set to help you answer
+the scientific question you are trying to solve.<br />
 </li>
-<li>The last step in the data exploration workflow is to <strong>communicate</strong> your results. This is very important as you will need to be able to communicate your results to others to have a successful project.</li>
+<li>The last step in the data exploration workflow is to
+<strong>communicate</strong> your results. This is very important as you
+will need to be able to communicate your results to others to have a
+successful project.</li>
 </ol>
-<p>All these stages in the data exploration workflow can be achieved by programming in R. In these sessions we will not look into the <em>Model</em> and <em>Communicate</em> stages of the workflow, but there are specialised courses available here at the Bioinformatics Training Facility that cover those topics. If you want to know more, see:</p>
+<p>All these stages in the data exploration workflow can be achieved by
+programming in R. In these sessions we will not look into the
+<em>Model</em> and <em>Communicate</em> stages of the workflow, but
+there are specialised courses available here at the Bioinformatics
+Training Facility that cover those topics. If you want to know more,
+see:</p>
 <ul>
-<li>Model: <a href="https://training.cam.ac.uk/bioinformatics/event/2815748">Statistics for Biologists in R</a> and <a href="https://training.cam.ac.uk/bioinformatics/event/3043850">An Introduction to Machine Learning</a></li>
-<li>Communicate: <a href="https://training.cam.ac.uk/bioinformatics/event/3114638">Reproducible Research with R</a></li>
+<li>Model: <a
+href="https://training.cam.ac.uk/bioinformatics/event/2815748">Statistics
+for Biologists in R</a> and <a
+href="https://training.cam.ac.uk/bioinformatics/event/3043850">An
+Introduction to Machine Learning</a></li>
+<li>Communicate: <a
+href="https://training.cam.ac.uk/bioinformatics/event/3114638">Reproducible
+Research with R</a></li>
 </ul>
-<p>In the next sections we will be looking at the <em>import</em>, <em>tidy</em>, <em>transform</em> and <em>visualise</em> stages of the data exploration workflow by using one of the most popular packages in data science in R; <strong>tidyverse</strong>. We introduced this in the previous session and now we will see a lot more of its functionality.</p>
+<p>In the next sections we will be looking at the <em>import</em>,
+<em>tidy</em>, <em>transform</em> and <em>visualise</em> stages of the
+data exploration workflow by using one of the most popular packages in
+data science in R; <strong>tidyverse</strong>. We introduced this in the
+previous session and now we will see a lot more of its
+functionality.</p>
 <p><br/></p>
 </div>
 <div id="understanding-data" class="section level2">
 <h2>Understanding data</h2>
-<p>To do in-depth data analyses, it is crucial you understand your data. So before we start doing any form of analyses we will first try to understand the data set that we will be using throughout this course. Let us first download the file and have a look at the data.</p>
-<p>Thinking back to the structure of our R project, we have a working directory. Within the working directory we can create folders to organise our files. We are going to download some raw data and it is good practice to keep your raw data separate from other data, because that way you can always refer back to the data that you started with.</p>
-<p>In this case <strong>we have already generated the relevant folders</strong> in the <a href=".\00-getting-started.Rmd">Getting started</a> section, but in case you still need to do this, here is a reminder:</p>
-<p>You can create folders straight from RStudio from the right bottom pane in the Files section &gt; New Folder icon.</p>
+<p>To do in-depth data analyses, it is crucial you understand your data.
+So before we start doing any form of analyses we will first try to
+understand the data set that we will be using throughout this course.
+Let us first download the file and have a look at the data.</p>
+<p>Thinking back to the structure of our R project, we have a working
+directory. Within the working directory we can create folders to
+organise our files. We are going to download some raw data and it is
+good practice to keep your raw data separate from other data, because
+that way you can always refer back to the data that you started
+with.</p>
+<p>In this case <strong>we have already generated the relevant
+folders</strong> in the <a href=".\00-getting-started.Rmd">Getting
+started</a> section, but in case you still need to do this, here is a
+reminder:</p>
+<p>You can create folders straight from RStudio from the right bottom
+pane in the Files section &gt; New Folder icon.</p>
 <p><img src="img/new_folder.png" width="200"/></p>
-<p>Remember to try and avoid capitalisation and spaces (use the underscore instead).</p>
+<p>Remember to try and avoid capitalisation and spaces (use the
+underscore instead).</p>
 <p><br/></p>
-<p>We are now ready to download the data, using the R function <code>download.file()</code> to download the CSV file that contains the data.</p>
+<p>We are now ready to download the data, using the R function
+<code>download.file()</code> to download the CSV file that contains the
+data.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="at">url=</span><span class="st">&quot;https://ndownloader.figshare.com/files/2292169&quot;</span>,</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">destfile =</span> <span class="st">&quot;data_raw/portal_data_joined.csv&quot;</span>)</span></code></pre></div>
-<p>Inside the download.file command, the first entry is a character string with the source URL (“<a href="https://ndownloader.figshare.com/files/2292169" class="uri">https://ndownloader.figshare.com/files/2292169</a>”). This source URL downloads a CSV file from figshare. The text after the comma (“data_raw/portal_data_joined.csv”) is the destination of the file on your local machine.</p>
-<p>The data set has the following columns, with each row holding information for a single animal:</p>
+<p>Inside the download.file command, the first entry is a character
+string with the source URL (“<a
+href="https://ndownloader.figshare.com/files/2292169"
+class="uri">https://ndownloader.figshare.com/files/2292169</a>”). This
+source URL downloads a CSV file from figshare. The text after the comma
+(“data_raw/portal_data_joined.csv”) is the destination of the file on
+your local machine.</p>
+<p>The data set has the following columns, with each row holding
+information for a single animal:</p>
 <table>
 <thead>
 <tr class="header">
@@ -604,34 +688,44 @@ div.tocify {
 </div>
 <div id="reading-in-data-from-a-file" class="section level2">
 <h2>Reading in data from a file</h2>
-<p>Next we need to load the data into R and look at <em>how</em> the data is loaded into R. We will use <code>read_csv()</code> from the <code>tidyverse</code> package to load into memory the content of the CSV file.</p>
+<p>Next we need to load the data into R and look at <em>how</em> the
+data is loaded into R. We will use <code>read_csv()</code> from the
+<code>tidyverse</code> package to load into memory the content of the
+CSV file.</p>
 <div class="note">
-<p>We already installed and loaded the <code>tidyverse</code> library, but if you have not, then use <code>install.packages("tidyverse")</code> to install it and <code>library(tidyverse)</code> to load it.</p>
+<p>We already installed and loaded the <code>tidyverse</code> library,
+but if you have not, then use <code>install.packages("tidyverse")</code>
+to install it and <code>library(tidyverse)</code> to load it.</p>
 </div>
 <p>You can load the data using the following command:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>surveys <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data_raw/portal_data_joined.csv&quot;</span>)</span></code></pre></div>
-<pre><code>#&gt; 
+<pre><code>#&gt; Rows: 34786 Columns: 13
 #&gt; ── Column specification ────────────────────────────────────────────────────────
-#&gt; cols(
-#&gt;   record_id = col_double(),
-#&gt;   month = col_double(),
-#&gt;   day = col_double(),
-#&gt;   year = col_double(),
-#&gt;   plot_id = col_double(),
-#&gt;   species_id = col_character(),
-#&gt;   sex = col_character(),
-#&gt;   hindfoot_length = col_double(),
-#&gt;   weight = col_double(),
-#&gt;   genus = col_character(),
-#&gt;   species = col_character(),
-#&gt;   taxa = col_character(),
-#&gt;   plot_type = col_character()
-#&gt; )</code></pre>
-<p>What this does is to use the <code>read_csv()</code> function to read in the CSV file that contains our data. the data should be in a <code>data_raw</code> folder, within your working directory. It then assigns the data to an object called <code>surveys</code>.</p>
-<p>The statement doesn’t produce any output because, as you might recall, because assignments don’t display anything. It does give you information on how the data was loaded. Note that some columns are classed as <code>col_double</code> (numbers) and others as <code>col_character</code> (text). This can be useful and important information, because it tells you the type of data R considers it to be. It also helps you check your data. For example, if R would view a column as <code>col_character</code> but you know that it should only contain numbers, then you know that some of the data are probably text, meaning there are errors in your data that need a closer look.</p>
-<p>If we want to find out how our data has been loaded, we can visualise the contents of the data frame by typing its name <code>surveys</code>:</p>
+#&gt; Delimiter: &quot;,&quot;
+#&gt; chr (6): species_id, sex, genus, species, taxa, plot_type
+#&gt; dbl (7): record_id, month, day, year, plot_id, hindfoot_length, weight
+#&gt; 
+#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.
+#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<p>What this does is to use the <code>read_csv()</code> function to read
+in the CSV file that contains our data. the data should be in a
+<code>data_raw</code> folder, within your working directory. It then
+assigns the data to an object called <code>surveys</code>.</p>
+<p>The statement doesn’t produce any output because, as you might
+recall, because assignments don’t display anything. It does give you
+information on how the data was loaded. Note that some columns are
+classed as <code>col_double</code> (numbers) and others as
+<code>col_character</code> (text). This can be useful and important
+information, because it tells you the type of data R considers it to be.
+It also helps you check your data. For example, if R would view a column
+as <code>col_character</code> but you know that it should only contain
+numbers, then you know that some of the data are probably text, meaning
+there are errors in your data that need a closer look.</p>
+<p>If we want to find out how our data has been loaded, we can visualise
+the contents of the data frame by typing its name
+<code>surveys</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>surveys</span></code></pre></div>
-<pre><code>#&gt; # A tibble: 34,786 x 13
+<pre><code>#&gt; # A tibble: 34,786 × 13
 #&gt;    record_id month   day  year plot_id species_id sex   hindfoot_length weight
 #&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;
 #&gt;  1         1     7    16  1977       2 NL         M                  32     NA
@@ -646,75 +740,132 @@ div.tocify {
 #&gt; 10       661     3    11  1978       2 NL         &lt;NA&gt;               NA     NA
 #&gt; # … with 34,776 more rows, and 4 more variables: genus &lt;chr&gt;, species &lt;chr&gt;,
 #&gt; #   taxa &lt;chr&gt;, plot_type &lt;chr&gt;</code></pre>
-<p>The first line of the output shows the <strong>data structure</strong> used to store the data imported into: <strong><code>tibble</code></strong>. A <code>tibble</code> is the main data structure used in <code>tidyverse</code>. You can look at <code>tibble</code> as the <code>data.frame</code> version of <code>tidyverse</code>. The first immediate difference from a <code>data.frame</code> is that a <code>tibble</code> displays the data type of each column under its name (handy) and it only prints as many columns as fit on one screen (even handier, otherwise it would print 34,786 rows!).</p>
+<p>The first line of the output shows the <strong>data
+structure</strong> used to store the data imported into:
+<strong><code>tibble</code></strong>. A <code>tibble</code> is the main
+data structure used in <code>tidyverse</code>. You can look at
+<code>tibble</code> as the <code>data.frame</code> version of
+<code>tidyverse</code>. The first immediate difference from a
+<code>data.frame</code> is that a <code>tibble</code> displays the data
+type of each column under its name (handy) and it only prints as many
+columns as fit on one screen (even handier, otherwise it would print
+34,786 rows!).</p>
 <p><br/></p>
 <div id="exercise---understanding-data" class="section level3 exercise">
 <h3>Exercise - Understanding data</h3>
 <p>Try to do the following:</p>
 <ol style="list-style-type: decimal">
-<li>Find out what data types there are in <code>surveys</code> (numeric, categorical).</li>
-<li>Are there missing values in the data? If so, can you see how many?</li>
+<li>Find out what data types there are in <code>surveys</code> (numeric,
+categorical).</li>
+<li>Are there missing values in the data? If so, can you see how
+many?</li>
 </ol>
-<p><strong>Hint:</strong> you can use the <code>summary()</code> function to get more information on your data set</p>
+<p><strong>Hint:</strong> you can use the <code>summary()</code>
+function to get more information on your data set</p>
 <details>
 <summary>
 Answer
 </summary>
-<p>Using the <code>summary()</code> function gives us information about each variable with summary metrics (such as the average and quartiles of numeric variables). It also gives us information about missing values (<code>NA</code>’s).</p>
+<p>Using the <code>summary()</code> function gives us information about
+each variable with summary metrics (such as the average and quartiles of
+numeric variables). It also gives us information about missing values
+(<code>NA</code>’s).</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Each variable will come with its own summary statistics</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(surveys)</span></code></pre></div>
-<p>For example, from this output we can see that we have 2503 missing values for “weight” and 3348 missing values for “hindfoot_length”.</p>
+<p>For example, from this output we can see that we have 2503 missing
+values for “weight” and 3348 missing values for “hindfoot_length”.</p>
 </details>
 </div>
 <p><br/></p>
 </div>
 <div id="data-frames" class="section level2">
 <h2>Data frames</h2>
-<p>Data frames are one of the most widely used type of data structure in R. It is very popular as most of the data is readily available in tabular form and it is the also the data structure used when plotting and performing most analyses in R.</p>
-<p>A data frame can be compared to what you would see in an Excel spreadsheet: a rectangular data set.</p>
-<p>A data frame is the representation of data in the format of a table where the columns are vectors that all have the same length. Because columns are vectors, each column must contain a single type of data (e.g., characters, integers, logical). For example, here is a figure depicting a data frame comprising a numeric, a character, and a logical vector.</p>
+<p>Data frames are one of the most widely used type of data structure in
+R. It is very popular as most of the data is readily available in
+tabular form and it is the also the data structure used when plotting
+and performing most analyses in R.</p>
+<p>A data frame can be compared to what you would see in an Excel
+spreadsheet: a rectangular data set.</p>
+<p>A data frame is the representation of data in the format of a table
+where the columns are vectors that all have the same length. Because
+columns are vectors, each column must contain a single type of data
+(e.g., characters, integers, logical). For example, here is a figure
+depicting a data frame comprising a numeric, a character, and a logical
+vector.</p>
 <p><img src="img/data-frame.svg" /></p>
-<p>We can access the values of a single column of the data.frame using the <code>$</code> notation, as such:</p>
+<p>We can access the values of a single column of the data.frame using
+the <code>$</code> notation, as such:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>surveys<span class="sc">$</span>hindfoot_length</span></code></pre></div>
-<p>The result is a <em>vector</em> (not a data.frame), similar to what we created using the <code>c()</code> function in the <a href="01-intro-to-r.html">Introduction to R</a> section.</p>
-<p>Therefore we can use functions such as the ones we used with vectors, for example to calculate the mean of this variable:</p>
+<p>The result is a <em>vector</em> (not a data.frame), similar to what
+we created using the <code>c()</code> function in the <a
+href="01-intro-to-r.html">Introduction to R</a> section.</p>
+<p>Therefore we can use functions such as the ones we used with vectors,
+for example to calculate the mean of this variable:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(surveys<span class="sc">$</span>hindfoot_length, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p>Now that we have loaded our data into R and understand its underlying structure, we can move on to doing some analysis!</p>
+<p>Now that we have loaded our data into R and understand its underlying
+structure, we can move on to doing some analysis!</p>
 <p><br/></p>
 </div>
 <div id="creating-plots" class="section level2">
 <h2>Creating plots</h2>
-<p>One of the best ways of looking at your data is to visualise them. The function that helps you visualise your data is called <code>ggplot()</code>.</p>
+<p>One of the best ways of looking at your data is to visualise them.
+The function that helps you visualise your data is called
+<code>ggplot()</code>.</p>
 <p>The basic format for using <code>ggplot()</code> is as follows:</p>
 <pre><code>ggplot(data = &lt;DATA&gt;, mapping = aes(&lt;MAPPINGS&gt;)) +  &lt;GEOM_FUNCTION&gt;()</code></pre>
-<p>As you can see, there are 3 main elements that you need to create a plot:</p>
+<p>As you can see, there are 3 main elements that you need to create a
+plot:</p>
 <p>The <code>ggplot</code> function takes 2 arguments:</p>
 <ul>
-<li><strong>data</strong>: This is the data frame to attach to the plot. The data frame must contain the variables to plot as columns and the rows must contain the observations that you need to plot.</li>
-<li><strong>mapping</strong>: Aesthetic mappings describe how variables in the data are mapped to visual properties of the plot.</li>
+<li><strong>data</strong>: This is the data frame to attach to the plot.
+The data frame must contain the variables to plot as columns and the
+rows must contain the observations that you need to plot.</li>
+<li><strong>mapping</strong>: Aesthetic mappings describe how variables
+in the data are mapped to visual properties of the plot.</li>
 </ul>
-<p>Using the <code>ggplot</code> function on its own will not plot anything. We need to add a <strong>geom_function</strong> as a layer. Layers are added to plots by using <code>+</code>. They are added on top of the other previous layers that might be present.</p>
+<p>Using the <code>ggplot</code> function on its own will not plot
+anything. We need to add a <strong>geom_function</strong> as a layer.
+Layers are added to plots by using <code>+</code>. They are added on top
+of the other previous layers that might be present.</p>
 <ul>
-<li><strong>geom_function</strong>: This specifies the type of plot would you like to plot. The greatest advantage of this is that you can easily change the plot type by just changing the geom_function and keeping everything else the same. You can see a whole list of plots that you can plot <a href="https://ggplot2.tidyverse.org/reference/index.html#section-layer-geoms">here</a>.</li>
+<li><strong>geom_function</strong>: This specifies the type of plot
+would you like to plot. The greatest advantage of this is that you can
+easily change the plot type by just changing the geom_function and
+keeping everything else the same. You can see a whole list of plots that
+you can plot <a
+href="https://ggplot2.tidyverse.org/reference/index.html#section-layer-geoms">here</a>.</li>
 </ul>
-<p>Let’s practice this on our <code>surveys</code> data set. We would like to create a scatter plot with <code>weight</code> on the x-axis, <code>hindfoot_length</code> on the y-axis:</p>
+<p>Let’s practice this on our <code>surveys</code> data set. We would
+like to create a scatter plot with <code>weight</code> on the x-axis,
+<code>hindfoot_length</code> on the y-axis:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> surveys, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length))</span></code></pre></div>
 <p><img src="img/R-ecology-02-ggplot-empty-1.png" width="672" /></p>
 <p><br/></p>
 </div>
 <div id="adding-layers" class="section level2">
 <h2>Adding layers</h2>
-<p>If you just specify the <code>ggplot</code> function with the data and aesthetic mappings, it will create a plot, but the data itself is not displayed. Let us now add the <code>geom_function</code> for the scatter plot (<code>geom_point()</code>) as a layer to the plot:</p>
+<p>If you just specify the <code>ggplot</code> function with the data
+and aesthetic mappings, it will create a plot, but the data itself is
+not displayed. Let us now add the <code>geom_function</code> for the
+scatter plot (<code>geom_point()</code>) as a layer to the plot:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> surveys, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="img/R-ecology-02-ggplot-scatterplot-1.png" width="672" /></p>
 <p><br/></p>
 <div id="exercise---boxplot" class="section level3 exercise">
 <h3>Exercise - Boxplot</h3>
-<p>The plot we created above was a simple scatter plot, which used the <code>geom_point()</code> function. There are many different types of geoms in ggplot and to explore this we would like you to create a <a href="https://www.data-to-viz.com/caveat/boxplot.html">box plot</a>, using the same data set.</p>
+<p>The plot we created above was a simple scatter plot, which used the
+<code>geom_point()</code> function. There are many different types of
+geoms in ggplot and to explore this we would like you to create a <a
+href="https://www.data-to-viz.com/caveat/boxplot.html">box plot</a>,
+using the same data set.</p>
 <ul>
-<li>The geoms are named quite logically, so finding the right geom for a box plot should be OK</li>
-<li>The scatter plot uses two continuous variables. A box plot should only have a continuous y-variable, so on the x-axis you should plot a categorical variable (think back of your <code>summary()</code> output!)</li>
+<li>The geoms are named quite logically, so finding the right geom for a
+box plot should be OK</li>
+<li>The scatter plot uses two continuous variables. A box plot should
+only have a continuous y-variable, so on the x-axis you should plot a
+categorical variable (think back of your <code>summary()</code>
+output!)</li>
 </ul>
 <details>
 <summary>
@@ -730,39 +881,68 @@ Answer
 </div>
 <div id="transforming-data---dplyr" class="section level2">
 <h2>Transforming data - dplyr</h2>
-<p>In most of the cases you will need to change the format of your dataset because it will not be in the right format that you will need to plot or analyse the data. <code>tidyverse</code> has a package called <code>dplyr</code> which contains functions that help you to select columns/rows, sort, combine and perform other data types of data transformations. In the next sections we will look at different ways to transform our dataset. Now that we already know the basics of visualising data with <code>ggplot</code> we will also learn how to visualise other plots with the transformed dataset as we go along.</p>
+<p>In most of the cases you will need to change the format of your
+dataset because it will not be in the right format that you will need to
+plot or analyse the data. <code>tidyverse</code> has a package called
+<code>dplyr</code> which contains functions that help you to select
+columns/rows, sort, combine and perform other data types of data
+transformations. In the next sections we will look at different ways to
+transform our dataset. Now that we already know the basics of
+visualising data with <code>ggplot</code> we will also learn how to
+visualise other plots with the transformed dataset as we go along.</p>
 <div class="note">
-<p>To learn more about <code>dplyr</code> please look at the following resources:</p>
+<p>To learn more about <code>dplyr</code> please look at the following
+resources:</p>
 <ul>
-<li><a href="https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf">dplyr cheat sheet</a></li>
+<li><a
+href="https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf">dplyr
+cheat sheet</a></li>
 <li><a href="https://dplyr.tidyverse.org/">dplyr documentation</a></li>
 </ul>
-<p>If you find these resources difficult to understand, return to these after completing the course.</p>
+<p>If you find these resources difficult to understand, return to these
+after completing the course.</p>
 </div>
 <p><br/></p>
 <div id="pipes" class="section level3">
 <h3>Pipes</h3>
-<p>Before we move onto the different ways that we can transform our data, we’ll discuss one of the most powerful additions to R, <strong>pipes</strong>.</p>
-<p>Pipes let you take the output of one function and send it directly to the next, which is useful when you need to do many things to the same dataset. Pipes in R look like <code>%&gt;%</code> and are made available via the <strong><code>magrittr</code></strong> package, installed automatically with <code>dplyr</code>.</p>
-<p>Let’s say we are interested only in the data that do not contain any missing values. Using pipes, we do the following:</p>
+<p>Before we move onto the different ways that we can transform our
+data, we’ll discuss one of the most powerful additions to R,
+<strong>pipes</strong>.</p>
+<p>Pipes let you take the output of one function and send it directly to
+the next, which is useful when you need to do many things to the same
+dataset. Pipes in R look like <code>%&gt;%</code> and are made available
+via the <strong><code>magrittr</code></strong> package, installed
+automatically with <code>dplyr</code>.</p>
+<p>Let’s say we are interested only in the data that do not contain any
+missing values. Using pipes, we do the following:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code></pre></div>
-<p>This takes the argument on the left (<code>surveys</code>) and passes it on to the function after it (<code>drop_na</code>, which removes all rows with missing values).</p>
-<p>If we want to create a new object with the transformed data we can assign it a new name as below:</p>
+<p>This takes the argument on the left (<code>surveys</code>) and passes
+it on to the function after it (<code>drop_na</code>, which removes all
+rows with missing values).</p>
+<p>If we want to create a new object with the transformed data we can
+assign it a new name as below:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="ot">&lt;-</span> surveys <span class="sc">%&gt;%</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">drop_na</span>()</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>surveys_complete</span></code></pre></div>
-<p>Although at this point pipes might not seem like a revolutionary invention, they become more powerful when combining multiple operations. This we’ll see next.</p>
+<p>Although at this point pipes might not seem like a revolutionary
+invention, they become more powerful when combining multiple operations.
+This we’ll see next.</p>
 <p><br/></p>
 </div>
 <div id="selecting-columns" class="section level3">
 <h3>Selecting columns</h3>
-<p>To select columns of a data frame or tibble, use the<code>select</code> function. The first argument is the data frame or tibble you are working on (in our example it is <code>surveys</code>, which we pipe through), and the subsequent arguments are the columns to keep.</p>
+<p>To select columns of a data frame or tibble, use
+the<code>select</code> function. The first argument is the data frame or
+tibble you are working on (in our example it is <code>surveys</code>,
+which we pipe through), and the subsequent arguments are the columns to
+keep.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract species_id, weight, hindfoot_lenth, year and sex columns from surveys dataset.</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span> </span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species_id, weight, hindfoot_length, year, sex)</span></code></pre></div>
-<p>To select all columns <em>except</em> certain ones, put a <code>-</code> in front of the column to exclude it.</p>
+<p>To select all columns <em>except</em> certain ones, put a
+<code>-</code> in front of the column to exclude it.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select all columns of the surveys dataset apart from record_id and species_id columns.</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>record_id, <span class="sc">-</span>species_id)</span></code></pre></div>
@@ -770,11 +950,16 @@ Answer
 </div>
 <div id="filtering-rows" class="section level3">
 <h3>Filtering rows</h3>
-<p>To remove rows from a data frame or tibble use the <code>filter</code> function from the <code>dplyr</code> package. The first argument is the data frame or tibble to perform the filtering on (in this case we pipe the data through) and the next arguments are the conditions on which to keep the rows.</p>
+<p>To remove rows from a data frame or tibble use the
+<code>filter</code> function from the <code>dplyr</code> package. The
+first argument is the data frame or tibble to perform the filtering on
+(in this case we pipe the data through) and the next arguments are the
+conditions on which to keep the rows.</p>
 <p><br/></p>
 <div id="filtering-rows-by-values" class="section level4">
 <h4>Filtering rows by values</h4>
-<p>To choose rows based on a specific condition, use the <code>filter</code> function as follows:</p>
+<p>To choose rows based on a specific condition, use the
+<code>filter</code> function as follows:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only the observations of animals collected from 1995 onwards from the surveys dataset.</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>surveys <span class="sc">%&gt;%</span> </span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">1995</span>)</span></code></pre></div>
@@ -786,39 +971,55 @@ Answer
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>         sex <span class="sc">==</span> <span class="st">&quot;F&quot;</span>)</span></code></pre></div>
 <div class="note">
 <p><strong>To quote or not to quote?</strong></p>
-<p>The <code>sex</code> column is a character and thus needs to be quoted, whereas the <code>year</code> column is numerical and does not. Also note that the filter arguments could have been written on a single line, but it is useful to break up your code sometimes to make it more readable.</p>
+<p>The <code>sex</code> column is a character and thus needs to be
+quoted, whereas the <code>year</code> column is numerical and does not.
+Also note that the filter arguments could have been written on a single
+line, but it is useful to break up your code sometimes to make it more
+readable.</p>
 </div>
 <p><br/></p>
 </div>
 </div>
 <div id="exercise---pipes" class="section level3 exercise">
 <h3>Exercise - Pipes</h3>
-<p>Subset the <code>surveys_complete</code> data to keep only the <code>species_id</code>, <code>weight</code>, <code>hindfoot_length</code>, <code>year</code> and <code>sex</code> columns and the animals collected on and after 1995. How many rows are left?</p>
+<p>Subset the <code>surveys_complete</code> data to keep only the
+<code>species_id</code>, <code>weight</code>,
+<code>hindfoot_length</code>, <code>year</code> and <code>sex</code>
+columns and the animals collected on and after 1995. How many rows are
+left?</p>
 <details>
 <summary>
 Answer
 </summary>
-<p>We can use the <code>select()</code> and <code>filter()</code> functions to achieve this:</p>
+<p>We can use the <code>select()</code> and <code>filter()</code>
+functions to achieve this:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select columns</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species_id, weight, hindfoot_length, year, sex) <span class="sc">%&gt;%</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter rows</span></span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">1995</span>)</span></code></pre></div>
-<p>The output of this command shows that we are left with 12484 rows of data.</p>
+<p>The output of this command shows that we are left with 12484 rows of
+data.</p>
 </details>
 </div>
 <p><br/></p>
 <div id="creating-new-columns" class="section level3">
 <h3>Creating new columns</h3>
-<p>Often you’ll want to create new columns based on the values in existing columns, for example to do unit conversions, or to find the ratio of values in two columns. For this we’ll use the <code>mutate</code> function.</p>
+<p>Often you’ll want to create new columns based on the values in
+existing columns, for example to do unit conversions, or to find the
+ratio of values in two columns. For this we’ll use the
+<code>mutate</code> function.</p>
 <p>To create a new column of weight in kg:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight_kg =</span> weight <span class="sc">/</span> <span class="dv">1000</span>)</span></code></pre></div>
-<p>You can also create a second new column based on the first new column within the same call of <code>mutate()</code>:</p>
+<p>You can also create a second new column based on the first new column
+within the same call of <code>mutate()</code>:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight_kg =</span> weight <span class="sc">/</span> <span class="dv">1000</span>,</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">weight_lbs =</span> weight_kg <span class="sc">*</span> <span class="fl">2.20462</span>)</span></code></pre></div>
-<p>There are other ways on how to create new columns. Refer to the <a href="https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf">dplyr cheat sheet</a> <em>Make New Variables</em> section.</p>
+<p>There are other ways on how to create new columns. Refer to the <a
+href="https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf">dplyr
+cheat sheet</a> <em>Make New Variables</em> section.</p>
 <p><br/></p>
 </div>
 </div>
@@ -861,6 +1062,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

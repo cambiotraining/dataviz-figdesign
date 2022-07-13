@@ -1,0 +1,15 @@
+---
+title: "Homework before Fri, 22 Jul 2022"
+---
+
+<br/>
+
+Today's homework involves watching a video of a TED talk. It is just over 19 minutes and is by [Hans Rosling](https://en.wikipedia.org/wiki/Hans_Rosling) - a Swedish physician and academic who co-founded the [Gapminder Foundation](https://www.gapminder.org). This is an organisation that tries to dispel misconceptions about global trends using reliable data.
+
+In the next sessions you will be using some of the socio-economic data that the Gapminder Foundation has collected to practice your coding skills. The TED talk gives an insight into these data and, importantly, that there are very different ways of thinking about the same data.
+
+Enjoy!
+
+<br />
+
+Link to the [TED talk](https://www.ted.com/talks/hans_rosling_the_best_stats_you_ve_ever_seen)

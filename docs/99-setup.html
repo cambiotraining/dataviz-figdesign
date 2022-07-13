@@ -13,8 +13,8 @@
 
 <title>Setup</title>
 
-<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -48,6 +48,7 @@
 
 
 
+
 <link rel="stylesheet" href="assets/styles.css" type="text/css" />
 
 
@@ -72,6 +73,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -303,7 +307,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -319,7 +323,7 @@ div.tocify {
   <a href="99-setup.html">Setup</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Materials
      
     <span class="caret"></span>
@@ -343,28 +347,28 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Homework
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="06-hw_2021_07_20.html">20 July 2021</a>
+      <a href="06-hw1.html">Fri, 22 Jul 2022</a>
     </li>
     <li>
-      <a href="07-hw_2021_07_27.html">27 July 2021</a>
+      <a href="07-hw2.html">Fri, 29 Jul 2022</a>
     </li>
     <li>
-      <a href="08-hw_2021_08_03.html">03 August 2021</a>
+      <a href="08-hw3.html">Mon, 01 Aug 2022</a>
     </li>
     <li>
-      <a href="09-hw_2021_08_12.html">12 August 2021</a>
+      <a href="09-hw4.html">Mon, 15 Aug 2022</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Extras
      
     <span class="caret"></span>
@@ -397,67 +401,125 @@ div.tocify {
 </div>
 
 
-<p>If you have any problems with software installation or downloading data, please contact one of the instructors before the course.</p>
+<p>If you have any problems with software installation or downloading
+data, please contact one of the instructors before the course.</p>
 <div id="setup-instructions" class="section level2">
 <h2>Setup instructions</h2>
-<p>All the software required to run this course can be installed on your own machine. We also have additional laptops available for use during the course. Alternatively, if installation proves to be difficult, we can also provide you with access to a web-based virtual learning environment.</p>
-<p>To install R and RStudio on your own computer, please follow the instructions below:</p>
-<p><strong>R</strong> and <strong>RStudio</strong> are separate downloads and installations. R is the underlying statistical computing environment, but using R alone is no fun. RStudio is a graphical integrated development environment (IDE) that makes using R much easier and more interactive. You need to install R before you install RStudio. After installing both programs, you will need to install the <strong><code>tidyverse</code></strong> package from within RStudio. Follow the instructions below for your operating system, and then follow the instructions to install the <strong><code>tidyverse</code></strong> package.</p>
-<div id="if-you-already-have-r-and-rstudio-installed" class="section level3">
+<p>All the software required to run this course can be installed on your
+own machine. We also have additional laptops available for use during
+the course. Alternatively, if installation proves to be difficult, we
+can also provide you with access to a web-based virtual learning
+environment.</p>
+<p>To install R and RStudio on your own computer, please follow the
+instructions below:</p>
+<p><strong>R</strong> and <strong>RStudio</strong> are separate
+downloads and installations. R is the underlying statistical computing
+environment, but using R alone is no fun. RStudio is a graphical
+integrated development environment (IDE) that makes using R much easier
+and more interactive. You need to install R before you install RStudio.
+After installing both programs, you will need to install the
+<strong><code>tidyverse</code></strong> package from within RStudio.
+Follow the instructions below for your operating system, and then follow
+the instructions to install the <strong><code>tidyverse</code></strong>
+package.</p>
+<div id="if-you-already-have-r-and-rstudio-installed"
+class="section level3">
 <h3>If you already have R and RStudio installed</h3>
 <ul>
-<li>Open RStudio, and click on <kbd>Help</kbd> &gt; <kbd>Check for updates</kbd>. If a new version is available, quit RStudio, and download the latest version for RStudio.</li>
-<li>To check which version of R you are using, start RStudio and the first thing that appears in the console indicates the version of R you are running. Alternatively, you can type <code>sessionInfo()</code>, which will also display which version of R you are running. Go on the <a href="https://cran.r-project.org/bin/windows/base/">CRAN website</a> and check whether a more recent version is available. If so, please download and install it. You can <a href="https://cran.r-project.org/bin/windows/base/rw-FAQ.html#How-do-I-UNinstall-R_003f">check here</a> for more information on how to remove old versions from your system if you wish to do so.</li>
+<li>Open RStudio, and click on <kbd>Help</kbd> &gt; <kbd>Check for
+updates</kbd>. If a new version is available, quit RStudio, and download
+the latest version for RStudio.</li>
+<li>To check which version of R you are using, start RStudio and the
+first thing that appears in the console indicates the version of R you
+are running. Alternatively, you can type <code>sessionInfo()</code>,
+which will also display which version of R you are running. Go on the <a
+href="https://cran.r-project.org/bin/windows/base/">CRAN website</a> and
+check whether a more recent version is available. If so, please download
+and install it. You can <a
+href="https://cran.r-project.org/bin/windows/base/rw-FAQ.html#How-do-I-UNinstall-R_003f">check
+here</a> for more information on how to remove old versions from your
+system if you wish to do so.</li>
 </ul>
 </div>
-<div id="if-you-dont-have-r-and-rstudio-installed" class="section level3">
+<div id="if-you-dont-have-r-and-rstudio-installed"
+class="section level3">
 <h3>If you don’t have R and RStudio installed</h3>
 <div id="windows" class="section level4">
 <h4>Windows</h4>
 <ul>
-<li>Download R from the <a href="http://cran.r-project.org/bin/windows/base/release.htm">CRAN website</a>.</li>
+<li>Download R from the <a
+href="http://cran.r-project.org/bin/windows/base/release.htm">CRAN
+website</a>.</li>
 <li>Run the <code>.exe</code> file that was just downloaded</li>
-<li>Go to the <a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio download page</a></li>
-<li>Under <em>Installers</em> select <strong>RStudio x.yy.zzz - Windows Vista/7/8/10</strong> (where x, y, and z represent version numbers)</li>
+<li>Go to the <a
+href="https://www.rstudio.com/products/rstudio/download/#download">RStudio
+download page</a></li>
+<li>Under <em>Installers</em> select the file relevant to your operating
+system</li>
 <li>Double click the file to install it</li>
-<li>Once it’s installed, open RStudio to make sure it works and you don’t get any error messages.</li>
+<li>Once it’s installed, open RStudio to make sure it works and you
+don’t get any error messages.</li>
 </ul>
 </div>
 <div id="macos" class="section level4">
 <h4>macOS</h4>
 <ul>
-<li>Download R from the <a href="http://cran.r-project.org/bin/macosx/">CRAN website</a>.</li>
+<li>Download R from the <a
+href="http://cran.r-project.org/bin/macosx/">CRAN website</a>.</li>
 <li>Select the <code>.pkg</code> file for the latest R version</li>
 <li>Double click on the downloaded file to install R</li>
-<li>It is also a good idea to install <a href="https://www.xquartz.org/">XQuartz</a> (needed by some packages)</li>
-<li>Go to the <a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio download page</a></li>
-<li>Under <em>Installers</em> select <strong>RStudio x.yy.zzz - Mac OS X 10.6+ (64-bit)</strong> (where x, y, and z represent version numbers)</li>
+<li>Go to the <a
+href="https://www.rstudio.com/products/rstudio/download/#download">RStudio
+download page</a></li>
+<li>Under <em>Installers</em> select the file relevant to your operating
+system</li>
 <li>Double click the file to install RStudio</li>
-<li>Once it’s installed, open RStudio to make sure it works and you don’t get any error messages.</li>
+<li>Once it’s installed, open RStudio to make sure it works and you
+don’t get any error messages.</li>
 </ul>
 </div>
 <div id="linux" class="section level4">
 <h4>Linux</h4>
 <ul>
-<li>Follow the instructions for your distribution from <a href="https://cloud.r-project.org/bin/linux">CRAN</a>, they provide information to get the most recent version of R for common distributions. For most distributions, you could use your package manager (e.g., for Debian/Ubuntu run <code>sudo apt-get install r-base</code>, and for Fedora <code>sudo yum install R</code>), but we don’t recommend this approach as the versions provided by this are usually out of date. In any case, make sure you have at least R 3.3.1.</li>
-<li>Go to the <a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio download page</a></li>
-<li>Under <em>Installers</em> select the version that matches your distribution, and install it with your preferred method (e.g., with Debian/Ubuntu <code>sudo dpkg -i   rstudio-x.yy.zzz-amd64.deb</code> at the terminal).</li>
-<li>Once it’s installed, open RStudio to make sure it works and you don’t get any error messages.</li>
+<li>Follow the instructions for your distribution from <a
+href="https://cloud.r-project.org/bin/linux">CRAN</a>, they provide
+information to get the most recent version of R for common
+distributions. For most distributions, you could use your package
+manager (e.g., for Debian/Ubuntu run
+<code>sudo apt-get install r-base</code>, and for Fedora
+<code>sudo yum install R</code>), but we don’t recommend this approach
+as the versions provided by this are usually out of date. In any case,
+make sure you have at least R 4.x.</li>
+<li>Go to the <a
+href="https://www.rstudio.com/products/rstudio/download/#download">RStudio
+download page</a></li>
+<li>Under <em>Installers</em> select the version that matches your
+distribution, and install it with your preferred method (e.g., with
+Debian/Ubuntu <code>sudo dpkg -i   rstudio-x.yy.zzz-amd64.deb</code> at
+the terminal).</li>
+<li>Once it’s installed, open RStudio to make sure it works and you
+don’t get any error messages.</li>
 </ul>
 </div>
 </div>
 <div id="installing-tidyverse" class="section level3">
 <h3>Installing <code>tidyverse</code></h3>
-<p>After installing R and RStudio, you need to install the <code>tidyverse</code> package.</p>
+<p>After installing R and RStudio, you need to install the
+<code>tidyverse</code> package.</p>
 <ul>
-<li><p>After starting RStudio, at the console type: <code>install.packages("tidyverse")</code></p></li>
-<li><p>You can also do this by going to <kbd>Tools</kbd> -&gt; <kbd>Install Packages</kbd> and typing the names of the packages separated by a comma. Press <kbd>Install</kbd> (a lot of text will start printing on the panel called “Console”)</p></li>
+<li><p>After starting RStudio, at the console type:
+<code>install.packages("tidyverse")</code></p></li>
+<li><p>You can also do this by going to <kbd>Tools</kbd> -&gt;
+<kbd>Install Packages</kbd> and typing the names of the packages
+separated by a comma. Press <kbd>Install</kbd> (a lot of text will start
+printing on the panel called “Console”)</p></li>
 </ul>
 <p><br/></p>
 </div>
 <div id="testing-your-installation" class="section level3">
 <h3>Testing your installation</h3>
-<p>On the RStudio panel named “Console” type <code>library(tidyverse)</code> and press <kbd>Enter</kbd></p>
+<p>On the RStudio panel named “Console” type
+<code>library(tidyverse)</code> and press <kbd>Enter</kbd></p>
 <p>A message similar to this should print:</p>
 <pre><code>── Attaching packages ─────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 ✔ ggplot2 3.2.1     ✔ purrr   0.3.2
@@ -471,20 +533,30 @@ div.tocify {
 </p>
 <p>If instead you get the message:</p>
 <pre><code>Error in library(tidyverse) : there is no package called ‘tidyverse’</code></pre>
-<p>then your package installation did not work. Please ask the instructors for assistance before the course.</p>
+<p>then your package installation did not work. Please ask the
+instructors for assistance before the course.</p>
 <p><br /></p>
 </div>
 <div id="updating-tidyverse" class="section level3">
 <h3>Updating <code>tidyverse</code></h3>
-<p>If you already have R installed and have used <code>tidyverse</code> before, then it would be good to check that you are using the latest version. To do this, go to <kbd>Tools</kbd> &gt; <kbd>Check for package updates…</kbd> and look at the list of updates it gives you. If <code>tidyverse</code> is in the list, tick the box and press <kbd>Install updates</kbd>. Alternatively, just select all of the available updates and install them.</p>
+<p>If you already have R installed and have used <code>tidyverse</code>
+before, then it would be good to check that you are using the latest
+version. To do this, go to <kbd>Tools</kbd> &gt; <kbd>Check for package
+updates…</kbd> and look at the list of updates it gives you. If
+<code>tidyverse</code> is in the list, tick the box and press
+<kbd>Install updates</kbd>. Alternatively, just select all of the
+available updates and install them.</p>
 <p><br /></p>
 </div>
 <div id="setting-up-rstudio" class="section level3">
 <h3>Setting up RStudio</h3>
-<p>After installing RStudio, change some of its default options (you only need to do this once):</p>
+<p>After installing RStudio, change some of its default options (you
+only need to do this once):</p>
 <ul>
-<li>From the upper menu go to <kbd>Tools</kbd> &gt; <kbd>Global Options…</kbd></li>
-<li><em>Untick</em> the option “Restore .RData to workspace on startup.”</li>
+<li>From the upper menu go to <kbd>Tools</kbd> &gt; <kbd>Global
+Options…</kbd></li>
+<li><em>Untick</em> the option “Restore .RData to workspace on
+startup.”</li>
 <li>Change “Save workspace to .RData on exit” option to “Never”</li>
 <li>Press <kbd>OK</kbd></li>
 </ul>
@@ -533,6 +605,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

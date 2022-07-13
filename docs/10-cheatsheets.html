@@ -13,8 +13,8 @@
 
 <title>Cheatsheets</title>
 
-<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -48,6 +48,7 @@
 
 
 
+
 <link rel="stylesheet" href="assets/styles.css" type="text/css" />
 
 
@@ -72,6 +73,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -303,7 +307,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -319,7 +323,7 @@ div.tocify {
   <a href="99-setup.html">Setup</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Materials
      
     <span class="caret"></span>
@@ -343,28 +347,28 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Homework
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="06-hw_2021_07_20.html">20 July 2021</a>
+      <a href="06-hw1.html">Fri, 22 Jul 2022</a>
     </li>
     <li>
-      <a href="07-hw_2021_07_27.html">27 July 2021</a>
+      <a href="07-hw2.html">Fri, 29 Jul 2022</a>
     </li>
     <li>
-      <a href="08-hw_2021_08_03.html">03 August 2021</a>
+      <a href="08-hw3.html">Mon, 01 Aug 2022</a>
     </li>
     <li>
-      <a href="09-hw_2021_08_12.html">12 August 2021</a>
+      <a href="09-hw4.html">Mon, 15 Aug 2022</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Extras
      
     <span class="caret"></span>
@@ -399,9 +403,15 @@ div.tocify {
 
 <p>List of useful cheatsheets.</p>
 <ul>
-<li><a href="https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf">RStudio cheatsheet about the RStudio IDE</a></li>
-<li><a href="https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf">ggplot2 cheatsheet</a></li>
-<li><a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf">dplyr cheatsheet</a></li>
+<li><a
+href="https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf">RStudio
+cheatsheet about the RStudio IDE</a></li>
+<li><a
+href="https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf">ggplot2
+cheatsheet</a></li>
+<li><a
+href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf">dplyr
+cheatsheet</a></li>
 </ul>
 
 
@@ -442,6 +452,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

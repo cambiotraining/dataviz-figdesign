@@ -334,7 +334,7 @@ Tidyverse is a relatively recent package (launched in 2016) when compared to _R 
 
 Some of the main advantages of _tidyverse_ over _R base_ are:
 
-1. **It is more verbal **
+1. **It is more verbose **
 <p>Most tidyverse functions using common, meaningful words. For example, you can filter using `filter` or select data using `select`. </p>
 2. **Faster**
 <p>Using tidyverse is up to 10x faster[^1] when compared to the corresponding base R base functions.</p>

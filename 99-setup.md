@@ -40,8 +40,7 @@ your operating system, and then follow the instructions to install the
   the [CRAN website](http://cran.r-project.org/bin/windows/base/release.htm).
 * Run the `.exe` file that was just downloaded
 * Go to the [RStudio download page](https://www.rstudio.com/products/rstudio/download/#download)
-* Under *Installers* select **RStudio x.yy.zzz - Windows
-  Vista/7/8/10** (where x, y, and z represent version numbers)
+* Under *Installers* select the file relevant to your operating system
 * Double click the file to install it
 * Once it's installed, open RStudio to make sure it works and you don't get any
   error messages.
@@ -51,11 +50,8 @@ your operating system, and then follow the instructions to install the
   the [CRAN website](http://cran.r-project.org/bin/macosx/).
 * Select the `.pkg` file for the latest R version
 * Double click on the downloaded file to install R
-* It is also a good idea to install [XQuartz](https://www.xquartz.org/) (needed
-  by some packages)
 * Go to the [RStudio download page](https://www.rstudio.com/products/rstudio/download/#download)
-* Under *Installers* select **RStudio x.yy.zzz - Mac OS X 10.6+ (64-bit)**
-  (where x, y, and z represent version numbers)
+* Under *Installers* select the file relevant to your operating system
 * Double click the file to install RStudio
 * Once it's installed, open RStudio to make sure it works and you don't get any
   error messages.
@@ -67,7 +63,7 @@ your operating system, and then follow the instructions to install the
   distributions, you could use your package manager (e.g., for Debian/Ubuntu run
   `sudo apt-get install r-base`, and for Fedora `sudo yum install R`), but we
   don't recommend this approach as the versions provided by this are
-  usually out of date. In any case, make sure you have at least R 3.3.1.
+  usually out of date. In any case, make sure you have at least R 4.x.
 * Go to the
   [RStudio download page](https://www.rstudio.com/products/rstudio/download/#download)
 * Under *Installers* select the version that matches your distribution, and

@@ -13,8 +13,8 @@
 
 <title>Customising plots</title>
 
-<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -42,6 +42,7 @@
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
     </style>
+
 
 
 <style type="text/css">
@@ -167,6 +168,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -398,7 +402,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -414,7 +418,7 @@ div.tocify {
   <a href="99-setup.html">Setup</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Materials
      
     <span class="caret"></span>
@@ -438,28 +442,28 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Homework
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="06-hw_2021_07_20.html">20 July 2021</a>
+      <a href="06-hw1.html">Fri, 22 Jul 2022</a>
     </li>
     <li>
-      <a href="07-hw_2021_07_27.html">27 July 2021</a>
+      <a href="07-hw2.html">Fri, 29 Jul 2022</a>
     </li>
     <li>
-      <a href="08-hw_2021_08_03.html">03 August 2021</a>
+      <a href="08-hw3.html">Mon, 01 Aug 2022</a>
     </li>
     <li>
-      <a href="09-hw_2021_08_12.html">12 August 2021</a>
+      <a href="09-hw4.html">Mon, 15 Aug 2022</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Extras
      
     <span class="caret"></span>
@@ -494,24 +498,34 @@ div.tocify {
 
 <div id="annotating-your-graphs" class="section level2">
 <h2>Annotating your graphs</h2>
-<p>In this session we are going to expand on our skills using the <code>ggplot2</code> package, which will allow us to further customise our plots. We’re also going to learn how to assemble several plots together, and export them in a publication-ready manner.</p>
-<p>For this lesson, we’ll use the <code>surveys</code> dataset. Let’s read it into R, along with loading the <code>tidyverse</code> package.</p>
+<p>In this session we are going to expand on our skills using the
+<code>ggplot2</code> package, which will allow us to further customise
+our plots. We’re also going to learn how to assemble several plots
+together, and export them in a publication-ready manner.</p>
+<p>For this lesson, we’ll use the <code>surveys</code> dataset. Let’s
+read it into R, along with loading the <code>tidyverse</code>
+package.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load package</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># read data the data</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>surveys <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data_raw/portal_data_joined.csv&quot;</span>)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># create a data set without missing values</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="ot">&lt;-</span> surveys <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>()</span></code></pre></div>
-<p>Let’s also start by making an initial graph, which includes features that we’ve learned about in the <a href=".\03-intro-ggplot2.html">Data visualisation</a>:</p>
+<p>Let’s also start by making an initial graph, which includes features
+that we’ve learned about in the <a href=".\03-intro-ggplot2.html">Data
+visualisation</a>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> surveys_complete, </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> plot_type))</span></code></pre></div>
 <p><img src="img/R-ecology-05-custom-start-1.png" width="672" /></p>
 <p>Let’s revise what we’ve done here:</p>
 <ul>
-<li>We’ve defined <code>surveys_complete</code> as the data frame to be used as data</li>
-<li>We used the <code>geom_point()</code> to draw points on the graph</li>
-<li>We defined three aesthetics from columns of our data within <code>aes()</code>:
+<li>We’ve defined <code>surveys_complete</code> as the data frame to be
+used as data</li>
+<li>We used the <code>geom_point()</code> to draw points on the
+graph</li>
+<li>We defined three aesthetics from columns of our data within
+<code>aes()</code>:
 <ul>
 <li><code>x</code> axis with <code>weight</code></li>
 <li><code>y</code> axis with <code>hindfoot_length</code></li>
@@ -519,7 +533,10 @@ div.tocify {
 </ul></li>
 </ul>
 <p>What if we wanted to customise this plot a bit more?</p>
-<p>Let’s save this graph in an object (you can do this with <em>ggplot</em> graphs). This is optional, but often convenient when we want try different customisations or when assembling different plots together, as we will see later on.</p>
+<p>Let’s save this graph in an object (you can do this with
+<em>ggplot</em> graphs). This is optional, but often convenient when we
+want try different customisations or when assembling different plots
+together, as we will see later on.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># save our graph within an object called `p1`</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> surveys_complete, </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
@@ -527,30 +544,53 @@ div.tocify {
 <p>To view the plot, you can type its name on the console:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>p1</span></code></pre></div>
 <p><br /></p>
-<p>The beauty of <code>ggplot()</code> is that it allows you to customise any part of the plot. Sometimes it can be helpful to change the overall feel of the graph or maybe just a small part of it. Below are some common ways to change the appearance of your graph.</p>
+<p>The beauty of <code>ggplot()</code> is that it allows you to
+customise any part of the plot. Sometimes it can be helpful to change
+the overall feel of the graph or maybe just a small part of it. Below
+are some common ways to change the appearance of your graph.</p>
 </div>
 <div id="themes" class="section level2">
 <h2>Themes</h2>
-<p>You can change the overall look of your graphs by customising the so-called <strong>theme</strong> used by <code>ggplot2</code>.</p>
+<p>You can change the overall look of your graphs by customising the
+so-called <strong>theme</strong> used by <code>ggplot2</code>.</p>
 <p><br /></p>
 <div id="using-built-in-themes" class="section level3">
 <h3>Using built-in themes</h3>
-<p><code>ggplot2</code> comes with some pre-defined <em>themes</em>, which can be accessed using the <code>theme_*</code> family of functions. For example, let’s use <code>theme_classic()</code> for a cleaner-looking graph:</p>
+<p><code>ggplot2</code> comes with some pre-defined <em>themes</em>,
+which can be accessed using the <code>theme_*</code> family of
+functions. For example, let’s use <code>theme_classic()</code> for a
+cleaner-looking graph:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div>
 <p><img src="img/R-ecology-05-themes-1.png" width="672" /></p>
 <p>There are multiple themes available in <code>ggplot2</code>:</p>
 <div class="figure">
-<img src="https://d33wubrfki0l68.cloudfront.net/6be25cfb939e69d72df9fbc68e7a0334e1febefe/10e92/images/visualization-themes.png" alt="" />
+<img
+src="https://d33wubrfki0l68.cloudfront.net/6be25cfb939e69d72df9fbc68e7a0334e1febefe/10e92/images/visualization-themes.png"
+alt="" />
 <p class="caption">ggplot2 themes</p>
 </div>
-<p>There are also packages that provide with other themes. One of them is the <a href="https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/"><code>ggthemes</code> package</a> (you can install it with <code>install.packages("ggthemes")</code>), which also provides some additional colour scales, including colour blind friendly ones.</p>
+<p>There are also packages that provide with other themes. One of them
+is the <a
+href="https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/"><code>ggthemes</code>
+package</a> (you can install it with
+<code>install.packages("ggthemes")</code>), which also provides some
+additional colour scales, including colour blind friendly ones.</p>
 <p><br /></p>
 </div>
 <div id="finer-customisation-with-theme" class="section level3">
 <h3>Finer customisation with <code>theme()</code></h3>
-<p>To tune individual elements of the graph, you can use the generic <code>theme()</code> function. This allows you to change the look of <em>every single aspect</em> of the graph, so we cannot cover it all here (look at <code>?theme</code> documentation to see how many things you can customise!). With this function you can essentially make your own theme.</p>
-<p>We already noticed that if you plot the weight for each genus, then the x-axis labels of the genera names overlap (see <a href=".\03-intro-ggplot2.html#Reordering_Categorical_Variables">Reordering Categorical Variables</a>). We can fix this using <code>theme()</code>.</p>
+<p>To tune individual elements of the graph, you can use the generic
+<code>theme()</code> function. This allows you to change the look of
+<em>every single aspect</em> of the graph, so we cannot cover it all
+here (look at <code>?theme</code> documentation to see how many things
+you can customise!). With this function you can essentially make your
+own theme.</p>
+<p>We already noticed that if you plot the weight for each genus, then
+the x-axis labels of the genera names overlap (see <a
+href=".\03-intro-ggplot2.html#Reordering_Categorical_Variables">Reordering
+Categorical Variables</a>). We can fix this using
+<code>theme()</code>.</p>
 <p>The original code we used was as follows:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span> </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> genus, <span class="at">y =</span> weight)) <span class="sc">+</span></span>
@@ -562,9 +602,21 @@ div.tocify {
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
 <p><img src="img/R-ecology-05-axis-label-alignment-rotate-1.png" width="672" /></p>
-<p>The code looks (and is) a bit convoluted, but in most cases, the way to figure out how to do these customisations is to do a web search. For example searching for “ggplot2 how to change axis text orientation” returns <a href="https://stackoverflow.com/questions/13297995/changing-font-size-and-direction-of-axes-text-in-ggplot2">this stackoverflow answer</a> as one of the top results.</p>
-<p>What this code does is take the x-axis text (<code>axis.text.x</code>), then takes the text element within it (<code>element_text()</code>) and specify that the angle should be 45 degrees (<code>angle = 45</code>). This automatically centres the text in the vertical orientation, so you need to make sure that the text ends where the axis begins by setting the height adjustment (<code>hjust = 1</code>).</p>
-<p>Here are some other uses of this function that might be useful (try running them yourself!):</p>
+<p>The code looks (and is) a bit convoluted, but in most cases, the way
+to figure out how to do these customisations is to do a web search. For
+example searching for “ggplot2 how to change axis text orientation”
+returns <a
+href="https://stackoverflow.com/questions/13297995/changing-font-size-and-direction-of-axes-text-in-ggplot2">this
+stackoverflow answer</a> as one of the top results.</p>
+<p>What this code does is take the x-axis text
+(<code>axis.text.x</code>), then takes the text element within it
+(<code>element_text()</code>) and specify that the angle should be 45
+degrees (<code>angle = 45</code>). This automatically centres the text
+in the vertical orientation, so you need to make sure that the text ends
+where the axis begins by setting the height adjustment
+(<code>hjust = 1</code>).</p>
+<p>Here are some other uses of this function that might be useful (try
+running them yourself!):</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the font size</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>))</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove legend</span></span>
@@ -579,24 +631,49 @@ div.tocify {
 </div>
 <div id="colours" class="section level2">
 <h2>Colours</h2>
-<p>We have already seen that we can manually change colours when we created the <a href=".\03-intro-ggplot2.html#Popout">popout graph</a>, but this would be a bit tedious if we are colouring by many different colours.</p>
-<p>Fortunately there are many <strong>colour palettes</strong> available in R and one of the most popular ones can be found in the <code>RColorBrewer</code> package (documentation can be found <a href="https://r4ds.had.co.nz/graphics-for-communication.html#fig:brewer">here</a>).</p>
-<p>There are <em>many</em> different colour palettes, but it’s good practice to ensure that you choose a colour palette that is <strong>clear</strong>, provides <strong>contrast</strong> and is <strong>colour-blind friendly</strong>. Plotting 10 grouping variables in 10 different shades of grey is not going to be helpful, nor is plotting them in red/green combinations if your audience is colour blind (it is <a href="https://www.nhs.uk/conditions/colour-vision-deficiency/">a lot more common</a> than you might think!).</p>
-<p>If you want to have a quick look at the palettes that are colour-blind friendly in the <code>RColorBrewer</code> package, you can run the following line of code:</p>
+<p>We have already seen that we can manually change colours when we
+created the <a href=".\03-intro-ggplot2.html#Popout">popout graph</a>,
+but this would be a bit tedious if we are colouring by many different
+colours.</p>
+<p>Fortunately there are many <strong>colour palettes</strong> available
+in R and one of the most popular ones can be found in the
+<code>RColorBrewer</code> package (documentation can be found <a
+href="https://r4ds.had.co.nz/graphics-for-communication.html#fig:brewer">here</a>).</p>
+<p>There are <em>many</em> different colour palettes, but it’s good
+practice to ensure that you choose a colour palette that is
+<strong>clear</strong>, provides <strong>contrast</strong> and is
+<strong>colour-blind friendly</strong>. Plotting 10 grouping variables
+in 10 different shades of grey is not going to be helpful, nor is
+plotting them in red/green combinations if your audience is colour blind
+(it is <a
+href="https://www.nhs.uk/conditions/colour-vision-deficiency/">a lot
+more common</a> than you might think!).</p>
+<p>If you want to have a quick look at the palettes that are
+colour-blind friendly in the <code>RColorBrewer</code> package, you can
+run the following line of code:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>RColorBrewer<span class="sc">::</span><span class="fu">display.brewer.all</span>(<span class="at">colorblindFriendly =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="img/R-ecology-05-unnamed-chunk-2-1.png" width="672" /></p>
-<p>There are different arguments that you can use from this package and we will give you an example here. If you want to change the colour of the data points, you can use <code>scale_colour_brewer()</code> as an extra option in your plot:</p>
+<p>There are different arguments that you can use from this package and
+we will give you an example here. If you want to change the colour of
+the data points, you can use <code>scale_colour_brewer()</code> as an
+extra option in your plot:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> surveys_complete, </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> plot_type)) <span class="sc">+</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>)</span></code></pre></div>
 <p><img src="img/R-ecology-05-brewer-palette-1.png" width="672" /></p>
-<p>Equally, you can use <code>scale_fill_brewer()</code> to specify fill colours.</p>
+<p>Equally, you can use <code>scale_fill_brewer()</code> to specify fill
+colours.</p>
 <p><br /></p>
 <div id="labels" class="section level3">
 <h3>Labels</h3>
-<p>By default <code>ggplot()</code> uses the variable names to label the axes and legend. This might not always be exactly what you want and it is possible to change these labels manually. Furthermore, you can also add <strong>titles</strong>, <strong>subtitles</strong> and <strong>captions</strong> to your plot.</p>
-<p>We can change the labels of every aesthetic using the <code>labs()</code> function, added on to the graph.</p>
+<p>By default <code>ggplot()</code> uses the variable names to label the
+axes and legend. This might not always be exactly what you want and it
+is possible to change these labels manually. Furthermore, you can also
+add <strong>titles</strong>, <strong>subtitles</strong> and
+<strong>captions</strong> to your plot.</p>
+<p>We can change the labels of every aesthetic using the
+<code>labs()</code> function, added on to the graph.</p>
 <p>For example:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Weight (g)&quot;</span>, </span>
@@ -609,14 +686,21 @@ div.tocify {
 <p><img src="img/R-ecology-05-labels-1.png" width="672" /></p>
 <div class="note">
 <p><strong>Numbering panels</strong></p>
-<p>The <code>tag</code> label is particularly useful for numbering panels in composite figures. However, we will see an even more convenient way of doing it later on using the <code>patchwork</code> package.</p>
+<p>The <code>tag</code> label is particularly useful for numbering
+panels in composite figures. However, we will see an even more
+convenient way of doing it later on using the <code>patchwork</code>
+package.</p>
 </div>
 <p><br /></p>
 </div>
 </div>
 <div id="saving-graphs" class="section level2">
 <h2>Saving graphs</h2>
-<p>We’ve already covered how to use the <code>ggsave()</code> function in the <a href=".\03-intro-ggplot2.html">first ggplot session</a>. To save assembled graphs, you can do a similar thing, but instead of saving a single graph, you can save the whole assembly into an object, and then pass that to <code>ggsave()</code>:</p>
+<p>We’ve already covered how to use the <code>ggsave()</code> function
+in the <a href=".\03-intro-ggplot2.html">first ggplot session</a>. To
+save assembled graphs, you can do a similar thing, but instead of saving
+a single graph, you can save the whole assembly into an object, and then
+pass that to <code>ggsave()</code>:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save annotated graph to file</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>p1_annotated <span class="ot">&lt;-</span> p1 <span class="sc">+</span> </span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Weight (g)&quot;</span>, </span>
@@ -637,13 +721,28 @@ div.tocify {
 </div>
 <div id="composing-plots-with-patchwork" class="section level2">
 <h2>Composing plots with <code>patchwork</code></h2>
-<p>So far we have mostly created single plots, with the exception of <a href=".\03-intro-ggplot2.html#Facets">facetting</a> where we were able to divide our data into sub-panels based on a variable (or two).</p>
-<p>It is often very useful to create a multi-panel plot, where you combine multiple plots into a single figure. The <a href="https://patchwork.data-imaginist.com/"><code>patchwork</code> package</a> (check its documentation, which is full of excellent examples of its usage) is really useful to do this.</p>
-<p>Before we can use it, we need to install it. You can do this by running the following line of code in the console (there is no need to add it to your script, since you do not want to install it every time you run your script):</p>
+<p>So far we have mostly created single plots, with the exception of <a
+href=".\03-intro-ggplot2.html#Facets">facetting</a> where we were able
+to divide our data into sub-panels based on a variable (or two).</p>
+<p>It is often very useful to create a multi-panel plot, where you
+combine multiple plots into a single figure. The <a
+href="https://patchwork.data-imaginist.com/"><code>patchwork</code>
+package</a> (check its documentation, which is full of excellent
+examples of its usage) is really useful to do this.</p>
+<p>Before we can use it, we need to install it. You can do this by
+running the following line of code in the console (there is no need to
+add it to your script, since you do not want to install it every time
+you run your script):</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;patchwork&quot;</span>)</span></code></pre></div>
-<p>Next, we need to load it, so we can add this to our script (remember: packages need to be loaded every time you restart R, so we do add this to our script):</p>
+<p>Next, we need to load it, so we can add this to our script (remember:
+packages need to be loaded every time you restart R, so we do add this
+to our script):</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code></pre></div>
-<p>The easiest way to use the package is to first save the individual plots we want to assemble in different objects. We have already created a plot called <code>p1</code>, so we can create a few other plots to complement that. For completeness we have included the code for three plots, including <code>p1</code>. You can run the following:</p>
+<p>The easiest way to use the package is to first save the individual
+plots we want to assemble in different objects. We have already created
+a plot called <code>p1</code>, so we can create a few other plots to
+complement that. For completeness we have included the code for three
+plots, including <code>p1</code>. You can run the following:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># scatter plot with weight versus hindfoot length</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> surveys_complete, </span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
@@ -662,10 +761,14 @@ div.tocify {
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length, <span class="at">colour =</span> after_2000)) <span class="sc">+</span></span>
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>)</span></code></pre></div>
-<p>There are different ways in which you can specify how to put graphs together using <code>patchwork</code>, but the way we’re going to use in this lesson uses these two operators:</p>
+<p>There are different ways in which you can specify how to put graphs
+together using <code>patchwork</code>, but the way we’re going to use in
+this lesson uses these two operators:</p>
 <ul>
-<li><code>p1 | p2</code> puts the first plot on the <em>left</em> and the second on the <em>right</em></li>
-<li><code>p1 / p2</code> puts the first plot on the <em>top</em> and the second on the <em>bottom</em></li>
+<li><code>p1 | p2</code> puts the first plot on the <em>left</em> and
+the second on the <em>right</em></li>
+<li><code>p1 / p2</code> puts the first plot on the <em>top</em> and the
+second on the <em>bottom</em></li>
 </ul>
 <p>Here is an example using the plots we’ve made on our exercise:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># side by side</span></span>
@@ -674,20 +777,28 @@ div.tocify {
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># top and bottom</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">/</span> p2</span></code></pre></div>
 <p><img src="img/R-ecology-05-composing-plots-1-2.png" width="672" /></p>
-<p>We can combine these two operators for more complex arrangements, by wrapping different parts of the grid of plots with <code>()</code>. For example:</p>
+<p>We can combine these two operators for more complex arrangements, by
+wrapping different parts of the grid of plots with <code>()</code>. For
+example:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Put p1 and p2 side by side. Then put those on the top and p3 on the bottom</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">|</span> p2) <span class="sc">/</span> p3</span></code></pre></div>
 <p><img src="img/R-ecology-05-composing-plots-2-1.png" width="672" /></p>
-<p>Finally, you can customise these arrangements in several ways using the <code>plot_layout()</code> function. For example, we can “collect” the legends and define the relative height of each panel:</p>
+<p>Finally, you can customise these arrangements in several ways using
+the <code>plot_layout()</code> function. For example, we can “collect”
+the legends and define the relative height of each panel:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>( (p1 <span class="sc">|</span> p2) <span class="sc">/</span> p3 ) <span class="sc">+</span> </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">&quot;collect&quot;</span>, <span class="at">heights =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span></code></pre></div>
 <p><img src="img/R-ecology-05-composing-plots-3-1.png" width="672" /></p>
-<p>We can use <code>plot_spacer()</code> to add an empty space to our graph, which can be useful if we want to add something else later on using another program (e.g.  an image).</p>
-<p>For example, let’s put a “blank” space where the second plot should be</p>
+<p>We can use <code>plot_spacer()</code> to add an empty space to our
+graph, which can be useful if we want to add something else later on
+using another program (e.g.  an image).</p>
+<p>For example, let’s put a “blank” space where the second plot should
+be</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>( (p1 <span class="sc">|</span> <span class="fu">plot_spacer</span>()) <span class="sc">/</span> p3 ) <span class="sc">+</span> </span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">&quot;collect&quot;</span>, <span class="at">heights =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span></code></pre></div>
 <p><img src="img/R-ecology-05-composing-plots-4-1.png" width="672" /></p>
-<p>Finally, we can also add annotations, which is very useful to add automatic “tags” to each panel:</p>
+<p>Finally, we can also add annotations, which is very useful to add
+automatic “tags” to each panel:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>( (p1 <span class="sc">|</span> p2) <span class="sc">/</span> p3 ) <span class="sc">+</span> </span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">&quot;collect&quot;</span>, <span class="at">heights =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>)) <span class="sc">+</span> </span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">&quot;A&quot;</span>, </span>
@@ -700,22 +811,32 @@ div.tocify {
 <p><br /></p>
 <div id="setting-up-a-custom-theme" class="section level3">
 <h3>Setting up a custom theme</h3>
-<p>To avoid having to add the <code>theme</code> functions to every graph you make, you can set the default theme you want to use for your graphs using the <code>theme_set()</code> function.</p>
-<p>Usually, it may be a good idea to include this at the top of your script, just after you load the libraries:</p>
+<p>To avoid having to add the <code>theme</code> functions to every
+graph you make, you can set the default theme you want to use for your
+graphs using the <code>theme_set()</code> function.</p>
+<p>Usually, it may be a good idea to include this at the top of your
+script, just after you load the libraries:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the &quot;classic&quot; theme as the basis, </span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># with horizontal grid lines for the y axis and a bigger font</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>),</span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)))</span></code></pre></div>
-<p>Now, every time you display your graphs, they will use the theme set in this way:</p>
+<p>Now, every time you display your graphs, they will use the theme set
+in this way:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>p1</span></code></pre></div>
 <p><img src="img/R-ecology-05-custom-theme-plot-1.png" width="672" /></p>
 <p><br /></p>
 </div>
 <div id="labelling-data-points" class="section level3">
 <h3>Labelling data points</h3>
-<p>You can use the <code>geom_text()</code> or <code>geom_label()</code> functions to add labels to your data points. These two geometries work similarly to <code>geom_point()</code>, except they also need an aesthetic called <code>label</code> to indicate which variable should be used as the text to plot.</p>
-<p>For example, let’s label each of our data points with their respective species name. To make the plot more readable, we are only selecting a subset of the data:</p>
+<p>You can use the <code>geom_text()</code> or <code>geom_label()</code>
+functions to add labels to your data points. These two geometries work
+similarly to <code>geom_point()</code>, except they also need an
+aesthetic called <code>label</code> to indicate which variable should be
+used as the text to plot.</p>
+<p>For example, let’s label each of our data points with their
+respective species name. To make the plot more readable, we are only
+selecting a subset of the data:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span> </span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2000</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
@@ -723,7 +844,8 @@ div.tocify {
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>) <span class="sc">+</span></span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> species))</span></code></pre></div>
 <p><img src="img/R-ecology-05-label-points-1.png" width="672" /></p>
-<p>Oh dear, that’s a bit too much, and not very informative. We can do better, by telling the geometry to check for overlaps:</p>
+<p>Oh dear, that’s a bit too much, and not very informative. We can do
+better, by telling the geometry to check for overlaps:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>surveys_complete <span class="sc">%&gt;%</span> </span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2000</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> hindfoot_length)) <span class="sc">+</span></span>
@@ -735,8 +857,10 @@ div.tocify {
 </div>
 <div id="free-annotations" class="section level3">
 <h3>Free annotations</h3>
-<p>You can also use the more general <code>annotate()</code> function to add any kind of geometry to your graph.</p>
-<p>Here’s an example with 3 distinct annotations, each using a different geometry:</p>
+<p>You can also use the more general <code>annotate()</code> function to
+add any kind of geometry to your graph.</p>
+<p>Here’s an example with 3 distinct annotations, each using a different
+geometry:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> </span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add rectangle</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">&quot;rect&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>,</span>
@@ -746,58 +870,96 @@ div.tocify {
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add some text</span></span>
 <span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="dv">85</span>, <span class="at">y =</span> <span class="dv">70</span>, <span class="at">label =</span> <span class="st">&quot;Clear outlier&quot;</span>)</span></code></pre></div>
 <p><img src="img/R-ecology-05-annotations-1.png" width="672" /></p>
-<p>Adding annotations “manually” can be tedious, as it requires a lot of trial-and-error to get it just right, but it can be convenient when we want to highlight something very specific in our graph.</p>
+<p>Adding annotations “manually” can be tedious, as it requires a lot of
+trial-and-error to get it just right, but it can be convenient when we
+want to highlight something very specific in our graph.</p>
 <p><br /></p>
 </div>
 <div id="adding-lines" class="section level3">
 <h3>Adding lines</h3>
-<p>You can use <code>geom_hline()</code> and <code>geom_vline()</code> to add horizontal and vertical lines, respectively. These can be useful, for example, to mark thresholds that you want to highlight.</p>
+<p>You can use <code>geom_hline()</code> and <code>geom_vline()</code>
+to add horizontal and vertical lines, respectively. These can be useful,
+for example, to mark thresholds that you want to highlight.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Highlight regions with weight over/below 100</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and hindfoot length over/below 20</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span></span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">20</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">100</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="img/R-ecology-05-adding-lines-1.png" width="672" /></p>
-<p>You can also add a sloped line, using <code>geom_abline()</code>, which needs information about the y-intercept and slope of the line:</p>
+<p>You can also add a sloped line, using <code>geom_abline()</code>,
+which needs information about the y-intercept and slope of the line:</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="fl">0.9</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="img/R-ecology-05-abline-1.png" width="672" /></p>
-<p>This function is often useful to use when looking at the correlation between two variables on the same scale, and thus highlighting x = y (<code>intercept = 0, slope = 1</code>, which is the default of the function).</p>
-<p>Finally, you can also use <code>geom_smooth()</code> to add a trend line to your data.</p>
+<p>This function is often useful to use when looking at the correlation
+between two variables on the same scale, and thus highlighting x = y
+(<code>intercept = 0, slope = 1</code>, which is the default of the
+function).</p>
+<p>Finally, you can also use <code>geom_smooth()</code> to add a trend
+line to your data.</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span></code></pre></div>
 <pre><code>#&gt; `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
 <p><img src="img/R-ecology-05-trend-line-1.png" width="672" /></p>
-<p>What <code>geom_smooth()</code> does is fit a model to the data, and then graphs the mean prediction (with error estimate) from that model. By default, the model used is a <a href="https://youtu.be/Vf7oJ6z2LCc">LOESS regression</a>. Another common usage is to display the result of a <a href="https://youtu.be/PaFPbb66DxQ">linear regression</a> fit to the data, in which case we can change the <code>method</code> option to “lm” (to use the linear model function from R):</p>
+<p>What <code>geom_smooth()</code> does is fit a model to the data, and
+then graphs the mean prediction (with error estimate) from that model.
+By default, the model used is a <a
+href="https://youtu.be/Vf7oJ6z2LCc">LOESS regression</a>. Another common
+usage is to display the result of a <a
+href="https://youtu.be/PaFPbb66DxQ">linear regression</a> fit to the
+data, in which case we can change the <code>method</code> option to “lm”
+(to use the linear model function from R):</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
 <pre><code>#&gt; `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="img/R-ecology-05-trend-line-lm-1.png" width="672" /></p>
-<p>You can also remove the standard error by setting <code>se = FALSE</code> inside the function.</p>
+<p>You can also remove the standard error by setting
+<code>se = FALSE</code> inside the function.</p>
 <p><br /></p>
 </div>
 <div id="adjusting-axis-limits-zooming" class="section level3">
 <h3>Adjusting axis limits (zooming)</h3>
-<p>You can use the <code>coord_cartesian()</code> function to adjust x and y limits. For example, let’s highlight the observations that we annotated with the rectangle earlier:</p>
+<p>You can use the <code>coord_cartesian()</code> function to adjust x
+and y limits. For example, let’s highlight the observations that we
+annotated with the rectangle earlier:</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> </span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">200</span>, <span class="dv">285</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">40</span>))</span></code></pre></div>
 <p><img src="img/R-ecology-05-axes-limits-1.png" width="672" /></p>
 <p><br /></p>
 </div>
-<div id="exercise---multi-panel-figures" class="section level3 exercise">
+<div id="exercise---multi-panel-figures"
+class="section level3 exercise">
 <h3>Exercise - multi-panel figures</h3>
-<p>Combining what we’ve learned so far, try and create the following 3 graphs, which should be saved as <code>p1</code>, <code>p2</code> and <code>p3</code>.</p>
+<p>Combining what we’ve learned so far, try and create the following 3
+graphs, which should be saved as <code>p1</code>, <code>p2</code> and
+<code>p3</code>.</p>
 <ul>
-<li><code>p1</code> is the same scatter plot we’ve been working with so far (showing the relationship between weight and hindfoot length), but annotated with a grey box to highlight a group of points that we want to look at in more detail.</li>
-<li><code>p2</code> is a zoom-in of the region highlighted in <code>p1</code>, marked with the grey box (notice the x- and y-axis scales).</li>
-<li><code>p3</code>, is a modification of the first plot, showing the weight on a log-scale.</li>
+<li><code>p1</code> is the same scatter plot we’ve been working with so
+far (showing the relationship between weight and hindfoot length), but
+annotated with a grey box to highlight a group of points that we want to
+look at in more detail.</li>
+<li><code>p2</code> is a zoom-in of the region highlighted in
+<code>p1</code>, marked with the grey box (notice the x- and y-axis
+scales).</li>
+<li><code>p3</code>, is a modification of the first plot, showing the
+weight on a log-scale.</li>
 </ul>
 <details>
 <summary>
 Hint
 </summary>
 <ul>
-<li>For <code>p1</code>, change the graph by adding an <em>annotation</em> with a rectangle with <code>xmin = 200, xmax = 285, ymin = 25, ymax = 40</code>. Also add labels to the axis and scales.</li>
-<li>To get <code>p2</code>, change the plot coordinates to match that of the grey rectangle, using <code>coord_cartesian(xlim = c(200, 285), ylim = c(25, 40))</code>.</li>
-<li>To create the log-scale y-axis in <code>p3</code>, use <code>scale_y_continuous()</code>); you can further improve the readability of the plot by using the <code>annotate_logticks()</code> function to add the ticks on the y-axis; and use the <code>theme()</code> function to ensure the legend doesn’t show and that the x-axis labels are at a 45 degree angle.</li>
+<li>For <code>p1</code>, change the graph by adding an
+<em>annotation</em> with a rectangle with
+<code>xmin = 200, xmax = 285, ymin = 25, ymax = 40</code>. Also add
+labels to the axis and scales.</li>
+<li>To get <code>p2</code>, change the plot coordinates to match that of
+the grey rectangle, using
+<code>coord_cartesian(xlim = c(200, 285), ylim = c(25, 40))</code>.</li>
+<li>To create the log-scale y-axis in <code>p3</code>, use
+<code>scale_y_continuous()</code>); you can further improve the
+readability of the plot by using the <code>annotate_logticks()</code>
+function to add the ticks on the y-axis; and use the
+<code>theme()</code> function to ensure the legend doesn’t show and that
+the x-axis labels are at a 45 degree angle.</li>
 </ul>
 </details>
 <p><img src="img/R-ecology-05-customising-exercise-1.png" width="672" /></p>
@@ -875,6 +1037,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

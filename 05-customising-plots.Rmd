@@ -379,6 +379,29 @@ surveys_complete %>%
   geom_text(aes(label = species), check_overlap = TRUE)
 ```
 
+If you want to see all data points in a plot but it is still unreadable there is another option. The library [`ggrepel`](https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html) provides geoms to avoid averlapping text: `geom_text_repel()` and `geom_label_repel()`. You can install `ggrepel` with the usual `install.packages("ggrepel")`.
+
+Let's look at a subset of the data and compare the plots without and with ggrepel geom.
+```{r label-points, warning=FALSE}
+surveys_complete %>% 
+  filter(year == 2000 & sex=="F" & weight>150) %>%
+  ggplot(aes(x = weight, y = hindfoot_length)) +
+  geom_point(aes(colour = plot_type)) +
+  scale_colour_brewer(palette = "Dark2") +
+  geom_text(aes(label=record_id))
+```
+
+```{r label-points, warning=FALSE}
+library(ggrepel)
+surveys_complete %>% 
+  filter(year == 2000 & sex=="F" & weight>150) %>%
+  ggplot(aes(x = weight, y = hindfoot_length)) +
+  geom_point(aes(colour = plot_type)) +
+  scale_colour_brewer(palette = "Dark2") +
+  geom_text_repel(aes(label=record_id))
+```
+See the difference?
+
 <br />
 
 ### Free annotations

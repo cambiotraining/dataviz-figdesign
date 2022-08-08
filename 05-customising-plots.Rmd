@@ -379,29 +379,40 @@ surveys_complete %>%
   geom_text(aes(label = species), check_overlap = TRUE)
 ```
 
-If you want to see all data points in a plot but it is still unreadable there is another option. The library [`ggrepel`](https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html) provides geoms to avoid averlapping text: `geom_text_repel()` and `geom_label_repel()`. You can install `ggrepel` with the usual `install.packages("ggrepel")`.
+If you want to see all data points in a plot but it is still unreadable there is another option. The library [`ggrepel`](https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html) provides geoms to avoid overlapping text: `geom_text_repel()` and `geom_label_repel()`. You can install `ggrepel` with the command `install.packages("ggrepel")`.
 
-Let's look at a subset of the data and compare the plots without and with ggrepel geom.
-```{r label-points, warning=FALSE}
+Let's look at a subset of the data and compare the plots without and with `geom_text_repel()`:
+
+```{r, warning=FALSE}
 surveys_complete %>% 
-  filter(year == 2000 & sex=="F" & weight>150) %>%
+  filter(year == 2000 & sex == "F" & weight > 150) %>%
   ggplot(aes(x = weight, y = hindfoot_length)) +
   geom_point(aes(colour = plot_type)) +
   scale_colour_brewer(palette = "Dark2") +
-  geom_text(aes(label=record_id))
+  geom_text(aes(label = record_id))
 ```
 
-```{r label-points, warning=FALSE}
+```{r, warning=FALSE}
 library(ggrepel)
+
 surveys_complete %>% 
-  filter(year == 2000 & sex=="F" & weight>150) %>%
+  filter(year == 2000 & sex == "F" & weight > 150) %>%
   ggplot(aes(x = weight, y = hindfoot_length)) +
   geom_point(aes(colour = plot_type)) +
   scale_colour_brewer(palette = "Dark2") +
-  geom_text_repel(aes(label=record_id))
+  geom_text_repel(aes(label = record_id))
 ```
-See the difference?
 
+Although the text labels do not overlap anymore, you do need to be careful when using this option. If your data points are close together, then it might not be so clear which label belongs to which point. If that's the case, you can use `box.padding = <value>` argument to increase the distance between the data point and the label. If they are then too far apart, then they get automatically connected with a line:
+
+```{r, warning=FALSE}
+surveys_complete %>% 
+  filter(year == 2000 & sex == "F" & weight > 150) %>%
+  ggplot(aes(x = weight, y = hindfoot_length)) +
+  geom_point(aes(colour = plot_type)) +
+  scale_colour_brewer(palette = "Dark2") +
+  geom_text_repel(box.padding = 0.5, aes(label = record_id))
+```
 <br />
 
 ### Free annotations

@@ -403,7 +403,7 @@ surveys_complete %>%
   geom_text_repel(aes(label = record_id))
 ```
 
-Although the text labels do not overlap anymore, you do need to be careful when using this option. If your data points are close together, then it might not be so clear which label belongs to which point. If that's the case, you can use `box.padding = <value>` argument to increase the distance between the data point and the label. If they are then too far apart, then they get automatically connected with a line:
+Although the text labels do not overlap anymore, you do need to be careful when using this option. If your data points are close together, then it might not be so clear which label belongs to which point. If that's the case, you can use the `box.padding = <value>` argument to increase the distance between the data point and the label. If they are then too far apart, then they get automatically connected with a line:
 
 ```{r, warning=FALSE}
 surveys_complete %>% 

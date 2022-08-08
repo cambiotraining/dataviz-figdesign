@@ -23,3 +23,5 @@ _site
 
 # output from linkchecker
 link_res.csv
+.DS_Store
+.icloud

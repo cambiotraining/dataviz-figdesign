@@ -7,30 +7,7 @@ toc: hide
 source("setup.R")
 timetable <- read_csv("timetable.csv")
 ```
-
-<br/>
-
-## General information
-
-**Location: **
-
-Part II Room, Department of Genetics, Downing Site [How to find us.](https://www.training.cam.ac.uk/venue/2121422)
-
-**Instructors:** 
-
-- Martin van Rongen (course organiser, mv372@cam.ac.uk)
-- Hugo Tavares
-- Vicki Hodgson
-- Holly Pavey
-- Raquel Manzano Garcia
-- Shawn Zamani
-
-<br/>
-
-## Time table
-```{r, echo = FALSE, results = 'asis'}
-kable(timetable)
-```
+<br />
 
 ## Description
 

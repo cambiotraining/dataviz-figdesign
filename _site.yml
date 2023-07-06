@@ -29,13 +29,13 @@ navbar:
           href: 05-customising-plots.html
     - text: "Homework"
       menu:
-        - text: "Fri, 22 Jul 2022"
+        - text: "Before session 2"
           href: 06-hw1.html
-        - text: "Fri, 29 Jul 2022"
+        - text: "Before session 3"
           href: 07-hw2.html
-        - text: "Mon, 01 Aug 2022"
+        - text: "Before session 4"
           href: 08-hw3.html
-        - text: "Mon, 15 Aug 2022"
+        - text: "Before session 5"
           href: 09-hw4.html
     - text: "Extras"
       menu:

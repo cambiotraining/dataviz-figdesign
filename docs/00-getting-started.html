@@ -13,7 +13,7 @@
 
 <title>Getting Started</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -29,7 +29,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -92,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -126,13 +126,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -228,11 +235,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -261,8 +272,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -270,16 +281,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -449,16 +453,16 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="06-hw1.html">Fri, 22 Jul 2022</a>
+      <a href="06-hw1.html">Before session 2</a>
     </li>
     <li>
-      <a href="07-hw2.html">Fri, 29 Jul 2022</a>
+      <a href="07-hw2.html">Before session 3</a>
     </li>
     <li>
-      <a href="08-hw3.html">Mon, 01 Aug 2022</a>
+      <a href="08-hw3.html">Before session 4</a>
     </li>
     <li>
-      <a href="09-hw4.html">Mon, 15 Aug 2022</a>
+      <a href="09-hw4.html">Before session 5</a>
     </li>
   </ul>
 </li>
@@ -589,11 +593,12 @@ computer, inspect the variables we are going to create, and visualize
 the plots we will generate. RStudio can also be used for other things
 (<em>e.g.,</em> version control, developing packages, writing Shiny
 apps) that we will not cover during these sessions.</p>
-<div class="figure">
-<img src="img/rstudio-screenshot.png" alt="" />
-<p class="caption">RStudio interface screenshot. Clockwise from top
+<div class="float">
+<img src="img/rstudio-screenshot.png"
+alt="RStudio interface screenshot. Clockwise from top left: Source, Environment/History, Files/Plots/Packages/Help/Viewer, Console." />
+<div class="figcaption">RStudio interface screenshot. Clockwise from top
 left: Source, Environment/History, Files/Plots/Packages/Help/Viewer,
-Console.</p>
+Console.</div>
 </div>
 <p>RStudio is divided into 4 “Panes”: the <strong>Source</strong> for
 your scripts and documents (top-left, in the default layout), your
@@ -686,9 +691,10 @@ keep your R scripts for different analyses or plotting.</li>
 <p>You may want additional directories or sub directories depending on
 your project needs, but these should form the backbone of your working
 directory.</p>
-<div class="figure">
-<img src="img/working_directory_structure.png" alt="" />
-<p class="caption">Example of a working directory structure.</p>
+<div class="float">
+<img src="img/working_directory_structure.png"
+alt="Example of a working directory structure." />
+<div class="figcaption">Example of a working directory structure.</div>
 </div>
 <p>For this course, we will keep things a bit simple and we’ll use a
 <code>data_raw</code> folder to store our raw data and
@@ -812,9 +818,9 @@ you get going again.</p>
 <p><br /></p>
 <p><strong>Use the built-in RStudio help interface to search for more
 information on R functions</strong></p>
-<div class="figure">
-<img src="img/rstudiohelp.png" alt="" />
-<p class="caption">RStudio help interface.</p>
+<div class="float">
+<img src="img/rstudiohelp.png" alt="RStudio help interface." />
+<div class="figcaption">RStudio help interface.</div>
 </div>
 <p>One of the fastest ways to get help, is to use the RStudio help
 interface. This panel by default can be found at the lower right hand
@@ -826,10 +832,10 @@ interested in. The description is then shown in the display window.</p>
 sure how to use it</strong></p>
 <p>If you need help with a specific function, let’s say
 <code>barplot()</code>, you can type:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>?barplot</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>?barplot</span></code></pre></div>
 <p>If you just need to remind yourself of the names of the arguments,
 you can use:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">args</span>(lm)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">args</span>(lm)</span></code></pre></div>
 <p><br /></p>
 <p><strong>I want to use a function that does X, there must be a
 function for it but I don’t know which one…</strong></p>
@@ -838,7 +844,7 @@ use the <code>help.search()</code> function, which is called by the
 double question mark <code>??</code>. However, this only looks through
 the installed packages for help pages with a match to your search
 request</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>??kruskal</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>??kruskal</span></code></pre></div>
 <p>If you can’t find what you are looking for, you can use the <a
 href="http://www.rdocumentation.org">rdocumentation.org</a> website that
 searches through the help files across all packages available.</p>

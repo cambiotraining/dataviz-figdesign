@@ -2,8 +2,8 @@
 title: "Cheatsheets"
 ---
 
-List of useful cheatsheets.
+List of useful cheat sheets. You can find the full collection [here](https://posit.co/resources/cheatsheets/).
 
-* [RStudio cheatsheet about the RStudio IDE](https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf)
-* [ggplot2 cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
-* [dplyr cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
+* [RStudio cheatsheet about the RStudio IDE](https://posit.co/wp-content/uploads/2022/10/rstudio-ide-1.pdf)
+* [ggplot2 cheatsheet](https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf)
+* [dplyr cheatsheet](https://posit.co/wp-content/uploads/2022/10/data-transformation-1.pdf)

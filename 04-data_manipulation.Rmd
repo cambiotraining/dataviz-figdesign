@@ -21,7 +21,7 @@ In most of the cases you will need to change the format of your dataset because 
 :::note
 To learn more about `dplyr` please look at the following resources:
 
-- [dplyr cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf)
+- [dplyr cheat sheet](https://posit.co/wp-content/uploads/2022/10/data-transformation-1.pdf)
 - [dplyr documentation](https://dplyr.tidyverse.org/)
 
 If you find these resources difficult to understand, return to these after completing the course.
@@ -202,7 +202,7 @@ surveys_complete %>%
     geom_boxplot()
 ```
 
-You might notice that this code produces a warning message about the continuous data type of the x-axis and also creates a box plot with one single box and whisker averaged over all the years on the x-axis, rather than one for each year in the dataset as requested.  As shown in the [`ggplot2` cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf), box plots display a discrete variable on the x-axis and a continuous variable on the y-axis.  At the moment `year` is treated as a continuous variable since its data type is `double`  (you can see this from the tibble).  To fix this, we need to convert the data type of the `year` column to a categorical one (`factor`) so that each year can be plotted as a separate box and whisker.
+You might notice that this code produces a warning message about the continuous data type of the x-axis and also creates a box plot with one single box and whisker averaged over all the years on the x-axis, rather than one for each year in the dataset as requested.  As shown in the [`ggplot2` cheat sheet](https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf), box plots display a discrete variable on the x-axis and a continuous variable on the y-axis.  At the moment `year` is treated as a continuous variable since its data type is `double`  (you can see this from the tibble).  To fix this, we need to convert the data type of the `year` column to a categorical one (`factor`) so that each year can be plotted as a separate box and whisker.
 
 The `forcats` package that is part of `tidyverse` has the [`as_factor`](https://forcats.tidyverse.org/reference/as_factor.html) function which does just that; it converts a variable into a factor. See the updated code below, which uses the `as_factor` function: 
 
@@ -360,7 +360,7 @@ ggplot(surveys_complete, aes(weight, fill = sex)) +
 
 Note that the default number of bins in a histogram is 30.  To get have a granular display you can increase the number of bins by using the argument `bins` in the `geom_histogram` function as above.
 
-There are other plots that can be used for a single continuous variable (see ONE VARIABLE continuous section on [ggplot2 cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf)).
+There are other plots that can be used for a single continuous variable (see ONE VARIABLE continuous section on [ggplot2 cheat sheet](https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf)).
 
 ### Summarising data with `summarise()`
 

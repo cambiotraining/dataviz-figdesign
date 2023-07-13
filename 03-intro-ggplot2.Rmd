@@ -76,9 +76,9 @@ of the help page. For example, the documentation for `?geom_point` says:
 > - size
 > - stroke
 
-You can also find a list of aesthetics for each type of plot in the [ggplot2 cheat sheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf).  
+You can also find a list of aesthetics for each type of plot in the [ggplot2 cheat sheet](https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf).  
 
-For example, we can use the `alpha` aesthetic to change the transparence of the points. 
+For example, we can use the `alpha` aesthetic to change the transparency of the points. 
 This is very useful when your data points are really close together, or even overlapping. 
 The `alpha` argument takes values from 0 (100% transparency) to 1 (0% transparency):
 

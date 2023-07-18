@@ -459,10 +459,7 @@ div.tocify {
       <a href="07-hw2.html">Before session 3</a>
     </li>
     <li>
-      <a href="08-hw3.html">Before session 4</a>
-    </li>
-    <li>
-      <a href="09-hw4.html">Before session 5</a>
+      <a href="08-hw3.html">Before session 5</a>
     </li>
   </ul>
 </li>
@@ -663,7 +660,7 @@ Answer
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>gapminder <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data_raw/gapminder2010_socioeconomic.csv&quot;</span>)</span></code></pre></div>
 <pre><code>#&gt; Rows: 193 Columns: 13
-#&gt; ── Column specification ──────────────────
+#&gt; ── Column specification ────────────────────────────────────
 #&gt; Delimiter: &quot;,&quot;
 #&gt; chr (5): country, world_region, income_groups, main_religion, life_expectanc...
 #&gt; dbl (7): year, children_per_woman, life_expectancy, income_per_person, popul...
@@ -741,8 +738,7 @@ Answer
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, </span>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> life_expectancy, <span class="at">y =</span> income_per_person)) <span class="sc">+</span></span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<pre><code>#&gt; Warning: Removed 6 rows containing missing values
-#&gt; (`geom_point()`).</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing missing values (`geom_point()`).</code></pre>
 <p><img src="img/R-ecology-07-unnamed-chunk-8-1.png" width="672" /></p>
 <p>The warning message we get is because 6 of the rows in the data frame
 do not have life_expectancy information (they are <code>NA</code>

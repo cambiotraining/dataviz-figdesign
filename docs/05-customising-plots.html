@@ -459,10 +459,7 @@ div.tocify {
       <a href="07-hw2.html">Before session 3</a>
     </li>
     <li>
-      <a href="08-hw3.html">Before session 4</a>
-    </li>
-    <li>
-      <a href="09-hw4.html">Before session 5</a>
+      <a href="08-hw3.html">Before session 5</a>
     </li>
   </ul>
 </li>
@@ -941,8 +938,8 @@ function).</p>
 <p>Finally, you can also use <code>geom_smooth()</code> to add a trend
 line to your data.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>p1 <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span></code></pre></div>
-<pre><code>#&gt; `geom_smooth()` using method = &#39;gam&#39; and
-#&gt; formula = &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
+<pre><code>#&gt; `geom_smooth()` using method = &#39;gam&#39; and formula = &#39;y ~
+#&gt; s(x, bs = &quot;cs&quot;)&#39;</code></pre>
 <p><img src="img/R-ecology-05-trend-line-1.png" width="672" /></p>
 <p>What <code>geom_smooth()</code> does is fit a model to the data, and
 then graphs the mean prediction (with error estimate) from that model.

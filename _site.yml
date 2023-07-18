@@ -31,7 +31,7 @@ navbar:
       menu:
         - text: "Before session 2"
           href: 06-hw1.html
-        - text: "Before session 3"
+        - text: "Before session 4"
           href: 07-hw2.html
         - text: "Before session 5"
           href: 08-hw3.html

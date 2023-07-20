@@ -533,20 +533,21 @@ Answer
 this:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>income_life_expectancy_plot  <span class="sc">+</span></span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="at">facets =</span> <span class="fu">vars</span>(is_oecd))</span></code></pre></div>
-<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~
-#&gt; x&#39;</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing non-finite values
-#&gt; (`stat_smooth()`).</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39;
+#&gt; and formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing non-finite
+#&gt; values (`stat_smooth()`).</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing missing values
+#&gt; (`geom_point()`).</code></pre>
 <p><img src="img/R-ecology-09-unnamed-chunk-4-1.png" width="672" /></p>
 <p>To facet by a different variable, we can adapt the code above and
 just replace the variable we are facetting by:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>income_life_expectancy_plot  <span class="sc">+</span></span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="at">facets =</span> <span class="fu">vars</span>(main_religion))</span></code></pre></div>
-<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~
-#&gt; x&#39;</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing non-finite values
-#&gt; (`stat_smooth()`).</code></pre>
+<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39;
+#&gt; and formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing non-finite
+#&gt; values (`stat_smooth()`).</code></pre>
 <pre><code>#&gt; Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
 #&gt; : span too small.  fewer data values than degrees of freedom.</code></pre>
 <pre><code>#&gt; Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
@@ -577,7 +578,8 @@ just replace the variable we are facetting by:</p>
 #&gt; else if (is.data.frame(newdata))
 #&gt; as.matrix(model.frame(delete.response(terms(object)), : There are other near
 #&gt; singularities as well. 35.488</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing missing values
+#&gt; (`geom_point()`).</code></pre>
 <pre><code>#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
 #&gt; -Inf</code></pre>
 <p><img src="img/R-ecology-09-unnamed-chunk-5-1.png" width="672" /></p>
@@ -591,8 +593,8 @@ this problem in the next exercise.</p>
 <code>children_per_woman</code></p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>income_life_expectancy_plot <span class="sc">+</span></span>
 <span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="at">facets =</span> <span class="fu">vars</span>(children_per_woman))</span></code></pre></div>
-<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~
-#&gt; x&#39;</code></pre>
+<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39;
+#&gt; and formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="img/R-ecology-09-unnamed-chunk-6-1.png" width="672" /></p>
 <p>This “works” (as in, the code gives no error). But it is very messy
 and not informative! This is a good example of how NOT to present data -
@@ -641,11 +643,12 @@ our plot facetted by this variable:</p>
 <span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a><span class="co"># plot with facets</span></span>
 <span id="cb27-7"><a href="#cb27-7" tabindex="-1"></a>income_life_expectancy_plot <span class="sc">+</span></span>
 <span id="cb27-8"><a href="#cb27-8" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="at">facets =</span> <span class="fu">vars</span>(main_religion))</span></code></pre></div>
-<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~
-#&gt; x&#39;</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing non-finite values
-#&gt; (`stat_smooth()`).</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39;
+#&gt; and formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing non-finite
+#&gt; values (`stat_smooth()`).</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing missing values
+#&gt; (`geom_point()`).</code></pre>
 <p><img src="img/R-ecology-09-unnamed-chunk-10-1.png" width="672" /></p>
 </details>
 </div>
@@ -665,10 +668,10 @@ Answer
 split the plot by “rows” and “columns” on a grid:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>income_life_expectancy_plot  <span class="sc">+</span></span>
 <span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(is_oecd), <span class="at">cols =</span> <span class="fu">vars</span>(main_religion))</span></code></pre></div>
-<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~
-#&gt; x&#39;</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing non-finite values
-#&gt; (`stat_smooth()`).</code></pre>
+<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39;
+#&gt; and formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing non-finite
+#&gt; values (`stat_smooth()`).</code></pre>
 <pre><code>#&gt; Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
 #&gt; : span too small.  fewer data values than degrees of freedom.</code></pre>
 <pre><code>#&gt; Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
@@ -699,7 +702,8 @@ split the plot by “rows” and “columns” on a grid:</p>
 <pre><code>#&gt; Warning: Computation failed in `stat_smooth()`
 #&gt; Caused by error in `predLoess()`:
 #&gt; ! NA/NaN/Inf in foreign function call (arg 5)</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing missing values
+#&gt; (`geom_point()`).</code></pre>
 <p><img src="img/R-ecology-09-unnamed-chunk-11-1.png" width="672" /></p>
 <p>The warnings we get are from <code>geom_smooth()</code>, which in
 some groups has such few points that it cannot make a smooth line

@@ -533,18 +533,20 @@ requested:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, </span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> life_expectancy, <span class="at">y =</span> income_per_person)) <span class="sc">+</span></span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">&quot;brown&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">size =</span> <span class="dv">3</span>)</span></code></pre></div>
-<pre><code>#&gt; Warning: Removed 6 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing missing values
+#&gt; (`geom_point()`).</code></pre>
 <p><img src="img/R-ecology-08-unnamed-chunk-4-1.png" width="672" /></p>
 <p>To add a trend line, we add a new geometry to our plot:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, </span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> life_expectancy, <span class="at">y =</span> income_per_person)) <span class="sc">+</span></span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">&quot;brown&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
 <span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
-<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~
-#&gt; x&#39;</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing non-finite values
-#&gt; (`stat_smooth()`).</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39;
+#&gt; and formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing non-finite
+#&gt; values (`stat_smooth()`).</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing missing values
+#&gt; (`geom_point()`).</code></pre>
 <p><img src="img/R-ecology-08-unnamed-chunk-5-1.png" width="672" /></p>
 <p>To colour the points by a variable, we move the <code>colour</code>
 option into the <code>aes()</code> giving it the variable name instead
@@ -554,11 +556,12 @@ us):</p>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> life_expectancy, <span class="at">y =</span> income_per_person)) <span class="sc">+</span></span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> world_region)) <span class="sc">+</span> </span>
 <span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
-<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~
-#&gt; x&#39;</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing non-finite values
-#&gt; (`stat_smooth()`).</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39;
+#&gt; and formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing non-finite
+#&gt; values (`stat_smooth()`).</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing missing values
+#&gt; (`geom_point()`).</code></pre>
 <p><img src="img/R-ecology-08-unnamed-chunk-6-1.png" width="672" /></p>
 <p>To save the plot into an object, we use the assignment operator
 <code>&lt;-</code>, like so:</p>
@@ -570,11 +573,12 @@ us):</p>
 helps when it comes to saving plots.</p>
 <p>If you want to see the plot, you have to print it on the console</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>income_life_expectancy_plot</span></code></pre></div>
-<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~
-#&gt; x&#39;</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing non-finite values
-#&gt; (`stat_smooth()`).</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39;
+#&gt; and formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing non-finite
+#&gt; values (`stat_smooth()`).</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing missing values
+#&gt; (`geom_point()`).</code></pre>
 <p><img src="img/R-ecology-08-unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 <div id="task-6" class="section level2">
@@ -595,7 +599,8 @@ aesthetic to the <code>geom_violin()</code> only, and we can set the
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder, <span class="fu">aes</span>(<span class="at">x =</span> main_religion, <span class="at">y =</span> income_per_person)) <span class="sc">+</span></span>
 <span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="fu">aes</span>(<span class="at">fill =</span> main_religion)) <span class="sc">+</span></span>
 <span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.25</span>)</span></code></pre></div>
-<pre><code>#&gt; Warning: Groups with fewer than two data points have been dropped.</code></pre>
+<pre><code>#&gt; Warning: Groups with fewer than two data points
+#&gt; have been dropped.</code></pre>
 <p><img src="img/R-ecology-08-unnamed-chunk-9-1.png" width="672" /></p>
 <p>Colouring the violin plots by <code>main_religion</code> is redundant
 with the x-axis, so it doesn’t seem justified in this case. Maybe if
@@ -642,20 +647,21 @@ Answer
 this:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>income_life_expectancy_plot  <span class="sc">+</span></span>
 <span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="at">facets =</span> <span class="fu">vars</span>(is_oecd))</span></code></pre></div>
-<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~
-#&gt; x&#39;</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing non-finite values
-#&gt; (`stat_smooth()`).</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39;
+#&gt; and formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing non-finite
+#&gt; values (`stat_smooth()`).</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing missing values
+#&gt; (`geom_point()`).</code></pre>
 <p><img src="img/R-ecology-09-unnamed-chunk-13-1.png" width="672" /></p>
 <p>To facet by a different variable, we can adapt the code above and
 just replace the variable we are facetting by:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>income_life_expectancy_plot  <span class="sc">+</span></span>
 <span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="at">facets =</span> <span class="fu">vars</span>(main_religion))</span></code></pre></div>
-<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~
-#&gt; x&#39;</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing non-finite values
-#&gt; (`stat_smooth()`).</code></pre>
+<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39;
+#&gt; and formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing non-finite
+#&gt; values (`stat_smooth()`).</code></pre>
 <pre><code>#&gt; Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
 #&gt; : span too small.  fewer data values than degrees of freedom.</code></pre>
 <pre><code>#&gt; Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
@@ -686,7 +692,8 @@ just replace the variable we are facetting by:</p>
 #&gt; else if (is.data.frame(newdata))
 #&gt; as.matrix(model.frame(delete.response(terms(object)), : There are other near
 #&gt; singularities as well. 35.488</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing missing values
+#&gt; (`geom_point()`).</code></pre>
 <pre><code>#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
 #&gt; -Inf</code></pre>
 <p><img src="img/R-ecology-09-unnamed-chunk-14-1.png" width="672" /></p>
@@ -700,8 +707,8 @@ this problem in the next exercise.</p>
 <code>children_per_woman</code></p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>income_life_expectancy_plot <span class="sc">+</span></span>
 <span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="at">facets =</span> <span class="fu">vars</span>(children_per_woman))</span></code></pre></div>
-<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~
-#&gt; x&#39;</code></pre>
+<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39;
+#&gt; and formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="img/R-ecology-09-unnamed-chunk-15-1.png" width="672" /></p>
 <p>This “works” (as in, the code gives no error). But it is very messy
 and not informative! This is a good example of how NOT to present data -
@@ -750,11 +757,12 @@ our plot facetted by this variable:</p>
 <span id="cb46-6"><a href="#cb46-6" tabindex="-1"></a><span class="co"># plot with facets</span></span>
 <span id="cb46-7"><a href="#cb46-7" tabindex="-1"></a>income_life_expectancy_plot <span class="sc">+</span></span>
 <span id="cb46-8"><a href="#cb46-8" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="at">facets =</span> <span class="fu">vars</span>(main_religion))</span></code></pre></div>
-<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~
-#&gt; x&#39;</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing non-finite values
-#&gt; (`stat_smooth()`).</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39;
+#&gt; and formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing non-finite
+#&gt; values (`stat_smooth()`).</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing missing values
+#&gt; (`geom_point()`).</code></pre>
 <p><img src="img/R-ecology-09-unnamed-chunk-19-1.png" width="672" /></p>
 </details>
 </div>
@@ -774,10 +782,10 @@ Answer
 split the plot by “rows” and “columns” on a grid:</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a>income_life_expectancy_plot  <span class="sc">+</span></span>
 <span id="cb50-2"><a href="#cb50-2" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(is_oecd), <span class="at">cols =</span> <span class="fu">vars</span>(main_religion))</span></code></pre></div>
-<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~
-#&gt; x&#39;</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing non-finite values
-#&gt; (`stat_smooth()`).</code></pre>
+<pre><code>#&gt; `geom_smooth()` using method = &#39;loess&#39;
+#&gt; and formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing non-finite
+#&gt; values (`stat_smooth()`).</code></pre>
 <pre><code>#&gt; Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
 #&gt; : span too small.  fewer data values than degrees of freedom.</code></pre>
 <pre><code>#&gt; Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
@@ -808,7 +816,8 @@ split the plot by “rows” and “columns” on a grid:</p>
 <pre><code>#&gt; Warning: Computation failed in `stat_smooth()`
 #&gt; Caused by error in `predLoess()`:
 #&gt; ! NA/NaN/Inf in foreign function call (arg 5)</code></pre>
-<pre><code>#&gt; Warning: Removed 6 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>#&gt; Warning: Removed 6 rows containing missing values
+#&gt; (`geom_point()`).</code></pre>
 <p><img src="img/R-ecology-09-unnamed-chunk-20-1.png" width="672" /></p>
 <p>The warnings we get are from <code>geom_smooth()</code>, which in
 some groups has such few points that it cannot make a smooth line
